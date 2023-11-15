@@ -1,0 +1,12 @@
+<ion-card >
+  <ion-card-content class="villager-card">
+    <div style="display: flex; flex-direction: column; margin: 10px; align-items: center">
+      <ion-avatar >
+        <img alt="villager photo" src="{{ villager?.attributes?.image_url }}" />
+      </ion-avatar>
+      <div class="ion-margin-start">
+        <h1>{{ villager?.attributes?.name | titlecase }} </h1> <h3>{{ villager?.attributes?.personality }}</h3>
+      </div>
+    </div>
+  </ion-card-content>
+</ion-card>
