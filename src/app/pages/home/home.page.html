@@ -10,4 +10,29 @@
   <ion-button (click)="villagers()">
     <ion-icon size="small" slot="icon-only"  color="white"  name="people-outline" aria-hidden="true"></ion-icon>&nbsp;see villagers
   </ion-button>
+
+    <div class="islands">
+      <app-island
+        *ngFor="let island of islandService.islands$ | async"
+        [island]="island">
+        
+      </app-island>
+      
+    </div>
 </ion-content>
+
+
+<ion-button
+class="add"
+shape="round"
+aria-label="New Island"
+(click)="onNewIsland()"
+>
+<ion-icon
+  ion-icon
+  slot="icon-only"
+  color="white"
+  name="add-outline"
+  aria-hidden="true"
+></ion-icon>
+</ion-button>

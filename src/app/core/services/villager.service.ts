@@ -16,13 +16,11 @@ export class VillagerService {
 
   constructor(private http: HttpClient) {}
 
-  // Método para cargar la primera página de datos o reiniciar la lista.
   public loadInitialVillagers() {
     this.currentPage= 1;
     this.loadMoreVillagers();
   }
 
-  // Método para cargar más datos.
   public loadMoreVillagers() {
     this.http.get<{ data: Villager[] }>(`${environment.apiUrl}/villagers?pagination[page]=${this.currentPage}&pagination[pageSize]=50`)
       .pipe(map(response => response.data))
@@ -31,12 +29,10 @@ export class VillagerService {
           if (data.length === 0) {
             return;
           }
-          const currentVillagers = this._villagers.value;
-          const updatedVillagers = [...currentVillagers, ...data];
+          const updatedVillagers = [...this._villagers.value, ...data];
           this._villagers.next(updatedVillagers);
           this.currentPage += 1;
-        },
-        error => console.error('Error fetching villagers', error)
+        }
       );
   }
 }

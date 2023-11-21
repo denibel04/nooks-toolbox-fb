@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { VillagerComponent } from './components/villager/villager.component';
+import { IslandComponent } from './components/island/island.component';
+import { IslandFormComponent } from './components/island-form/island-form.component';
 
 
 
@@ -11,7 +13,9 @@ import { VillagerComponent } from './components/villager/villager.component';
     // directives
     // pipes
     // components
-    VillagerComponent
+    VillagerComponent,
+    IslandComponent,
+    IslandFormComponent
 
   ],
   imports: [
@@ -24,7 +28,9 @@ import { VillagerComponent } from './components/villager/villager.component';
     CommonModule,
     IonicModule,
     FormsModule,
-    VillagerComponent
+    VillagerComponent,
+    IslandComponent,
+    IslandFormComponent
   ]
 })
 export class SharedModule { }

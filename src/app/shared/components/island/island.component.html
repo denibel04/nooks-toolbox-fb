@@ -1,0 +1,14 @@
+<ion-card>
+  <ion-card-content class="island-card">
+    <div style="display: flex; flex-direction: column; margin: 10px; align-items: center">
+      <div class="ion-margin-start">
+        <h1>{{ island?.attributes?.islandName | titlecase }}</h1>
+        
+
+        <ion-item *ngFor="let villager of island?.attributes?.villagers">
+          {{ villager?.attributes?.name}} {{ villager?.id}}
+        </ion-item>
+      </div>
+    </div>
+  </ion-card-content>
+</ion-card>

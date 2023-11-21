@@ -13,5 +13,4 @@ export interface Villager {
         phrase:string,
         islander:boolean
     }
-    
 }

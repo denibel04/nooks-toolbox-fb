@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
-import { HttpClientProvider } from './http-client.provider';
-import { JwtService } from './jwt.service';
+import { HttpClientProvider } from '../http/http-client.provider';
+import { JwtService } from '../jwt.service';
 
 
 @Injectable({providedIn: 'root'})
@@ -49,7 +49,7 @@ export class ApiService {
     var url = `${environment.apiUrl}${path}`;
     return this.http.post(url,body, this.getHeader(url));
   }
-   
+  
   patch(path: string, body: Object = {}): Observable<any> {
     var url = `${environment.apiUrl}${path}`;
     return this.http.patch(url, body, this.getHeader(url));
