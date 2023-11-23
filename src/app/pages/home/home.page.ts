@@ -63,4 +63,25 @@ export class HomePage {
     this.presentForm(null,onDismiss);
   }
 
+
+  onEditClicked(is:Island) {
+    var onDismiss = (info:any) => {
+      switch(info.role) {
+        case 'submit' : {
+          is.attributes.islandName = info.data.islandName
+          this.islandService.updateIsland(is).subscribe();
+        }
+        break;
+        case 'delete' : {
+          this.islandService.deleteIsland(is).subscribe();
+        }
+        break;
+        default: {
+          console.error("Error")
+        }
+      }
+    }
+    this.presentForm(is,onDismiss);
+  }
+
 }

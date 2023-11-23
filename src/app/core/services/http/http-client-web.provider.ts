@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 // providers
-import { HttpClientProvider } from './http-client.provider';
+import { HttpClientProvider } from './http-client.provider copy';
 
 export class HttpClientWebProvider extends HttpClientProvider {
 

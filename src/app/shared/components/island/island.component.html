@@ -1,4 +1,11 @@
 <ion-card>
+  <ion-toolbar color="1c1c1d">
+    <ion-buttons slot="end">
+      <ion-button color="primary" fill="clear" (click)="onEditClick($event)">
+        <ion-icon slot="icon-only" name="pencil-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
   <ion-card-content class="island-card">
     <div style="display: flex; flex-direction: column; margin: 10px; align-items: center">
       <div class="ion-margin-start">

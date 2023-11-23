@@ -14,8 +14,8 @@
     <div class="islands">
       <app-island
         *ngFor="let island of islandService.islands$ | async"
-        [island]="island">
-        
+        [island]="island"
+        (onEditClicked)="onEditClicked(island)">
       </app-island>
       
     </div>

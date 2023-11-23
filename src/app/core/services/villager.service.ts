@@ -37,12 +37,4 @@ export class VillagerService {
   }
 }
 
-/*
-  
-  public getAll():Observable<Villager[]> {
-    return this.http.get<Villager[]>(environment.apiUrl+'/villagers').pipe(tap(Villagers=>{
-      this._villagers.next(Villagers);
-    }));
-  }*/
-
 

@@ -16,7 +16,6 @@ export class IslandFormComponent implements OnInit {
   @Input() set island(_island: Island | null) {
     if (_island) {
       this.mode = 'Edit';
-      this.form.controls['id'].setValue(_island.id);
       this.form.controls['islandName'].setValue(_island.attributes.islandName);
     }
   }

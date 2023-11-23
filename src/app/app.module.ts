@@ -7,7 +7,7 @@ import { IonicModule, IonicRouteStrategy, Platform } from '@ionic/angular';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { HttpClientProvider } from './core/services/http/http-client.provider';
+import { HttpClientProvider } from './core/services/http/http-client.provider copy';
 import { HttpClientWebProvider } from './core/services/http/http-client-web.provider';
 import { ApiService } from './core/services/api/api.service';
 import { JwtService } from './core/services/jwt.service';

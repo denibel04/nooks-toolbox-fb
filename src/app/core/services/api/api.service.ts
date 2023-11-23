@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
-import { HttpClientProvider } from '../http/http-client.provider';
+import { HttpClientProvider } from '../http/http-client.provider copy';
 import { JwtService } from '../jwt.service';
 
 

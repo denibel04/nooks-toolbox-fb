@@ -44,10 +44,20 @@ export class IslandService {
     }
 
     public addIsland(is:Island):Observable<Island> {
-      console.log(is);
       return this.dataService.post<Island>("islands", is).pipe(tap(_=>{
         this.getAll().subscribe();
       }))
     }
-    
+
+    public deleteIsland(is:Island):Observable<Island> {
+      return this.dataService.delete<any>(`islands/${is.id}`).pipe(tap(_=>{
+        this.getAll().subscribe();
+      }))
+    }
+
+    public updateIsland(is:Island):Observable<Island> {
+      return this.dataService.put<any>(`islands/${is.id}`, is).pipe(tap(_=>{
+        this.getAll().subscribe();
+      }))
+    }
 }
