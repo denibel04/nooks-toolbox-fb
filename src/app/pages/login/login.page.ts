@@ -33,7 +33,7 @@ export class LoginPage implements OnInit {
       }
     });
   }
-
+  /*
   async presentForm(data:UserRegisterInfo|null, onDismiss:(result:any)=>void){
     
     const modal = await this.modal.create({
@@ -64,6 +64,10 @@ export class LoginPage implements OnInit {
       }
     }
     this.presentForm(null, onDismiss);
+  }*/
+
+  toRegister() {
+    this.router.navigate(['register']);
   }
 
 }

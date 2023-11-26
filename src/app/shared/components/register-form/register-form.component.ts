@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
+import { UserRegisterInfo } from 'src/app/core/interfaces/user-register-info';
 
 @Component({
   selector: 'app-register-form',
@@ -11,8 +12,9 @@ export class RegisterFormComponent  implements OnInit {
 
   form:FormGroup;
 
+  @Output() onsubmit = new EventEmitter<UserRegisterInfo>();
+
   constructor(
-    private formModal: ModalController,
     private formBuilder:FormBuilder) {
     this.form = this.formBuilder.group({
       username:['', [Validators.required]],
@@ -24,12 +26,8 @@ export class RegisterFormComponent  implements OnInit {
 
   ngOnInit() {}
 
-  onCancel(){
-    this.formModal.dismiss(null, 'cancel');
-  }
-
   onSubmit(){
-    this.formModal.dismiss(this.form?.value, 'submit');
+    this.onsubmit.emit(this.form.value);
   } 
 
 }

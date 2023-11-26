@@ -1,17 +1,4 @@
-<ion-header>
-  <ion-toolbar>
-  <ion-buttons slot="start">
-    <ion-button color="primary" fill="clear" (click)="onCancel()">
-      <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
-    </ion-button>
-  </ion-buttons>
-  <ion-title style="text-align: center;">
-    Create an account
-  </ion-title>
-</ion-toolbar>
-</ion-header>
 
-<ion-content class="ion-padding">
   <form [formGroup]="form" (ngSubmit)="onSubmit()" (keyup.enter)="onSubmit()">
     <ion-item>
       <ion-input label="username" labelPlacement="start" formControlName="username" type="text"></ion-input>
@@ -25,8 +12,7 @@
     <ion-item>
       <ion-input label="password" labelPlacement="start" formControlName="password" type="password"></ion-input>
     </ion-item>
+    <div class="ion-text-end">
+      <ion-button type="submit" style="text-transform: none;" [disabled]="!form.valid" (click)="onSubmit()">submit</ion-button>
+    </div>
   </form>
-</ion-content>
-<ion-footer>
-  <ion-button type="submit" [disabled]="!form.valid || !form.dirty" class="ion-padding" expand="full" (click)="onSubmit()"></ion-button>
-</ion-footer>
