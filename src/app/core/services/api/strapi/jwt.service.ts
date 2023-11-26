@@ -26,7 +26,7 @@ export class JwtService {
         else {
           observer.error('No token');
         }
-      }).catch((error:any) => observer.next(error));
+      }).catch((error:any) => observer.error(error));
     });
   }
 

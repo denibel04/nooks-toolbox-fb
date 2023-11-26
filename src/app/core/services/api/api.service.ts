@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 import { HttpClientProvider } from '../http/http-client.provider copy';
-import { JwtService } from '../jwt.service';
+import { JwtService } from './strapi/jwt.service';
 
 
 @Injectable({providedIn: 'root'})

@@ -5,6 +5,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { VillagerComponent } from './components/villager/villager.component';
 import { IslandComponent } from './components/island/island.component';
 import { IslandFormComponent } from './components/island-form/island-form.component';
+import { LoginFormComponent } from './components/login-form/login-form.component';
+import { RegisterFormComponent } from './components/register-form/register-form.component';
 
 
 
@@ -15,7 +17,9 @@ import { IslandFormComponent } from './components/island-form/island-form.compon
     // components
     VillagerComponent,
     IslandComponent,
-    IslandFormComponent
+    IslandFormComponent,
+    LoginFormComponent,
+    RegisterFormComponent
 
   ],
   imports: [
@@ -30,7 +34,9 @@ import { IslandFormComponent } from './components/island-form/island-form.compon
     FormsModule,
     VillagerComponent,
     IslandComponent,
-    IslandFormComponent
+    IslandFormComponent,
+    LoginFormComponent,
+    RegisterFormComponent
   ]
 })
 export class SharedModule { }

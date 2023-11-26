@@ -1,59 +1,59 @@
-export interface StrapiData<T>{
-    id:number,
-    attributes:T
+export interface StrapiData<T> {
+  id: number,
+  attributes: T
 }
 
 export interface StrapiArrayResponse<T> {
-    data: StrapiData<T>[],
-    meta: {
-      pagination?: {
-        page: number,
-        pageSize: number,
-        pageCount: number,
-        total: number,
-      }
+  data: StrapiData<T>[],
+  meta: {
+    pagination?: {
+      page: number,
+      pageSize: number,
+      pageCount: number,
+      total: number,
     }
+  }
 }
 
 export interface StrapiResponse<T> {
-    data: StrapiData<T>
+  data: StrapiData<T>
 }
 
-export interface StrapiUser{
-    id: number,
-    username:string,
-    email: string
+export interface StrapiUser {
+  id: number,
+  username: string,
+  email: string
 }
 
 export type StrapiMe = StrapiUser;
 
-export interface StrapiLoginPayload{
-    identifier:string,
-    password:string
+export interface StrapiLoginPayload {
+  identifier: string,
+  password: string
 }
 
-export interface StrapiRegisterPayload{
-    email:string,
-    password:string,
-    username:string
+export interface StrapiRegisterPayload {
+  email: string,
+  password: string,
+  username: string
 }
 
-export interface StrapiLoginResponse{
-    jwt:string,
-    user:StrapiUser
+export interface StrapiLoginResponse {
+  jwt: string,
+  user: StrapiUser
 }
 
 export type StrapiRegisterResponse = StrapiLoginResponse;
 
-export interface StrapiExtendedUser{
-    name:string,
-    surname:string,
-    user_id:number,
-    nickname?:string,
-    picture?:{
-        data:StrapiData<StrapiMedia>
-    }
+export interface StrapiExtendedUser {
+  data: {
+    display_name: string,
+    user_id: number,
+    user: number
+  }
+  
 }
+
 
 export type StrapiUploadResponse = StrapiMedia[]
 
