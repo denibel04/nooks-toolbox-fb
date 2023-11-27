@@ -17,7 +17,6 @@ export class IslandComponent  implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.island)
   }
 
   onEditClick(event:any) {

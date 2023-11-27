@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Island } from '../interfaces/island';
+import { Island} from '../interfaces/island';
 import { ApiService } from './api/api.service';
 import { map, tap } from 'rxjs/operators';
 import { DataService } from './api/strapi/data.service';
@@ -56,7 +56,7 @@ export class IslandService {
     }
 
     public updateIsland(is:Island):Observable<Island> {
-      return this.dataService.put<any>(`islands/${is.id}`, is).pipe(tap(_=>{
+      return this.dataService.put<any>(`islands/${is.id}`, is.attributes).pipe(tap(_=>{
         this.getAll().subscribe();
       }))
     }

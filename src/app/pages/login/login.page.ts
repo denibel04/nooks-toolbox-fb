@@ -23,7 +23,6 @@ export class LoginPage implements OnInit {
   }
 
   onLogin(credentials:UserCredentials){
-    console.log("credentials: ", credentials)
     this.auth.login(credentials).subscribe({
       next:data=>{
         this.router.navigate(['home']);
@@ -33,38 +32,6 @@ export class LoginPage implements OnInit {
       }
     });
   }
-  /*
-  async presentForm(data:UserRegisterInfo|null, onDismiss:(result:any)=>void){
-    
-    const modal = await this.modal.create({
-      component:RegisterFormComponent,
-      componentProps:{
-        user:data
-      },
-    });
-    modal.present();
-    modal.onDidDismiss().then(result=>{
-      if(result && result.data){
-        onDismiss(result);
-      }
-    });
-  }
-
-  onRegister(){
-    var onDismiss = (info:any)=>{
-      console.log(info);
-      switch(info.role){
-        case 'submit':{
-          this.auth.register(info.data).subscribe()
-        }
-        break;
-        default:{
-          console.error("error");
-        }
-      }
-    }
-    this.presentForm(null, onDismiss);
-  }*/
 
   toRegister() {
     this.router.navigate(['register']);
