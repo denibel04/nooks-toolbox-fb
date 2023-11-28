@@ -7,6 +7,8 @@ import { IslandComponent } from './components/island/island.component';
 import { IslandFormComponent } from './components/island-form/island-form.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { RegisterFormComponent } from './components/register-form/register-form.component';
+import { VillagerItemComponent } from './components/villager-item/villager-item.component';
+import { VillagerSelectableComponent } from './components/villager-selectable/villager-selectable.component';
 
 
 
@@ -19,7 +21,9 @@ import { RegisterFormComponent } from './components/register-form/register-form.
     IslandComponent,
     IslandFormComponent,
     LoginFormComponent,
-    RegisterFormComponent
+    RegisterFormComponent,
+    VillagerItemComponent,
+    VillagerSelectableComponent
 
   ],
   imports: [

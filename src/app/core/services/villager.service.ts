@@ -1,40 +1,45 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { Villager } from '../interfaces/villager'; // Asegúrate de que el path es correcto
+import { map, tap } from 'rxjs/operators';
+import { PaginatedVillagers, Villager } from '../interfaces/villager'; // Asegúrate de que el path es correcto
 import { environment } from 'src/environments/environment.prod';
+import { DataService } from './api/strapi/data.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class VillagerService {
-  private _villagers:BehaviorSubject<Villager[]> = new BehaviorSubject<Villager[]>([]);
-  public villagers$:Observable<Villager[]> = this._villagers.asObservable();
 
-  private currentPage = 1;
+  constructor(
+    private dataService: DataService
+  ) { }
 
-  constructor(private http: HttpClient) {}
+  private _villagers: BehaviorSubject<PaginatedVillagers> = new BehaviorSubject<PaginatedVillagers>({ data: [], pagination: { page: 0, pageCount: 0, pageSize: 0, total: 0 } });
+  public villagers$: Observable<PaginatedVillagers> = this._villagers.asObservable();
 
-  public loadInitialVillagers() {
-    this.currentPage= 1;
-    this.loadMoreVillagers();
+  public queryPaginated(page: number): Observable<PaginatedVillagers> {
+    const paginationParams = `pagination[page]=${page}`;
+    return this.dataService.queryPaginated<any>('villagers', paginationParams).pipe(
+      map(response => ({
+        data: response.data,
+        pagination: response.pagination
+
+      })))
   }
 
-  public loadMoreVillagers() {
-    this.http.get<{ data: Villager[] }>(`${environment.apiUrl}/villagers?pagination[page]=${this.currentPage}&pagination[pageSize]=50`)
-      .pipe(map(response => response.data))
-      .subscribe(
-        data => {
-          if (data.length === 0) {
-            return;
-          }
-          const updatedVillagers = [...this._villagers.value, ...data];
-          this._villagers.next(updatedVillagers);
-          this.currentPage += 1;
-        }
-      );
+  public query(q: string): Observable<PaginatedVillagers> {
+    return this.dataService.query<any>('villagers', {}).pipe(
+      map(response => ({
+        data: response.data,
+        pagination: response.pagination
+      })))
   }
+
+  public getVillager(id:number):Observable<Villager>{
+    return this.dataService.get<any>(`villagers/${id}`).pipe(map(response => response.data))
+  }
+
 }
 
 

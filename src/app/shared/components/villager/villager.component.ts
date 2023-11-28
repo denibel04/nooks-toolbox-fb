@@ -8,10 +8,11 @@ import { Villager } from 'src/app/core/interfaces/villager';
 })
 export class VillagerComponent  implements OnInit {
 
-  @Input() villager:Villager | null=null;
+  @Input() villager:any;
 
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit():void {
+  }
 
 }

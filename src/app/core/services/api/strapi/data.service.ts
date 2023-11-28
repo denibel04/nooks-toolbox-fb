@@ -8,6 +8,8 @@ import { PaginatedData } from '../../../interfaces/data';
   providedIn: 'root'
 })
 export abstract class DataService{
+
+  public abstract queryPaginated<T>(resource:string, params:any):Observable<PaginatedData<T>>
   
   public abstract query<T>(resource:string, params:any):Observable<PaginatedData<T>>;
 

@@ -21,6 +21,14 @@ export class StrapiDataService extends DataService{
     }));
   }
 
+  public queryPaginated<T>(resource: string, queryString: string): Observable<PaginatedData<T>> {
+    return this.api.get(`/${resource}?${queryString}`).pipe(map((response:StrapiArrayResponse<T>)=>{
+      return {
+        data: response.data.map(data=>{return {...(data.attributes), id:data.id};}), 
+        pagination: response.meta.pagination!};
+    }));
+  }
+
   public get<T>(resource:string):Observable<T>{
     return this.api.get(`/${resource}`).pipe(map((response:StrapiResponse<T>)=>{
       return response.data.attributes;

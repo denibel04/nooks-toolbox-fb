@@ -1,3 +1,5 @@
+import { PaginatedData } from "./data"
+
 export interface Villager {
     id: number,
     attributes: {
@@ -14,3 +16,5 @@ export interface Villager {
         islander:boolean
     }
 }
+
+export type PaginatedVillagers = PaginatedData<Villager>
