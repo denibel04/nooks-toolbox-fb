@@ -4,19 +4,17 @@
     <ion-text *ngIf="!villagerSelected && !disabled">Select a villager</ion-text>
     <ion-text *ngIf="!villagerSelected && disabled">n/a</ion-text>
     <ion-avatar slot="start" *ngIf="villagerSelected" >
-      <ion-img *ngIf="villagerSelected.attributes?.image_url" [src]="villagerSelected.attributes?.image_url"></ion-img>
+      <ion-img *ngIf="villagerSelected?.attributes?.image_url" [src]="villagerSelected.attributes.image_url"></ion-img>
       <img *ngIf="!villagerSelected?.attributes?.image_url" alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
     </ion-avatar> 
     <ion-text *ngIf="villagerSelected">{{villagerSelected.attributes.name}} </ion-text>
 </ion-item>
 </div>
 
-<ion-popover *ngIf="!disabled" trigger="popover-button" #popover (willPresent)="onLoadvillagers()">
+<ion-popover *ngIf="!disabled" trigger="popover-button" #popover (willPresent)="onLoadVillagers()">
   <ng-template>
     <ion-content >
-      
       <ion-list>
-        
         <ion-item>
           <ion-input #search placeholder="Buscar" type="text" (ionInput)="onFilter($event)" debounce="200"></ion-input>
           <ion-button color="medium" slot="end" fill="clear" (click)="clearSearch(search)"><ion-icon slot="icon-only" name="close-outline"></ion-icon></ion-button>

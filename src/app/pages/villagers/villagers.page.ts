@@ -27,7 +27,7 @@ export class VillagersPage implements OnInit {
 
   ngOnInit():void {
     this.loadVillagers();
-    console.log(this._villagers)
+    console.log("villagers page", this._villagers)
   }
 
   private loadVillagers(page:number=1, refresher:any=null) {

@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { Island } from 'src/app/core/interfaces/island';
+import { Villager } from 'src/app/core/interfaces/villager';
+import { VillagerService } from 'src/app/core/services/villager.service';
 
 @Component({
   selector: 'app-island-form',
@@ -11,22 +13,35 @@ import { Island } from 'src/app/core/interfaces/island';
 export class IslandFormComponent implements OnInit {
 
   form: FormGroup;
+  villager?:Villager;
+  _island: Island | null = null
   mode: 'New' | 'Edit' = 'New';
 
   @Input() set island(_island: Island | null) {
     if (_island) {
       this.mode = 'Edit';
       this.form.controls['islandName'].setValue(_island.attributes.islandName);
+      // if (_island.attributes.villagers) {
+      //   this.villagerService.getVillager(_island.attributes.villagers[0]?.id).subscribe(res=> {
+      //     this.villager = res;
+      //   })
+      // }
     }
+  }
+
+  
+  get island(): Island | null {
+    return this._island;
   }
 
   constructor(
     private formModal: ModalController,
     private formBuilder: FormBuilder,
+    private villagerService:VillagerService
   ) {
-
     this.form = this.formBuilder.group({
       islandName: ['', [Validators.required]],
+      villagers: [this.formBuilder.array([])]
     })
   }
 
@@ -43,5 +58,6 @@ export class IslandFormComponent implements OnInit {
   onDelete() {
     this.formModal.dismiss(this.form.value, 'delete')
   }
+
 
 }

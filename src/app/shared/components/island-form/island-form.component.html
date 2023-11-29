@@ -20,6 +20,9 @@
     <ion-item>
       <ion-input label="islandName" labelPlacement="start" formControlName="islandName" type="text"></ion-input>
     </ion-item>
+    <ion-item>
+      <app-villager-selectable formControlName="villagers" [island]="island"></app-villager-selectable>
+    </ion-item>
   </form>
 </ion-content>
 <ion-footer>

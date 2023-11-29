@@ -40,7 +40,9 @@ import { VillagerSelectableComponent } from './components/villager-selectable/vi
     IslandComponent,
     IslandFormComponent,
     LoginFormComponent,
-    RegisterFormComponent
+    RegisterFormComponent,
+    VillagerItemComponent,
+    VillagerSelectableComponent
   ]
 })
 export class SharedModule { }
