@@ -2,8 +2,15 @@
   <ion-card-content class="loan-card">
     <div style="display: flex; flex-direction: column; margin: 10px; align-items: center">
       <div class="ion-margin-start">
-        <h1>{{ loan?.attributes?.title | titlecase }} </h1> <h3>{{ loan?.attributes?.amountPaid }}</h3>
+        <h1>{{ loan?.id}} {{  loan?.attributes?.title | titlecase }} </h1> 
+        <h3>Type  {{ loan?.attributes?.type }}</h3>
+        <h3>amountPaid {{ loan?.attributes?.amountPaid }}</h3>
+        <h3>amountTotal {{ loan?.attributes?.amountTotal }}</h3>
+        <h3>completed {{ loan?.attributes?.completed }}</h3>
       </div>
     </div>
   </ion-card-content>
+  <ion-button shape="round" color="primary" fill="clear" (click)="onEditClick($event)">
+    <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+  </ion-button>
 </ion-card>

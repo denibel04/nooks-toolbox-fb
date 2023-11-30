@@ -16,18 +16,21 @@ const routes: Routes = [
   {
     path: 'villagers',
 
-    loadChildren: () => import('./pages/villagers/villagers.module').then( m => m.VillagersPageModule)
+    loadChildren: () => import('./pages/villagers/villagers.module').then( m => m.VillagersPageModule),
+    canActivate:[AuthGuard]
   },
   {
     path: 'login',
     loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
-  },  {
+  },
+  {
     path: 'register',
     loadChildren: () => import('./pages/register/register.module').then( m => m.RegisterPageModule)
   },
   {
     path: 'loans',
-    loadChildren: () => import('./pages/loans/loans.module').then( m => m.LoansPageModule)
+    loadChildren: () => import('./pages/loans/loans.module').then( m => m.LoansPageModule),
+    canActivate:[AuthGuard]
   },
 
 

@@ -52,4 +52,24 @@ export class LoansPage implements OnInit {
     this.presentForm(null, onDismiss);
   }
 
+  onEditClicked(loan: Loan) {
+    var onDismiss = (info: any) => {
+      switch (info.role) {
+        case 'submit': {
+          loan.attributes= info.data
+          this.loanService.updateLoan(loan).subscribe();
+        }
+          break;
+        case 'delete': {
+          this.loanService.deleteLoan(loan).subscribe();
+        }
+          break;
+        default: {
+          console.error("Error")
+        }
+      }
+    }
+    this.presentForm(loan, onDismiss);
+  }
+
 }

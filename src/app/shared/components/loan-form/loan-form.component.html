@@ -5,18 +5,18 @@
         <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title style="text-align: center"> New Loan </ion-title>
+    <ion-title style="text-align: center"> {{mode=='New'?'New loan':'Edit loan'}} </ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding">
   <form [formGroup]="form" (ngSubmit)="onSubmit()" (keyup.enter)="onSubmit()">
 
-    <ion-item>
+    <ion-item *ngIf="mode=='New'">
       <ion-label position="floating">Loan title</ion-label>
       <ion-input aria-label="title" formControlName="title" type="string"></ion-input>
     </ion-item>
 
-    <ion-item>
+    <ion-item *ngIf="mode=='New'">
       <ion-label position="floating">Loan Type</ion-label>
       <ion-select aria-label="type" formControlName="type" interface="popover" placeholder="Select One">
         <ion-select-option value="house">House</ion-select-option>
@@ -30,14 +30,13 @@
       <ion-input aria-label="amountPaid" formControlName="amountPaid" type="number"></ion-input>
     </ion-item>
 
-    <ion-item>
+    <ion-item *ngIf="mode=='New'">
       <ion-label position="floating">Total Amount</ion-label>
       <ion-input aria-label="amountTotal" formControlName="amountTotal" type="number"></ion-input>
     </ion-item>
 
-    <ion-item>
-      <ion-label position="floating">Completed</ion-label>
-      <ion-toggle aria-label="completed" formControlName="completed">Complete payment</ion-toggle>
+    <ion-item >
+      <ion-toggle aria-label="completed" formControlName="completed" labelPlacement="stacked" alignment="start">Complete payment</ion-toggle>
     </ion-item>
   </form>
 </ion-content>

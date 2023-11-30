@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Loan } from 'src/app/core/interfaces/loan';
 
 @Component({
@@ -8,12 +8,20 @@ import { Loan } from 'src/app/core/interfaces/loan';
 })
 export class LoanComponent  implements OnInit {
 
-  
+  @Output() onEditClicked:EventEmitter<void> = new EventEmitter<void>();
 
   @Input() loan:Loan | null = null;
 
   constructor() { }
 
   ngOnInit() {}
+
+  onEditClick(event:any) {
+    event.stopPropagation();
+    this.onEditClicked.emit();
+    
+    console.log("Clic en el botón de edición");
+  }
+  
 
 }

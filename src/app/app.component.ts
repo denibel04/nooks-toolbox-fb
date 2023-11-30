@@ -28,7 +28,6 @@ export class AppComponent {
         this.auth.me().subscribe(data=>{
           this.user = data;
         });
-        this.router.navigate(['/home']);
       }
     });
   }
