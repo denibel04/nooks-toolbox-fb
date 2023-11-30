@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="primary" fill="clear" (click)="onCancel()">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title style="text-align: center"> New Loan </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" (keyup.enter)="onSubmit()">
+
+    <ion-item>
+      <ion-label position="floating">Loan title</ion-label>
+      <ion-input aria-label="title" formControlName="title" type="string"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Loan Type</ion-label>
+      <ion-select aria-label="type" formControlName="type" interface="popover" placeholder="Select One">
+        <ion-select-option value="house">House</ion-select-option>
+        <ion-select-option value="incline">Incline</ion-select-option>
+        <ion-select-option value="bridge">Bridge</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Amount Paid</ion-label>
+      <ion-input aria-label="amountPaid" formControlName="amountPaid" type="number"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Total Amount</ion-label>
+      <ion-input aria-label="amountTotal" formControlName="amountTotal" type="number"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Completed</ion-label>
+      <ion-toggle aria-label="completed" formControlName="completed">Complete payment</ion-toggle>
+    </ion-item>
+  </form>
+</ion-content>
+<ion-footer>
+  <ion-button
+    type="submit"
+    [disabled]="!form.valid || !form.dirty"
+    class="ion-padding"
+    expand="full"
+    (click)="onSubmit()"
+  >
+    Create Loan
+  </ion-button>
+</ion-footer>

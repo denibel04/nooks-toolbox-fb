@@ -4,6 +4,7 @@ export interface Loan {
         type:string,
         amountPaid:number,
         amountTotal:number,
-        completed:boolean
+        completed:boolean,
+        title:string
     }
 }

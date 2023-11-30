@@ -30,7 +30,8 @@ export class LoanService {
               type: loanData.attributes.type,
               amountPaid: loanData.attributes.amountPaid,
               amountTotal: loanData.attributes.amountTotal,
-              completed: loanData.attributes.completed
+              completed: loanData.attributes.completed,
+              title: loanData.attributes.title
             }
           };
         });

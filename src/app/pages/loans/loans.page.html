@@ -4,6 +4,21 @@
   </ion-toolbar>
 </ion-header>
 
+<ion-button
+class="add"
+shape="round"
+aria-label="New Loan"
+(click)="onNewLoan()"
+>
+<ion-icon
+  ion-icon
+  slot="icon-only"
+  color="white"
+  name="add-outline"
+  aria-hidden="true"
+></ion-icon>
+</ion-button>
+
 <ion-content class="ion-padding">
   <div class="loans">
     <app-loan

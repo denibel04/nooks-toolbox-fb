@@ -8,6 +8,8 @@ import { Loan } from 'src/app/core/interfaces/loan';
 })
 export class LoanComponent  implements OnInit {
 
+  
+
   @Input() loan:Loan | null = null;
 
   constructor() { }

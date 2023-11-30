@@ -10,6 +10,7 @@ import { RegisterFormComponent } from './components/register-form/register-form.
 import { VillagerItemComponent } from './components/villager-item/villager-item.component';
 import { VillagerSelectableComponent } from './components/villager-selectable/villager-selectable.component';
 import { LoanComponent } from './components/loan/loan.component';
+import { LoanFormComponent } from './components/loan-form/loan-form.component';
 
 
 
@@ -25,7 +26,8 @@ import { LoanComponent } from './components/loan/loan.component';
     RegisterFormComponent,
     VillagerItemComponent,
     VillagerSelectableComponent,
-    LoanComponent
+    LoanComponent,
+    LoanFormComponent
 
   ],
   imports: [
@@ -45,7 +47,8 @@ import { LoanComponent } from './components/loan/loan.component';
     RegisterFormComponent,
     VillagerItemComponent,
     VillagerSelectableComponent,
-    LoanComponent
+    LoanComponent,
+    LoanFormComponent
   ]
 })
 export class SharedModule { }
