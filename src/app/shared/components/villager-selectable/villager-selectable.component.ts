@@ -2,7 +2,6 @@ import { Component, Input, OnInit, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { IonInput, IonPopover } from '@ionic/angular';
 import { lastValueFrom } from 'rxjs';
-import { Pagination } from 'src/app/core/interfaces/data';
 import { Island } from 'src/app/core/interfaces/island';
 import { Villager } from 'src/app/core/interfaces/villager';
 import { IslandService } from 'src/app/core/services/island.service';
@@ -29,8 +28,10 @@ export class VillagerSelectableComponent implements OnInit, ControlValueAccessor
   private _island: Island | null = null;
 
   @Input() set island (_island:Island|null) {
+    console.log(_island)
     this._island = _island;
   }
+
 
   propagateChange = (obj: any) => { }
 
@@ -51,6 +52,10 @@ export class VillagerSelectableComponent implements OnInit, ControlValueAccessor
   }
 
   private async selectVillager(id: number | undefined, propagate: boolean = false) {
+    // if (this.island?.attributes.villagers) {
+    //   console.log(this._island)
+    //   this.villagerSelected = this.island.attributes.villagers[0]
+    // }
     if (id) {
       console.log("id", Number(id))
       this.villagerSelected = await lastValueFrom(this.villagerService.getVillager(Number(id)));

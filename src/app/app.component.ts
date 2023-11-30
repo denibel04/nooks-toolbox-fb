@@ -32,11 +32,23 @@ export class AppComponent {
       }
     });
   }
- 
+
   onSignOut(){
     this.auth.logout().subscribe(_=>{
       this.router.navigate(['/login']);
       this.user = undefined;
     });
+  }
+
+  goToLoans() {
+    this.router.navigate(['/loans']);
+  }
+
+  goToVillagers() {
+    this.router.navigate(['/villagers']);
+  }
+
+  goToHome() {
+    this.router.navigate(['/home']);
   }
 }

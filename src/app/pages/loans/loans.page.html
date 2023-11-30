@@ -1,0 +1,17 @@
+<ion-header translucent="true">
+  <ion-toolbar>
+    <ion-title>loans</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="loans">
+    <app-loan
+      *ngFor="let loan of loanService.loans$ | async"
+      [loan]="loan">
+    </app-loan>
+    
+  </div>
+
+  
+</ion-content>

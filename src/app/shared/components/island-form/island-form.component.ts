@@ -21,11 +21,12 @@ export class IslandFormComponent implements OnInit {
     if (_island) {
       this.mode = 'Edit';
       this.form.controls['islandName'].setValue(_island.attributes.islandName);
-      // if (_island.attributes.villagers) {
-      //   this.villagerService.getVillager(_island.attributes.villagers[0]?.id).subscribe(res=> {
-      //     this.villager = res;
-      //   })
-      // }
+      console.log("island", _island.attributes.villagers)
+      if (_island.attributes.villagers) {
+        this.villagerService.getVillager(_island.attributes.villagers[0]?.id).subscribe(res=> {
+          this.villager = res;
+        })
+      }
     }
   }
 

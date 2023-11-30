@@ -1,0 +1,11 @@
+.link-text {
+    padding: 10px;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+.link-text:hover {
+    color: var(--ion-color-primary);
+    text-decoration: underline;
+}

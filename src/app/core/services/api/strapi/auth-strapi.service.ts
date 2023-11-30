@@ -20,7 +20,6 @@ export class AuthStrapiService extends AuthService {
 
   private init() {
     this.jwtSvc.loadToken().subscribe(_ => {
-      console.log(this.jwtSvc.getToken().toString())
       this._logged.next(true);
     }
     );
@@ -33,7 +32,6 @@ export class AuthStrapiService extends AuthService {
         identifier: credentials.username,
         password: credentials.password
       };
-      console.log("_Credentials: ", _credentials)
       this.apiSvc.post("/auth/local", _credentials).subscribe({
         next: async (data: StrapiLoginResponse) => {
           await lastValueFrom(this.jwtSvc.saveToken(data.jwt));

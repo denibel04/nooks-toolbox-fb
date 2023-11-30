@@ -9,6 +9,7 @@ import { LoginFormComponent } from './components/login-form/login-form.component
 import { RegisterFormComponent } from './components/register-form/register-form.component';
 import { VillagerItemComponent } from './components/villager-item/villager-item.component';
 import { VillagerSelectableComponent } from './components/villager-selectable/villager-selectable.component';
+import { LoanComponent } from './components/loan/loan.component';
 
 
 
@@ -23,7 +24,8 @@ import { VillagerSelectableComponent } from './components/villager-selectable/vi
     LoginFormComponent,
     RegisterFormComponent,
     VillagerItemComponent,
-    VillagerSelectableComponent
+    VillagerSelectableComponent,
+    LoanComponent
 
   ],
   imports: [
@@ -42,7 +44,8 @@ import { VillagerSelectableComponent } from './components/villager-selectable/vi
     LoginFormComponent,
     RegisterFormComponent,
     VillagerItemComponent,
-    VillagerSelectableComponent
+    VillagerSelectableComponent,
+    LoanComponent
   ]
 })
 export class SharedModule { }
