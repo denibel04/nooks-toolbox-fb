@@ -24,7 +24,8 @@ aria-label="New Loan"
     <app-loan
       *ngFor="let loan of loanService.loans$ | async"
       [loan]="loan"
-      (onEditClicked)="onEditClicked(loan)">
+      (onEditClicked)="onEditClicked(loan)"
+      (onDeleteClicked)="onDeleteClicked(loan)">
     </app-loan>
     
   </div>

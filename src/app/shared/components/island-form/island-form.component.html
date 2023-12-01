@@ -21,7 +21,7 @@
       <ion-input label="islandName" labelPlacement="start" formControlName="islandName" type="text"></ion-input>
     </ion-item>
     <ion-item *ngIf=[island]>
-      <app-villager-selectable label="villagers" formControlName="villagers"  [island]="island"></app-villager-selectable>
+      <app-villager-selectable label="villagers" formControlName="villagers" [num]="5"></app-villager-selectable>
     </ion-item>
   </form>
 </ion-content>

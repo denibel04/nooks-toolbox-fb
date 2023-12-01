@@ -25,10 +25,6 @@ export class HomePage {
 
   };
 
-  public villagers() {
-    this.router.navigate(['/villagers'])
-
-  }
 
   async presentForm(data: Island | null, onDismiss: (result: any) => void) {
     const modal = await this.modal.create({

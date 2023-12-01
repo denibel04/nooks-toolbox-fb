@@ -9,6 +9,7 @@ import { Loan } from 'src/app/core/interfaces/loan';
 export class LoanComponent  implements OnInit {
 
   @Output() onEditClicked:EventEmitter<void> = new EventEmitter<void>();
+  @Output() onDeleteClicked:EventEmitter<void> = new EventEmitter<void>();
 
   @Input() loan:Loan | null = null;
 
@@ -22,6 +23,12 @@ export class LoanComponent  implements OnInit {
     
     console.log("Clic en el botón de edición");
   }
+
+  onDeleteClick(event:any) {
+    event.stopPropagation();
+    this.onDeleteClicked.emit();
+  }
+
   
 
 }

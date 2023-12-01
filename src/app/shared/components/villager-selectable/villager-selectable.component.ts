@@ -27,10 +27,7 @@ export class VillagerSelectableComponent implements OnInit, ControlValueAccessor
   villagers: Villager[] = [];
   private _island: Island | null = null;
 
-  @Input() set island (_island:Island|null) {
-    console.log(_island)
-    this._island = _island;
-  }
+  @Input() num: number | undefined;
 
 
   propagateChange = (obj: any) => { }
@@ -84,7 +81,7 @@ export class VillagerSelectableComponent implements OnInit, ControlValueAccessor
 
   ngOnInit(
     
-  ) { }
+  ) {console.log(this.num); }
 
   private async filter(filtering:string){
     this.loadVillagers(filtering);

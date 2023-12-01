@@ -60,16 +60,16 @@ export class LoansPage implements OnInit {
           this.loanService.updateLoan(loan).subscribe();
         }
           break;
-        case 'delete': {
-          this.loanService.deleteLoan(loan).subscribe();
-        }
-          break;
         default: {
           console.error("Error")
         }
       }
     }
     this.presentForm(loan, onDismiss);
+  }
+
+  onDeleteClicked(loan:Loan) {
+    this.loanService.deleteLoan(loan).subscribe()
   }
 
 }
