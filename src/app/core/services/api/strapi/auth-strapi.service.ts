@@ -8,6 +8,9 @@ import { AuthService } from './auth.service';
 import { StrapiExtendedUser, StrapiLoginPayload, StrapiLoginResponse, StrapiMe, StrapiRegisterPayload, StrapiRegisterResponse, StrapiResponse, StrapiUser } from '../../../interfaces/strapi';
 import { User } from '../../../interfaces/user';
 
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthStrapiService extends AuthService {
 
   constructor(
@@ -87,11 +90,12 @@ export class AuthStrapiService extends AuthService {
     return new Observable<User>(obs => {
       this.apiSvc.get('/users/me').subscribe({
         next: async (user: StrapiMe) => {
-          let extended_user = await lastValueFrom(this.apiSvc.get(`/extended-users?filters[user_id]=${user.id}`));
+          let extended_user = await lastValueFrom(this.apiSvc.get(`/extended-users?filters[user_id]=${user.id}&populate=island`));
           let ret: User = {
             id: user.id,
             username: user.username,
-            display_name: extended_user.data[0].attributes.display_name
+            display_name: extended_user.data[0].attributes.display_name,
+            island: extended_user.data[0].attributes.island
           }
           obs.next(ret);
           obs.complete();

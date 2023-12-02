@@ -20,12 +20,7 @@ export class IslandComponent  implements OnInit {
   }
 
   onEditClick(event:any) {
-    //event.preventDefault();
-    event.stopPropagation();
     this.onEditClicked.emit();
-    
-    console.log("Clic en el botón de edición");
+    event.stopPropagation();
   }
-  
-
 }

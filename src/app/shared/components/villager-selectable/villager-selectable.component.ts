@@ -4,6 +4,7 @@ import { IonInput, IonPopover } from '@ionic/angular';
 import { lastValueFrom } from 'rxjs';
 import { Island } from 'src/app/core/interfaces/island';
 import { Villager } from 'src/app/core/interfaces/villager';
+import { AuthStrapiService } from 'src/app/core/services/api/strapi/auth-strapi.service';
 import { IslandService } from 'src/app/core/services/island.service';
 import { VillagerService } from 'src/app/core/services/villager.service';
 
@@ -25,38 +26,44 @@ export class VillagerSelectableComponent implements OnInit, ControlValueAccessor
   villagerSelected: Villager | undefined;
   disabled: boolean = true;
   villagers: Villager[] = [];
-  private _island: Island | null = null;
+  private island: Island | null = null;
 
-  @Input() num: number | undefined;
+  @Input() num: number =0;
 
 
   propagateChange = (obj: any) => { }
 
   constructor(
     public villagerService: VillagerService,
-    public islandService: IslandService
+    public islandService: IslandService,
+    public authService: AuthStrapiService
   ) { }
+
+  async ngOnInit() {
+    const user = await lastValueFrom(this.authService.me());
+    this.island = await lastValueFrom(this.islandService.getIsland(user.island.data.id));
+    console.log(this.island?.attributes.villagers)
+    if (this.island?.attributes?.villagers && this.island.attributes.villagers[this.num] != null) {
+      this.selectVillager(this.island.attributes.villagers[this.num].id)
+    }
+  }
+
 
   async onLoadVillagers() {
     this.loadVillagers("");
+    
   }
 
   private async loadVillagers(filter: string) {
     console.log("filter", filter)
     const villagers = await lastValueFrom(this.villagerService.getFiltered(filter));
-    console.log("paginated villagers", villagers);
+    console.log("paginated villagers",this.num, villagers);
     this.villagers = villagers;
   }
 
   private async selectVillager(id: number | undefined, propagate: boolean = false) {
-    // if (this.island?.attributes.villagers) {
-    //   console.log(this._island)
-    //   this.villagerSelected = this.island.attributes.villagers[0]
-    // }
     if (id) {
-      console.log("id", Number(id))
       this.villagerSelected = await lastValueFrom(this.villagerService.getVillager(Number(id)));
-      console.log("villager selected", this.villagerSelected)
     }
     else
       this.villagerSelected = undefined;
@@ -79,16 +86,15 @@ export class VillagerSelectableComponent implements OnInit, ControlValueAccessor
     this.disabled = isDisabled;
   }
 
-  ngOnInit(
-    
-  ) {console.log(this.num); }
-
+  
   private async filter(filtering:string){
     this.loadVillagers(filtering);
   }
 
   onFilter(evt:any){
     this.filter(evt.detail.value);
+    evt.stopPropagation();
+    evt.preventDefault();
   }
 
   onVillagerClicked(popover:IonPopover, villager:Villager){

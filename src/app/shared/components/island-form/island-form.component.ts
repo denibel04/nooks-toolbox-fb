@@ -16,6 +16,7 @@ export class IslandFormComponent implements OnInit {
   villager?:Villager;
   _island: Island | null = null
   mode: 'New' | 'Edit' = 'New';
+  numbers = Array.from({ length: 10 }, (_, index) => index);
 
   @Input() set island(_island: Island | null) {
     if (_island) {
@@ -58,6 +59,11 @@ export class IslandFormComponent implements OnInit {
 
   onDelete() {
     this.formModal.dismiss(this.form.value, 'delete')
+  }
+
+  onVillagerSelect(event: Event) {
+    event.preventDefault();
+    event.stopPropagation();
   }
 
 

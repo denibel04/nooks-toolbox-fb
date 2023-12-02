@@ -20,9 +20,11 @@
     <ion-item>
       <ion-input label="islandName" labelPlacement="start" formControlName="islandName" type="text"></ion-input>
     </ion-item>
-    <ion-item *ngIf=[island]>
-      <app-villager-selectable label="villagers" formControlName="villagers" [num]="5"></app-villager-selectable>
+    <ng-container *ngFor="let num of numbers; let i = index">
+    <ion-item >
+      <app-villager-selectable (click)="onVillagerSelect($event)" label="villagers" formControlName="villagers" [num]="i"></app-villager-selectable>
     </ion-item>
+  </ng-container>
   </form>
 </ion-content>
 <ion-footer>
