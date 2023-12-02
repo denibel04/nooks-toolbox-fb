@@ -11,6 +11,7 @@ import { VillagerItemComponent } from './components/villager-item/villager-item.
 import { VillagerSelectableComponent } from './components/villager-selectable/villager-selectable.component';
 import { LoanComponent } from './components/loan/loan.component';
 import { LoanFormComponent } from './components/loan-form/loan-form.component';
+import { LoanCompletedPipe } from './pipes/loan-completed.pipe';
 
 
 
@@ -18,6 +19,7 @@ import { LoanFormComponent } from './components/loan-form/loan-form.component';
   declarations: [
     // directives
     // pipes
+    LoanCompletedPipe,
     // components
     VillagerComponent,
     IslandComponent,
@@ -27,7 +29,8 @@ import { LoanFormComponent } from './components/loan-form/loan-form.component';
     VillagerItemComponent,
     VillagerSelectableComponent,
     LoanComponent,
-    LoanFormComponent
+    LoanFormComponent,
+    LoanCompletedPipe
 
   ],
   imports: [
@@ -40,6 +43,7 @@ import { LoanFormComponent } from './components/loan-form/loan-form.component';
     CommonModule,
     IonicModule,
     FormsModule,
+    // components
     VillagerComponent,
     IslandComponent,
     IslandFormComponent,
@@ -48,7 +52,9 @@ import { LoanFormComponent } from './components/loan-form/loan-form.component';
     VillagerItemComponent,
     VillagerSelectableComponent,
     LoanComponent,
-    LoanFormComponent
+    LoanFormComponent,
+    // pipe
+    LoanCompletedPipe
   ]
 })
 export class SharedModule { }

@@ -20,11 +20,21 @@ aria-label="New Loan"
 </ion-button>
 
 <ion-content class="ion-padding">
+
   <div class="loans">
     <app-loan
-      *ngFor="let loan of loanService.loans$ | async"
+      *ngFor="let loan of (loanService.loans$ | async) || [] | loanCompleted:false"
       [loan]="loan"
       (onEditClicked)="onEditClicked(loan)"
+      (onDeleteClicked)="onDeleteClicked(loan)">
+    </app-loan>
+    
+  </div>
+
+  <div class="loans_completed">
+    <app-loan
+      *ngFor="let loan of (loanService.loans$ | async) || [] | loanCompleted:true"
+      [loan]="loan"
       (onDeleteClicked)="onDeleteClicked(loan)">
     </app-loan>
     

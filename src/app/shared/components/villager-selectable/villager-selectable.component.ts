@@ -41,6 +41,7 @@ export class VillagerSelectableComponent implements OnInit, ControlValueAccessor
 
   async ngOnInit() {
     const user = await lastValueFrom(this.authService.me());
+    console.log(user)
     this.island = await lastValueFrom(this.islandService.getIsland(user.island.data.id));
     console.log(this.island?.attributes.villagers)
     if (this.island?.attributes?.villagers && this.island.attributes.villagers[this.num] != null) {

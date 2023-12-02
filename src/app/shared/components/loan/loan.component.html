@@ -10,7 +10,7 @@
       </div>
     </div>
   </ion-card-content>
-  <ion-button shape="round" color="primary" fill="clear" (click)="onEditClick($event)">
+  <ion-button *ngIf="!loan?.attributes?.completed" shape="round" color="primary" fill="clear" (click)="onEditClick($event)">
     <ion-icon slot="icon-only" name="add-outline"></ion-icon>
   </ion-button>
   <ion-button color="primary" fill="clear" (click)="onDeleteClick($event)">

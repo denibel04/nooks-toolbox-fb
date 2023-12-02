@@ -4,7 +4,8 @@ export interface User {
     id:number,
     username:string,
     display_name:string,
-    island:any   
+    island:any,
+    extended_id:number
 }
 
 

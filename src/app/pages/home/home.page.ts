@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
+import { lastValueFrom } from 'rxjs';
 import { Island } from 'src/app/core/interfaces/island';
+import { AuthStrapiService } from 'src/app/core/services/api/strapi/auth-strapi.service';
 import { IslandService } from 'src/app/core/services/island.service';
 import { IslandFormComponent } from 'src/app/shared/components/island-form/island-form.component';
 
@@ -13,16 +15,18 @@ import { IslandFormComponent } from 'src/app/shared/components/island-form/islan
 export class HomePage {
 
   public allVillagers = [];
+  _island: Island | null = null;
 
   constructor(
     public islandService: IslandService,
+    public authService:AuthStrapiService,
     private router: Router,
     private modal: ModalController
   ) { }
 
-  ngOnInit() {
-    this.islandService.getAll().subscribe();
-
+  async ngOnInit() {
+    const user = await lastValueFrom(this.authService.me());
+    this._island = await lastValueFrom(this.islandService.getIsland(user.island.data.id));
   };
 
 
@@ -46,7 +50,7 @@ export class HomePage {
     var onDismiss = (info: any) => {
       switch (info.role) {
         case 'submit': {
-          this.islandService.addIsland(info.data).subscribe();
+          this.islandService.addIsland(info.data);
         }
           break;
         default: {

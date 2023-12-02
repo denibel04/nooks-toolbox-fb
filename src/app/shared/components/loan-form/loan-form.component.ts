@@ -9,8 +9,8 @@ import { LoanService } from 'src/app/core/services/loan.service';
   templateUrl: './loan-form.component.html',
   styleUrls: ['./loan-form.component.scss'],
 })
-export class LoanFormComponent  implements OnInit {
-  form:FormGroup;
+export class LoanFormComponent implements OnInit {
+  form: FormGroup;
   mode: 'New' | 'Edit' = 'New';
 
   @Input() set loan(_loan: Loan | null) {
@@ -27,8 +27,8 @@ export class LoanFormComponent  implements OnInit {
   constructor(
     private formModal: ModalController,
     private formBuilder: FormBuilder,
-    private loanService:LoanService,
-    private alertController:AlertController
+    private loanService: LoanService,
+    private alertController: AlertController
   ) {
     this.form = this.formBuilder.group({
       type: ['', Validators.required],
@@ -37,29 +37,25 @@ export class LoanFormComponent  implements OnInit {
       completed: [false],
       title: ['', Validators.required],
     });
-    this.form?.get('completed')?.valueChanges.subscribe(completed => {
-      if (completed) {
-        this.showConfirmPopup();
-      }
-    });
-    this.form?.get('amountPaid')?.valueChanges.subscribe(amountPaid => {
-      const amountTotal = this.form?.get('amountTotal')?.value;
-      if (amountPaid >= amountTotal) {
-        this.showConfirmPopup();
-      }
-    });
-}
+  }
 
   ngOnInit(
 
-  ) {}
+  ) { }
 
   onCancel() {
     this.formModal.dismiss(null, 'cancel')
   }
-  
+
   onSubmit() {
-    this.formModal.dismiss(this.form?.value, 'submit')
+    const amountPaid = this.form.get('amountPaid')?.value;
+    const amountTotal = this.form.get('amountTotal')?.value;
+    const completed = this.form.get('completed')?.value;
+    if ((amountPaid >= amountTotal && !completed) ||( completed && amountPaid < amountTotal)) {
+      this.showConfirmPopup();
+    } else {
+      this.formModal.dismiss(this.form.value, 'submit');
+    }
   }
 
   async showConfirmPopup() {
@@ -71,7 +67,7 @@ export class LoanFormComponent  implements OnInit {
           text: 'No',
           role: 'cancel',
           handler: () => {
-            this.form?.get('completed')?.setValue(false, {emitEvent: false});
+            this.form?.get('completed')?.setValue(false, { emitEvent: false });
           }
         },
         {
@@ -79,6 +75,7 @@ export class LoanFormComponent  implements OnInit {
           handler: () => {
             const amountTotal = this.form?.get('amountTotal')?.value;
             this.form?.get('amountPaid')?.setValue(amountTotal);
+            this.form?.get('completed')?.setValue(true);
             this.formModal.dismiss(this.form?.value, 'submit')
           }
         }
@@ -87,5 +84,5 @@ export class LoanFormComponent  implements OnInit {
 
     await alert.present();
   }
-  
+
 }

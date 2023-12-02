@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, asyncScheduler, lastValueFrom } from 'rxjs';
 import { Island } from '../interfaces/island';
 import { ApiService } from './api/api.service';
 import { map, tap } from 'rxjs/operators';
 import { DataService } from './api/strapi/data.service';
+import { AuthStrapiService } from './api/strapi/auth-strapi.service';
 
 
 @Injectable({
@@ -17,7 +18,8 @@ export class IslandService {
 
   constructor(
     private dataService: DataService,
-    private api: ApiService
+    private api: ApiService,
+    private authService:AuthStrapiService
   ) { }
 
   public getIsland(id: number) {
@@ -62,10 +64,15 @@ export class IslandService {
     );
   }
 
-  public addIsland(is: Island): Observable<Island> {
-    return this.dataService.post<Island>("islands", is).pipe(tap(_ => {
-      this.getAll().subscribe();
-    }))
+  public addIsland(is: Island){
+    return this.dataService.post<Island>("islands", is).subscribe({
+      next:async (data:Island)=>{
+        const id = {data: { island:data.id}}
+        console.log(id)
+        const user = await lastValueFrom(this.authService.me());
+        await lastValueFrom(this.api.put(`/extended-users/${user.extended_id}`, id))
+      } 
+    })
   }
 
   public deleteIsland(is: Island): Observable<Island> {

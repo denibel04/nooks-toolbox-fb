@@ -9,10 +9,7 @@
 <ion-content [fullscreen]="true">
   
     <div class="islands">
-      <app-island
-        *ngFor="let island of islandService.islands$ | async"
-        [island]="island"
-        (onEditClicked)="onEditClicked(island)">
+      <app-island *ngIf="_island" [island]="_island"  (onEditClicked)="onEditClicked(_island)">
       </app-island>
       
     </div>
