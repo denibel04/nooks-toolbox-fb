@@ -20,7 +20,6 @@ export class LoanService {
   ) { }
 
   public getAll() {
-  
     return this.api.get(this.path).pipe(
       map((response: any) => {
         return response.data.map((loanData: any) => {

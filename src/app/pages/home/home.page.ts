@@ -64,7 +64,9 @@ export class HomePage {
       switch (info.role) {
         case 'submit': {
           is.attributes.islandName = info.data.islandName
-          is.attributes.villagers = info.data.villagers
+          if (info.data.villagers) {
+            is.attributes.villagers = info.data.villagers
+          }
           this.islandService.updateIsland(is).subscribe();
         }
           break;
