@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
+import { lastValueFrom } from 'rxjs';
+import { Island } from 'src/app/core/interfaces/island';
 import { Loan } from 'src/app/core/interfaces/loan';
+import { AuthStrapiService } from 'src/app/core/services/api/strapi/auth-strapi.service';
+import { IslandService } from 'src/app/core/services/island.service';
 import { LoanService } from 'src/app/core/services/loan.service';
 import { LoanFormComponent } from 'src/app/shared/components/loan-form/loan-form.component';
 
@@ -12,14 +16,21 @@ import { LoanFormComponent } from 'src/app/shared/components/loan-form/loan-form
 })
 export class LoansPage implements OnInit {
 
+  _island: Island | null = null;
+
   constructor(
     public loanService: LoanService,
-    private modal: ModalController
+    private modal: ModalController,
+    private authService:AuthStrapiService,
+    private islandService:IslandService
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    const user = await lastValueFrom(this.authService.me());
+    this._island = await lastValueFrom(this.islandService.getIsland(user.island.data.id));
     this.loanService.getAll().subscribe()
-  }
+  };
+
 
   async presentForm(data: Loan | null, onDismiss: (result: any) => void) {
     const modal = await this.modal.create({

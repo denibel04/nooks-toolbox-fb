@@ -8,8 +8,8 @@
 
 <ion-content [fullscreen]="true">
   
-    <div class="islands">
-      <app-island *ngIf="_island" [island]="_island"  (onEditClicked)="onEditClicked(_island)">
+    <div class="islands" *ngIf="(islandService.islands$ | async) as island">
+      <app-island  [island]="island"  (onEditClicked)="onEditClicked(island)">
       </app-island>
       
     </div>

@@ -5,6 +5,7 @@ import { ApiService } from './api/api.service';
 import { map, tap } from 'rxjs/operators';
 import { DataService } from './api/strapi/data.service';
 import { AuthStrapiService } from './api/strapi/auth-strapi.service';
+import { User } from '../interfaces/user';
 
 
 @Injectable({
@@ -12,8 +13,8 @@ import { AuthStrapiService } from './api/strapi/auth-strapi.service';
 })
 export class IslandService {
 
-  private _islands: BehaviorSubject<Island[]> = new BehaviorSubject<Island[]>([]);
-  public islands$: Observable<Island[]> = this._islands.asObservable();
+  private _islands: BehaviorSubject<Island | null> = new BehaviorSubject<Island | null>(null);
+  public islands$: Observable<Island | null> = this._islands.asObservable();
   private path = "/islands"
 
   constructor(
@@ -21,6 +22,38 @@ export class IslandService {
     private api: ApiService,
     private authService:AuthStrapiService
   ) { }
+
+  public addIsland(is: Island): Observable<Island> {
+    return new Observable<Island>((observer) => {
+      this.dataService.post<Island>("islands", is).subscribe({
+        next: async (data: Island) => {
+          const id = {data: { island: data.id }};
+          console.log(id);
+          const user = await lastValueFrom(this.authService.me());
+          await lastValueFrom(this.api.put(`/extended-users/${user.extended_id}`, id));
+          this.getUserIsland().subscribe();
+          observer.next(data); 
+          observer.complete(); 
+        },
+      });
+    });
+  }
+
+  public getUserIsland(): Observable<Island> {
+    return new Observable<Island>((observer) => {
+      this.authService.me().subscribe({
+        next: (user: User) => {
+          this.getIsland(user.island.data.id).subscribe({
+            next: (island: Island) => {
+              this._islands.next(island); 
+              observer.next(island);
+              observer.complete();
+            }
+          });
+        }
+      });
+    });
+  }
 
   public getIsland(id: number) {
     const params = { 'populate': 'villagers' };
@@ -64,26 +97,15 @@ export class IslandService {
     );
   }
 
-  public addIsland(is: Island){
-    return this.dataService.post<Island>("islands", is).subscribe({
-      next:async (data:Island)=>{
-        const id = {data: { island:data.id}}
-        console.log(id)
-        const user = await lastValueFrom(this.authService.me());
-        await lastValueFrom(this.api.put(`/extended-users/${user.extended_id}`, id))
-      } 
-    })
-  }
-
   public deleteIsland(is: Island): Observable<Island> {
     return this.dataService.delete<any>(`islands/${is.id}`).pipe(tap(_ => {
-      this.getAll().subscribe();
+      this._islands.next(null);
     }))
   }
 
   public updateIsland(is: Island): Observable<Island> {
     return this.dataService.put<any>(`islands/${is.id}`, is.attributes).pipe(tap(_ => {
-      this.getAll().subscribe();
+      this.getUserIsland().subscribe();
     }))
   }
 }

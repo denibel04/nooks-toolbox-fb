@@ -14,19 +14,16 @@ import { IslandFormComponent } from 'src/app/shared/components/island-form/islan
 })
 export class HomePage {
 
-  public allVillagers = [];
   _island: Island | null = null;
 
   constructor(
     public islandService: IslandService,
     public authService:AuthStrapiService,
-    private router: Router,
     private modal: ModalController
   ) { }
 
-  async ngOnInit() {
-    const user = await lastValueFrom(this.authService.me());
-    this._island = await lastValueFrom(this.islandService.getIsland(user.island.data.id));
+  ngOnInit() {
+    this.islandService.getUserIsland().subscribe()
   };
 
 
@@ -47,10 +44,10 @@ export class HomePage {
 
 
   onNewIsland() {
-    var onDismiss = (info: any) => {
+    var onDismiss = async (info: any) => {
       switch (info.role) {
         case 'submit': {
-          this.islandService.addIsland(info.data);
+          this.islandService.addIsland(info.data).subscribe();
         }
           break;
         default: {
