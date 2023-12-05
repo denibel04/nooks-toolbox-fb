@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
-import { PaginatedVillagers, Villager } from '../interfaces/villager'; // Asegúrate de que el path es correcto
-import { environment } from 'src/environments/environment.prod';
+import { map } from 'rxjs/operators';
+import { PaginatedVillagers, Villager } from '../interfaces/villager'; 
 import { DataService } from './api/strapi/data.service';
 import { ApiService } from './api/api.service';
 

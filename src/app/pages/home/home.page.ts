@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
-import { lastValueFrom } from 'rxjs';
 import { Island } from 'src/app/core/interfaces/island';
 import { AuthStrapiService } from 'src/app/core/services/api/strapi/auth-strapi.service';
 import { IslandService } from 'src/app/core/services/island.service';
@@ -63,11 +61,11 @@ export class HomePage {
     var onDismiss = (info: any) => {
       switch (info.role) {
         case 'submit': {
-          is.attributes.islandName = info.data.islandName
-          if (info.data.villagers) {
-            is.attributes.villagers = info.data.villagers
-          }
-          this.islandService.updateIsland(is).subscribe();
+          // is.attributes.islandName = info.data.islandName
+          // if (info.data.villagers) {
+          //   is.attributes.villagers = info.data.villagers
+          // }
+          this.islandService.updateIsland(is, info).subscribe();
         }
           break;
         case 'delete': {

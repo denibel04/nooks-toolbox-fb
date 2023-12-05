@@ -5,6 +5,6 @@ export interface Loan {
         amountPaid:number,
         amountTotal:number,
         completed:boolean,
-        title:string
+        title:string,
     }
 }

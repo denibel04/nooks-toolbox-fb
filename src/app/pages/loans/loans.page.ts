@@ -28,7 +28,7 @@ export class LoansPage implements OnInit {
   async ngOnInit() {
     const user = await lastValueFrom(this.authService.me());
     this._island = await lastValueFrom(this.islandService.getIsland(user.island.data.id));
-    this.loanService.getAll().subscribe()
+    this.loanService.getUserLoans().subscribe()
   };
 
 

@@ -23,9 +23,21 @@ export class IslandService {
     private authService:AuthStrapiService
   ) { }
 
-  public addIsland(is: Island): Observable<Island> {
+  public addIsland(is: any): Observable<Island> {
+    let villagers = []
+    for (let i = 1; i <= 10; i++) {
+      if (is[`villager${i}`]) {
+        villagers.push({ id: is[`villager${i}`]});
+      }
+    }
+      const postdata = {
+          islandName: is.islandName,
+          villagers: villagers
+        
+      }
+      console.log("pd", postdata)
     return new Observable<Island>((observer) => {
-      this.dataService.post<Island>("islands", is).subscribe({
+      this.dataService.post<Island>("islands", postdata).subscribe({
         next: async (data: Island) => {
           const id = {data: { island: data.id }};
           console.log(id);
@@ -103,8 +115,23 @@ export class IslandService {
     }))
   }
 
-  public updateIsland(is: Island): Observable<Island> {
-    return this.dataService.put<any>(`islands/${is.id}`, is.attributes).pipe(tap(_ => {
+  public updateIsland(is: Island, info:any): Observable<Island> {
+    let villagers = []
+    for (let i = 1; i <= 10; i++) {
+      if (info.data[`villager${i}`]) {
+        if (typeof info.data[`villager${i}`] === 'object')
+          villagers.push({ id: info.data[`villager${i}`].id}); 
+        else
+        villagers.push({ id: info.data[`villager${i}`]});
+      }
+    }
+      const postdata = {
+          islandName: info.islandName,
+          villagers: villagers
+        
+      }
+      console.log(postdata)
+    return this.dataService.put<any>(`islands/${is.id}`, postdata).pipe(tap(_ => {
       this.getUserIsland().subscribe();
     }))
   }

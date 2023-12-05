@@ -16,13 +16,13 @@
 </ion-content>
 
 
-<ion-button
+<ion-button *ngIf="!islandService.islands$"  
 class="add"
 shape="round"
 aria-label="New Island"
 (click)="onNewIsland()"
 >
-<ion-icon
+<ion-icon 
   ion-icon
   slot="icon-only"
   color="white"

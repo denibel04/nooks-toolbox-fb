@@ -1,4 +1,4 @@
-<div id="popover-button" >
+<div [id]="'popover-button-'+num" >
   <ion-item [button]="!disabled" [detail]="!disabled">
     <ion-text slot="start" position="fixed">Villager:</ion-text>
     <ion-text *ngIf="!villagerSelected && !disabled">Select a villager</ion-text>
@@ -11,7 +11,7 @@
 </ion-item>
 </div>
 
-<ion-popover *ngIf="!disabled" trigger="popover-button" #popover (willPresent)="onLoadVillagers()">
+<ion-popover *ngIf="!disabled" [trigger]="'popover-button-'+num" #popover>
   <ng-template>
     <ion-content >
       <ion-list>

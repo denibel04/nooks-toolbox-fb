@@ -23,12 +23,13 @@ export const VILLAGER_SELECTABLE_VALUE_ACCESOR: any = {
 })
 export class VillagerSelectableComponent implements OnInit, ControlValueAccessor {
 
-  villagerSelected: Villager | undefined;
+  villagerSelected: Villager | undefined = undefined;
   disabled: boolean = true;
-  villagers: Villager[] = [];
   private island: Island | null = null;
 
   @Input() num: number =0;
+
+  @Input('villagers') villagers:Villager[] = [];
 
 
   propagateChange = (obj: any) => { }
@@ -40,13 +41,6 @@ export class VillagerSelectableComponent implements OnInit, ControlValueAccessor
   ) { }
 
   async ngOnInit() {
-    const user = await lastValueFrom(this.authService.me());
-    console.log(user)
-    this.island = await lastValueFrom(this.islandService.getIsland(user.island.data.id));
-    console.log(this.island?.attributes.villagers)
-    if (this.island?.attributes?.villagers && this.island.attributes.villagers[this.num] != null) {
-      this.selectVillager(this.island.attributes.villagers[this.num].id)
-    }
   }
 
 
@@ -56,23 +50,30 @@ export class VillagerSelectableComponent implements OnInit, ControlValueAccessor
   }
 
   private async loadVillagers(filter: string) {
+    
     console.log("filter", filter)
     const villagers = await lastValueFrom(this.villagerService.getFiltered(filter));
     console.log("paginated villagers",this.num, villagers);
     this.villagers = villagers;
+    
   }
 
   private async selectVillager(id: number | undefined, propagate: boolean = false) {
-    if (id) {
-      this.villagerSelected = await lastValueFrom(this.villagerService.getVillager(Number(id)));
+    if(propagate){
+      if (!id){
+        this.villagerSelected = undefined;
+        this.propagateChange(undefined);
+      }
+      else{
+        this.villagerSelected = this.villagers.find(v=>v.id==id);
+        this.propagateChange(this.villagerSelected!.id);
+      }
     }
-    else
-      this.villagerSelected = undefined;
-    if (propagate && this.villagerSelected)
-      this.propagateChange(this.villagerSelected.id);
+    
   }
 
-  writeValue(obj: any): void {
+  writeValue(obj: any): void { 
+    this.villagerSelected = obj;
   }
 
   registerOnChange(fn: any): void {
