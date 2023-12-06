@@ -6,6 +6,7 @@ import { map, tap } from 'rxjs/operators';
 import { DataService } from './api/strapi/data.service';
 import { AuthStrapiService } from './api/strapi/auth-strapi.service';
 import { User } from '../interfaces/user';
+import { LoanService } from './loan.service';
 
 
 @Injectable({

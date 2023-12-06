@@ -7,26 +7,14 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  
-    <div class="islands" *ngIf="(islandService.islands$ | async) as island">
-      <app-island  [island]="island"  (onEditClicked)="onEditClicked(island)">
-      </app-island>
-      
-    </div>
+
+  <div class="islands" *ngIf="(islandService.islands$ | async) as island">
+    <app-island [island]="island" (onEditClicked)="onEditClicked(island)">
+    </app-island>
+  </div>
 </ion-content>
 
 
-<ion-button *ngIf="!islandService.islands$"  
-class="add"
-shape="round"
-aria-label="New Island"
-(click)="onNewIsland()"
->
-<ion-icon 
-  ion-icon
-  slot="icon-only"
-  color="white"
-  name="add-outline"
-  aria-hidden="true"
-></ion-icon>
+<ion-button *ngIf="!is" class="add" shape="round" aria-label="New Island" (click)="onNewIsland()">
+  <ion-icon ion-icon slot="icon-only" color="white" name="add-outline" aria-hidden="true"></ion-icon>
 </ion-button>

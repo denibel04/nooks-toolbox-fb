@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ModalController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { lastValueFrom } from 'rxjs';
 import { Island } from 'src/app/core/interfaces/island';
 import { Villager } from 'src/app/core/interfaces/villager';
@@ -40,7 +40,8 @@ export class IslandFormComponent implements OnInit {
   constructor(
     private formModal: ModalController,
     private formBuilder: FormBuilder,
-    private villagerService:VillagerService
+    private villagerService:VillagerService,
+    private alertController: AlertController
   ) {
     this.form = this.formBuilder.group({
       islandName: ['', [Validators.required]],
@@ -70,8 +71,30 @@ export class IslandFormComponent implements OnInit {
     this.formModal.dismiss(this.form.value, 'submit')
   }
 
-  onDelete() {
-    this.formModal.dismiss(this.form.value, 'delete')
+  async onDelete() {
+    const alert = await this.alertController.create({
+      mode: 'ios',
+      header: '¿Estás seguro?',
+      message: 'Al eliminar esta isla se eliminarán todas las deudas relacionadas.',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Ok',
+          handler: () => {
+            this.formModal.dismiss(this.form.value, 'delete'); 
+          }
+        }
+      ]
+  
+    });
+
+    await alert.present();
   }
 
   onVillagerSelect(event: Event) {

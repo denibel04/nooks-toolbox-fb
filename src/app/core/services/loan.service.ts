@@ -87,6 +87,14 @@ export class LoanService {
     }))
   }
 
+  public async deleteLoansOnCascade(is:Island) {
+    const loans:Loan[] = await lastValueFrom(this.getUserLoans()) 
+    for (let loan of loans) {
+      this.deleteLoan(loan).subscribe()
+    }
+    this.islandService.deleteIsland(is).subscribe();
+  }
+
   public updateLoan(loan:Loan):Observable<Loan> {
     return this.dataService.put<any>(`loans/${loan.id}`, loan.attributes).pipe(tap(_=>{
       this.getAll().subscribe();
