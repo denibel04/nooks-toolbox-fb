@@ -13,9 +13,16 @@ export class LoanComponent  implements OnInit {
 
   @Input() loan:Loan | null = null;
 
+  percentage:number =0
+  
+
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (this?.loan?.attributes && this.loan.attributes.amountTotal !== 0) {
+      this.percentage = (this.loan.attributes.amountPaid / this.loan.attributes.amountTotal) * 100;
+    }
+  }
 
   onEditClick(event:any) {
     event.stopPropagation();
@@ -27,6 +34,13 @@ export class LoanComponent  implements OnInit {
   onDeleteClick(event:any) {
     event.stopPropagation();
     this.onDeleteClicked.emit();
+  }
+
+  getProgressPercentage():number {
+    if (!this.loan) {
+      return 0; 
+    }
+    return (this.loan.attributes.amountPaid / this.loan.attributes.amountTotal) * 100;
   }
 
   

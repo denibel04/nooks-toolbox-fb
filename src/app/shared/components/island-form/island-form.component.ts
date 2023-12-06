@@ -17,7 +17,7 @@ export class IslandFormComponent implements OnInit {
   villagers:Villager[] = [];
   _island: Island | null = null
   mode: 'New' | 'Edit' = 'New';
-  numbers = [0,1,2,3,4,5,6,7,8,9];
+  numbers = [1,2,3,4,5,6,7,8,9,10];
 
   @Input() set island(_island: Island | null) {
     if (_island) {

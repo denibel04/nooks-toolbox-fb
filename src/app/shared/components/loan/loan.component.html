@@ -1,5 +1,7 @@
 <ion-card >
-  <div class="progress-bar"></div>
+  <div class="progrss-container">
+    <div class="progress-bar"  [appProgress]="(loan!.attributes!.amountPaid / loan!.attributes!.amountTotal) * 100"></div>
+  </div>
   <ion-card-content class="loan-card">
     <div style="display: flex; flex-direction: column; margin: 10px; align-items: center">
       <div class="ion-margin-start">

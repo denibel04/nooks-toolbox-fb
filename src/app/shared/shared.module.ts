@@ -12,12 +12,14 @@ import { VillagerSelectableComponent } from './components/villager-selectable/vi
 import { LoanComponent } from './components/loan/loan.component';
 import { LoanFormComponent } from './components/loan-form/loan-form.component';
 import { LoanCompletedPipe } from './pipes/loan-completed.pipe';
+import { ProgressDirective } from './directives/progress.directive';
 
 
 
 @NgModule({
   declarations: [
     // directives
+    ProgressDirective,
     // pipes
     LoanCompletedPipe,
     // components
@@ -30,7 +32,8 @@ import { LoanCompletedPipe } from './pipes/loan-completed.pipe';
     VillagerSelectableComponent,
     LoanComponent,
     LoanFormComponent,
-    LoanCompletedPipe
+    LoanCompletedPipe,
+    ProgressDirective
 
   ],
   imports: [
@@ -54,7 +57,9 @@ import { LoanCompletedPipe } from './pipes/loan-completed.pipe';
     LoanComponent,
     LoanFormComponent,
     // pipe
-    LoanCompletedPipe
+    LoanCompletedPipe,
+    // directive
+    ProgressDirective
   ]
 })
 export class SharedModule { }

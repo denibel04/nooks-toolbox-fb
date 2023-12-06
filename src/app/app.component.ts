@@ -38,16 +38,4 @@ export class AppComponent {
       this.user = undefined;
     });
   }
-
-  goToLoans() {
-    this.router.navigate(['/loans']);
-  }
-
-  goToVillagers() {
-    this.router.navigate(['/villagers']);
-  }
-
-  goToHome() {
-    this.router.navigate(['/home']);
-  }
 }
