@@ -12,31 +12,31 @@
   <form [formGroup]="form" (ngSubmit)="onSubmit()" (keyup.enter)="onSubmit()">
 
     <ion-item *ngIf="mode=='New'">
-      <ion-label position="floating">Loan title</ion-label>
+      <ion-label position="floating">{{ 'loans.title' | translate}}</ion-label>
       <ion-input aria-label="title" formControlName="title" type="string"></ion-input>
     </ion-item>
 
     <ion-item *ngIf="mode=='New'">
-      <ion-label position="floating">Loan Type</ion-label>
-      <ion-select aria-label="type" formControlName="type" interface="popover" placeholder="Select One">
-        <ion-select-option value="house">House</ion-select-option>
-        <ion-select-option value="incline">Incline</ion-select-option>
-        <ion-select-option value="bridge">Bridge</ion-select-option>
+      <ion-label position="floating">{{ 'loans.typeTitle' | translate}}</ion-label>
+      <ion-select aria-label="type" formControlName="type" interface="popover" [placeholder]="'loans.placeHolder' | translate">
+        <ion-select-option value="house">{{ 'loans.type.house' | translate}}</ion-select-option>
+        <ion-select-option value="incline">{{ 'loans.type.incline' | translate}}</ion-select-option>
+        <ion-select-option value="bridge">{{ 'loans.type.bridge' | translate}}</ion-select-option>
       </ion-select>
     </ion-item>
 
     <ion-item>
-      <ion-label position="floating">Amount Paid</ion-label>
+      <ion-label position="floating">{{ 'loans.amountPaid' | translate}}</ion-label>
       <ion-input aria-label="amountPaid" formControlName="amountPaid" type="number"></ion-input>
     </ion-item>
 
     <ion-item *ngIf="mode=='New'">
-      <ion-label position="floating">Total Amount</ion-label>
+      <ion-label position="floating">{{ 'loans.amountTotal' | translate}}</ion-label>
       <ion-input aria-label="amountTotal" formControlName="amountTotal" type="number"></ion-input>
     </ion-item>
 
     <ion-item >
-      <ion-toggle aria-label="completed" formControlName="completed" labelPlacement="stacked" alignment="start">Complete payment</ion-toggle>
+      <ion-toggle aria-label="completed" formControlName="completed" labelPlacement="stacked" alignment="start">{{ 'loans.complete' | translate}}</ion-toggle>
     </ion-item>
   </form>
 </ion-content>
@@ -48,6 +48,5 @@
     expand="full"
     (click)="onSubmit()"
   >
-    Create Loan
-  </ion-button>
+  {{ 'loans.submit' | translate}}  </ion-button>
 </ion-footer>

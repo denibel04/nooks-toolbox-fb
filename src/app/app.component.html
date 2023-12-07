@@ -4,9 +4,9 @@
   <ion-header *ngIf="showNavbar">
     <ion-toolbar>
       <ion-buttons slot="end">
-        <a routerLink="/home" routerLinkActive="active-link" class="link-text">Home</a>
-        <a routerLink="/loans" routerLinkActive="active-link" class="link-text">Loans</a>
-        <a routerLink="/villagers" routerLinkActive="active-link" class="link-text">Villagers</a>
+        <a routerLink="/home" routerLinkActive="active-link" class="link-text">{{ 'menu.home' | translate}}</a>
+        <a routerLink="/loans" routerLinkActive="active-link" class="link-text">{{ 'menu.loans' | translate}}</a>
+        <a routerLink="/villagers" routerLinkActive="active-link" class="link-text">{{ 'menu.villagers' | translate}}</a>
         <ion-button (click)="onSignOut()">
           <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
         </ion-button>

@@ -22,7 +22,7 @@ aria-label="New Loan"
 <ion-content class="ion-padding">
 
   <div class="loans">
-    <h1> no completed </h1>
+    <h1> {{'loans.noCompleted' | translate}} </h1>
     <app-loan
       *ngFor="let loan of (loanService.loans$ | async) || [] | loanCompleted:false"
       [loan]="loan"
@@ -33,7 +33,7 @@ aria-label="New Loan"
   </div>
 
   <div class="loans_completed">
-    <h1> completed </h1>
+    <h1> {{'loans.completed' | translate}} </h1>
     <app-loan
       *ngFor="let loan of (loanService.loans$ | async) || [] | loanCompleted:true"
       [loan]="loan"

@@ -16,6 +16,8 @@ import { StrapiDataService } from './core/services/api/strapi/strapi-data.servic
 import { SharedModule } from './shared/shared.module';
 import { AuthService } from './core/services/api/strapi/auth.service';
 import { AuthStrapiService } from './core/services/api/strapi/auth-strapi.service';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { createTranslateLoader } from './core/services/custom-translate.service';
 
 
 export function httpProviderFactory(
@@ -36,7 +38,13 @@ export function AuthServiceFactory(
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, SharedModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, SharedModule, TranslateModule.forRoot({
+    loader: {
+      provide: TranslateLoader,
+      useFactory: (createTranslateLoader),
+      deps: [HttpClient]
+    }
+  }),],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {

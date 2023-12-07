@@ -2,31 +2,37 @@
     "main":{
         "home":"Inicio"
     },
-    "login":{
-        "user":"Usuario",
-        "pwd":"Contraseña",
-        "noAccount":"¿Necesitas una cuenta?",
-        "submit":"Acceder"
-    },
-    "user-card":{
-        "name":"Nombre"
-    },
-    "header":{
-        "user":{
-            "profile":"Mi perfil",
-            "signout":"Cerrar sesión"
-        },
-        "languages":{
-            "es":"Español",
-            "en":"Inglés"
-        }
-    },
     "menu":{
         "home":"Inicio",
-        "tasks":"Tareas",
-        "assignments":"Asignaciones",
-        "signout":"Cerrar sesión",
-        "profile":"Mi perfil",
-        "about":"Acerca de Tasks"
+        "loans":"Mis deudas",
+        "villagers":"Vecinos",
+        "about":"Quien soy"
+    },
+    "island":{
+        "name":"Nombre de la isla",
+        "villagers":"Vecinos"
+    },
+    "loans":{
+        "noCompleted":"Por pagar",
+        "completed":"Pagadas",
+        "title":"Título",
+        "amountPaid":"Cantidad pagada",
+        "amountTotal":"Cantidad a pagar",
+        "complete":"Completar el pago",
+        "edit":"Editar deuda",
+        "create":"Nueva deuda",
+        "submit":"Listo",
+        "typeTitle":"Seleccionar tipo",
+        "type":{
+            "house":"Casa",
+            "incline":"Rampa",
+            "bridge":"Puente"
+        },
+        "confirm":{
+            "header":"Confirmar pago",
+            "message":"¿Quieres pagar el total de la deuda?",
+            "cancel":"Cancelar"
+        },
+        "placeHolder":"Click aquí para seleccionar"
     }
 }

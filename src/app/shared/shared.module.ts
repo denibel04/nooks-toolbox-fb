@@ -13,6 +13,9 @@ import { LoanComponent } from './components/loan/loan.component';
 import { LoanFormComponent } from './components/loan-form/loan-form.component';
 import { LoanCompletedPipe } from './pipes/loan-completed.pipe';
 import { ProgressDirective } from './directives/progress.directive';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { createTranslateLoader } from '../core/services/custom-translate.service';
+import { HttpClient } from '@angular/common/http';
 
 
 
@@ -40,7 +43,14 @@ import { ProgressDirective } from './directives/progress.directive';
     CommonModule,
     IonicModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TranslateModule.forChild({
+      loader: {
+      provide: TranslateLoader,
+      useFactory: (createTranslateLoader),
+      deps: [HttpClient]
+      }
+      }),
   ],
   exports: [
     CommonModule,
@@ -56,6 +66,7 @@ import { ProgressDirective } from './directives/progress.directive';
     VillagerSelectableComponent,
     LoanComponent,
     LoanFormComponent,
+    TranslateModule,
     // pipe
     LoanCompletedPipe,
     // directive

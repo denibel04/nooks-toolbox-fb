@@ -3,6 +3,7 @@ import { User } from './core/interfaces/user';
 import { AuthService } from './core/services/api/strapi/auth.service';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
+import { CustomTranslateService } from './core/services/custom-translate.service';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,8 @@ export class AppComponent {
   user:User|undefined = undefined;
   constructor(
     public auth:AuthService,
-    private router:Router
+    private router:Router,
+    public translate:CustomTranslateService
   ) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
@@ -30,6 +32,7 @@ export class AppComponent {
         });
       }
     });
+    this.translate.use(this.lang);
   }
 
   onSignOut(){
@@ -37,5 +40,13 @@ export class AppComponent {
       this.router.navigate(['/login']);
       this.user = undefined;
     });
+  }
+
+  
+  onLang(lang:string){
+    this.lang = lang;
+    this.translate.use(this.lang);
+    return false;    
+  
   }
 }
