@@ -1,8 +1,7 @@
 <ion-app>
   <ion-router-outlet></ion-router-outlet>
-
-  <ion-header *ngIf="showNavbar">
-    <ion-toolbar>
+<div class="navbar">
+<ion-toolbar *ngIf="showNavbar">
       <ion-buttons slot="end">
         <a routerLink="/home" routerLinkActive="active-link" class="link-text">{{ 'menu.home' | translate}}</a>
         <a routerLink="/loans" routerLinkActive="active-link" class="link-text">{{ 'menu.loans' | translate}}</a>
@@ -12,5 +11,6 @@
         </ion-button>
       </ion-buttons>
     </ion-toolbar>
-  </ion-header>
+</div>
+    
 </ion-app>

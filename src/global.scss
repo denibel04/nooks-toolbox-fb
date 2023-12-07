@@ -25,6 +25,7 @@
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
+
 .active-link {
     color: var(--ion-color-primary) !important; 
   }
@@ -42,4 +43,14 @@
     width: 0%;
     transition: width 0.5s ease-in-out;
     border-radius: 20px;
+  }
+
+  [appParallax] {
+    background-image: url('/path-to-your-image.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    /* Altura suficiente para que el efecto sea visible */
+    height: 500px;
+    overflow: hidden;
   }

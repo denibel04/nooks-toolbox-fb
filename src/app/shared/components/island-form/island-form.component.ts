@@ -68,6 +68,7 @@ export class IslandFormComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.form.value)
     this.formModal.dismiss(this.form.value, 'submit')
   }
 
@@ -95,11 +96,6 @@ export class IslandFormComponent implements OnInit {
     });
 
     await alert.present();
-  }
-
-  onVillagerSelect(event: Event) {
-    event.preventDefault();
-    event.stopPropagation();
   }
 
 

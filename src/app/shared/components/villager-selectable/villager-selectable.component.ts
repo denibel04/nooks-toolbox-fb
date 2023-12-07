@@ -73,6 +73,7 @@ export class VillagerSelectableComponent implements OnInit, ControlValueAccessor
   }
 
   writeValue(obj: any): void { 
+    console.log("writevalue", this.num, obj)
     this.villagerSelected = obj;
   }
 

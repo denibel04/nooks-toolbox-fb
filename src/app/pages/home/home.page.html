@@ -1,14 +1,13 @@
-<ion-header [translucent]="true">
+
+<ion-header translucent="true">
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-title>home</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
 
-  <div class="hero"></div>
+  <div appParallax  class="hero"></div>
 
   <div class="content">
     <div class="islands" *ngIf="(islandService.islands$ | async) as island">
@@ -22,5 +21,3 @@
 
 
 </ion-content>
-
-

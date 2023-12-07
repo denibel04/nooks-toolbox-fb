@@ -22,7 +22,7 @@
     </ion-item>
     <ng-container *ngFor="let num of numbers; let i = index">
     <ion-item >
-      <app-villager-selectable (click)="onVillagerSelect($event)" label="villagers" [formControlName]="'villager'+(i+1)" [villagers]="villagers" [num]="i+1"></app-villager-selectable>
+      <app-villager-selectable  label="villagers" [formControlName]="'villager'+(i+1)" [villagers]="villagers" [num]="i+1"></app-villager-selectable>
     </ion-item>
   </ng-container>
   </form>

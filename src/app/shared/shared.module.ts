@@ -36,7 +36,7 @@ import { HttpClient } from '@angular/common/http';
     LoanComponent,
     LoanFormComponent,
     LoanCompletedPipe,
-    ProgressDirective
+    ProgressDirective,
 
   ],
   imports: [
