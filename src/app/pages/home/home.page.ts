@@ -19,13 +19,14 @@ export class HomePage {
     public islandService: IslandService,
     public authService:AuthStrapiService,
     private modal: ModalController,
-    private loanService:LoanService
+    public loanService:LoanService
   ) { }
 
   ngOnInit() {
     this.islandService.getUserIsland().subscribe(is=>{
       this.is = !!is;
     })
+    this.loanService.getUserLoans().subscribe()
   };
 
 

@@ -1,4 +1,3 @@
-
 <ion-header translucent="true">
   <ion-toolbar>
     <ion-title>home</ion-title>
@@ -7,9 +6,16 @@
 
 <ion-content [fullscreen]="true">
 
-  <div appParallax  class="hero"></div>
+  <div class="hero"></div>
 
   <div class="content">
+
+    <div class="loans">
+      <app-loan class="loan" *ngFor="let loan of (loanService.loans$ | async) || [] | loanCompleted:false | latestThree"
+        [loan]="loan">
+      </app-loan>
+    </div>
+
     <div class="islands" *ngIf="(islandService.islands$ | async) as island">
       <app-island [island]="island" (onEditClicked)="onEditClicked(island)">
       </app-island>

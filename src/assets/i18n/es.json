@@ -2,6 +2,9 @@
     "main":{
         "home":"Inicio"
     },
+    "home":{
+        "edit":"Editar"
+    },
     "menu":{
         "home":"Inicio",
         "loans":"Mis deudas",

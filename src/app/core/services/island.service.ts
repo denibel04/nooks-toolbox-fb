@@ -127,11 +127,10 @@ export class IslandService {
       }
     }
       const postdata = {
-          islandName: info.islandName,
+          islandName: info.data.islandName,
           villagers: villagers
         
       }
-      console.log(postdata)
     return this.dataService.put<any>(`islands/${is.id}`, postdata).pipe(tap(_ => {
       this.getUserIsland().subscribe();
     }))

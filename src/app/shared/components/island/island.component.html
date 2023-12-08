@@ -1,20 +1,28 @@
-<ion-card>
-  <ion-toolbar color="1c1c1d">
-    <ion-buttons slot="end">
-      <ion-button color="primary" fill="clear" (click)="onEditClick($event)">
-        <ion-icon slot="icon-only" name="pencil-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-  <ion-card-content class="island-card">
-    <div style="display: flex; flex-direction: column; margin: 10px; align-items: center">
-      <div class="ion-margin-start">
-        <h1>{{ island?.attributes?.islandName | titlecase }}</h1>
-        
+<ion-button class="edit" color="primary" (click)="onEditClick($event)">
+  {{ "home.edit" | translate }}
+  <ion-icon slot="end" name="pencil-outline"></ion-icon>
+</ion-button>
 
-        <ion-item *ngFor="let villager of island?.attributes?.villagers">
-          {{ villager?.attributes?.name}} {{ villager?.id}}
-        </ion-item>
+<ion-card>
+  <ion-card-header>
+    <div class="header">
+      <h1>{{ island?.attributes?.islandName | titlecase }}</h1>
+    </div>
+  </ion-card-header>
+
+  <ion-card-content class="island-card">
+    <div class="villagers">
+      <div class ="villager" *ngFor="let villager of getVillagersSlots()">
+        <ion-avatar shape="round " slot="start">
+          <ion-img
+            *ngIf="villager?.attributes?.image_url"
+            [src]="villager?.attributes?.image_url"
+          ></ion-img>
+          <ion-icon
+            *ngIf="!villager?.attributes?.image_url"
+            name="paw-outline"
+          ></ion-icon>
+        </ion-avatar>
       </div>
     </div>
   </ion-card-content>

@@ -16,6 +16,7 @@ import { ProgressDirective } from './directives/progress.directive';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { createTranslateLoader } from '../core/services/custom-translate.service';
 import { HttpClient } from '@angular/common/http';
+import { LatestThreePipe } from './pipes/latest-three.pipe';
 
 
 
@@ -25,6 +26,7 @@ import { HttpClient } from '@angular/common/http';
     ProgressDirective,
     // pipes
     LoanCompletedPipe,
+    LatestThreePipe,
     // components
     VillagerComponent,
     IslandComponent,
@@ -37,6 +39,7 @@ import { HttpClient } from '@angular/common/http';
     LoanFormComponent,
     LoanCompletedPipe,
     ProgressDirective,
+    LatestThreePipe,
 
   ],
   imports: [
@@ -69,6 +72,7 @@ import { HttpClient } from '@angular/common/http';
     TranslateModule,
     // pipe
     LoanCompletedPipe,
+    LatestThreePipe,
     // directive
     ProgressDirective
   ]

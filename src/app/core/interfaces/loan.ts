@@ -6,5 +6,6 @@ export interface Loan {
         amountTotal:number,
         completed:boolean,
         title:string,
+        createdAt:Date
     }
 }

@@ -1,0 +1,95 @@
+ion-button  {
+    --border-radius: 15px;
+}
+
+.edit {
+    position: absolute;
+    width: 8rem;
+    height: 2.5rem;
+    top: 1.8rem;
+    right: 8rem;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+ion-card {
+    border-radius: 25px;
+    background-color: var(--ion-color-secondary);
+}
+
+ion-card-content {
+    background-color: transparent !important;
+}
+
+
+.island-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: visible;
+    height: 50vh;
+}
+
+.header {
+    display: flex;
+    flex: 0 0 40% 0;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: 1rem;
+    padding: 1rem 1rem 0.5rem 1rem;
+    border-bottom: 1.5px solid #ffffff2d;
+    color: var(--ion-background-color);
+}
+
+.villagers {
+    display: flex;
+    flex-flow: row wrap;
+    position: relative;
+    align-items: center;
+    justify-content: stretch;
+    flex: 0 0 60% 0;
+    width: 100%;
+    padding: 10px;
+}
+
+
+.villager {
+    flex: 0 0 20%;
+    padding: 10px;
+}
+
+
+ion-avatar {
+    width:10vw; 
+    height:10vw; 
+    max-width: 6rem; 
+    max-height: 6rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1.5px solid #ffffff2d;
+}
+
+ion-avatar ion-img {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+}
+
+ion-avatar ion-icon {
+    color: var(--ion-background-color);
+    font-size: 3vw;
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+}
+
+
+
