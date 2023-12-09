@@ -1,7 +1,7 @@
 .link-text {
     padding: 10px;
     text-decoration: none;
-    color: inherit;
+    color: var(--ion-background-color);
     cursor: pointer;
 }
 
@@ -12,4 +12,8 @@
 
 .navbar {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);;
+}
+
+ion-button {
+    color:  var(--ion-background-color);
 }

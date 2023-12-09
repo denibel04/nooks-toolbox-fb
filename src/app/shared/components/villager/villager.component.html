@@ -1,11 +1,19 @@
-<ion-card >
+<ion-card>
   <ion-card-content class="villager-card">
-    <div style="display: flex; flex-direction: column; margin: 10px; align-items: center">
-      <ion-avatar >
-        <img alt="villager photo" src="{{ villager?.image_url }}" />
-      </ion-avatar>
-      <div class="ion-margin-start">
-        <h1>{{ villager?.name | titlecase }} </h1> <h3>{{ villager?.personality }}</h3>
+    <div class="villager-image-container">
+      <img alt="villager photo" src="{{ villager?.image_url }}" />
+    </div>
+    <div class="villager-info">
+      <div class="villager-species">
+        <h3>{{ 'villagers.species.' +  villager?.species| translate}}</h3>
+        <ion-icon [name]="villager?.gender === 'Female' ? 'female-sharp' : 'male-sharp'"
+          [color]="villager?.gender === 'Female' ? 'tertiary' : 'primary'">
+        </ion-icon>
+      </div>
+      <div class="info">
+        <h1><b>{{ villager?.name | titlecase }}</b></h1>
+        <h3><b>{{'villagers.personality' | translate}}:</b> {{ 'villagers.personalities.' + villager?.personality | translate }}</h3>
+        <p><b>{{'villagers.birthday' | translate}}: </b>{{ 'villagers.months.' + villager?.birthday_month | translate }} {{ villager?.birthday_day }}</p>
       </div>
     </div>
   </ion-card-content>

@@ -1,22 +1,33 @@
-<ion-card >
-  <div class="progrss-container">
-    <div class="progress-bar"  [appProgress]="(loan!.attributes!.amountPaid / loan!.attributes!.amountTotal) * 100"></div>
-  </div>
+<ion-card>
+  <ion-card-header>
+    <ion-toolbar>
+      <ion-buttons slot="end">
+        <ion-button  *ngIf="!loan?.attributes?.completed" shape="round" color="secondary" fill="clear" 
+          (click)="onEditClick($event)">
+          <ion-icon  slot="icon-only" name="cash-outline"></ion-icon>
+        </ion-button>
+        <ion-button shape="round" color="secondary" fill="clear"  (click)="onDeleteClick($event)">
+          <ion-icon slot="icon-only"   name="close-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-card-header>
   <ion-card-content class="loan-card">
-    <div style="display: flex; flex-direction: column; margin: 10px; align-items: center">
-      <div class="ion-margin-start">
-        <h1>{{ loan?.id}} {{  loan?.attributes?.title | titlecase }} </h1> 
-        <h3>Type  {{ loan?.attributes?.type }}</h3>
-        <h3>amountPaid {{ loan?.attributes?.amountPaid }}</h3>
-        <h3>amountTotal {{ loan?.attributes?.amountTotal }}</h3>
-        <h3>completed {{ loan?.attributes?.completed }}</h3>
+    <div class="text">
+      <h1>{{ loan?.attributes?.title | titlecase }}</h1>
+      <h3>{{ 'loans.type.' + loan!.attributes!.type | translate | titlecase }}</h3>
+    </div>
+    <ion-row>
+      <h2>
+        {{ loan!.attributes!.amountPaid }} /
+        {{ loan!.attributes!.amountTotal }} {{ "loans.bells" | translate }}
+      </h2>
+    </ion-row>
+    <div class="progress-container">
+      <div class="progress-bar" [appProgress]="
+          (loan!.attributes!.amountPaid / loan!.attributes!.amountTotal) * 100">
+        <p>{{ (loan!.attributes!.amountPaid / loan!.attributes!.amountTotal) * 100 | number:'1.0-0' }}%</p>
       </div>
     </div>
   </ion-card-content>
-  <ion-button *ngIf="!loan?.attributes?.completed" shape="round" color="primary" fill="clear" (click)="onEditClick($event)">
-    <ion-icon slot="icon-only" name="add-outline"></ion-icon>
-  </ion-button>
-  <ion-button color="primary" fill="clear" (click)="onDeleteClick($event)">
-    <ion-icon slot="icon-only" name="trash-outline" ></ion-icon>
-  </ion-button>
 </ion-card>

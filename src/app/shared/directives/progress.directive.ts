@@ -5,13 +5,14 @@ import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 })
 export class ProgressDirective {
   
+  private min_width = 7
 
   @Input('appProgress') set progress(value: number) {
-    console.log("directive", typeof value)
+    const width= Math.max(value, this.min_width);
     this.renderer.setStyle(
       this.el.nativeElement,
       'width',
-      `${value}%` 
+      `${width}%` 
     );
   }
 

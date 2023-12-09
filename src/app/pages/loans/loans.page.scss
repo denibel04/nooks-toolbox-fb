@@ -1,3 +1,20 @@
+.loans {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center; 
+    gap: 2rem; 
+    padding: 0; 
+}
+
+.loan {
+    display: flex;
+    flex-basis: 45%; 
+    background-color: pink;
+    margin: 0;
+    padding: 0; 
+    border-radius: 20px;
+}
+
 
 .add {
     border-radius: 50%;
@@ -5,6 +22,26 @@
     bottom: 1rem; 
     right: 3rem; 
     height: 75px; 
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.377); 
-    z-index: 100;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.377); 
+    z-index: 10;
+}
+
+
+.title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--custom-dark-color);
+    padding: 1rem 2rem 1rem 2rem ;
+}
+
+.title h1 {
+    padding: 15px;
+}
+
+.title hr {
+    border: none;
+    height: 1.5px;
+    background-color: rgba(83, 77, 77, 0.233);
+    flex: 1;
 }

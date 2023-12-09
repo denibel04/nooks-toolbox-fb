@@ -17,9 +17,8 @@
     </ion-item>
 
     <ion-item *ngIf="mode=='New'">
-      <ion-label position="floating">{{ 'loans.typeTitle' | translate}}</ion-label>
-      <ion-select aria-label="type" formControlName="type" interface="popover" [placeholder]="'loans.placeHolder' | translate">
-        <ion-select-option value="house">{{ 'loans.type.house' | translate}}</ion-select-option>
+      <ion-select label="{{'loans.typeTitle' | translate}}" label-placement="floating" aria-label="type" formControlName="type" interface="popover">
+        <ion-select-option color="secondary" value="house">{{ 'loans.type.house' | translate}}</ion-select-option>
         <ion-select-option value="incline">{{ 'loans.type.incline' | translate}}</ion-select-option>
         <ion-select-option value="bridge">{{ 'loans.type.bridge' | translate}}</ion-select-option>
       </ion-select>

@@ -1,41 +1,107 @@
 {
-    "main":{
-        "home":"Inicio"
+    "main": {
+        "home": "Inicio"
     },
-    "home":{
-        "edit":"Editar"
+    "home": {
+        "edit": "Editar"
     },
-    "menu":{
-        "home":"Inicio",
-        "loans":"Mis deudas",
-        "villagers":"Vecinos",
-        "about":"Quien soy"
+    "menu": {
+        "home": "Inicio",
+        "loans": "Mis deudas",
+        "villagers": "Vecinos",
+        "about": "Quien soy"
     },
-    "island":{
-        "name":"Nombre de la isla",
-        "villagers":"Vecinos"
+    "island": {
+        "name": "Nombre de la isla",
+        "villagers": "Vecinos"
     },
-    "loans":{
-        "noCompleted":"Por pagar",
-        "completed":"Pagadas",
-        "title":"Título",
-        "amountPaid":"Cantidad pagada",
-        "amountTotal":"Cantidad a pagar",
-        "complete":"Completar el pago",
-        "edit":"Editar deuda",
-        "create":"Nueva deuda",
-        "submit":"Listo",
-        "typeTitle":"Seleccionar tipo",
-        "type":{
-            "house":"Casa",
-            "incline":"Rampa",
-            "bridge":"Puente"
+    "loans": {
+        "noCompleted": "Por pagar",
+        "completed": "Pagadas",
+        "title": "Título",
+        "amountPaid": "Cantidad pagada",
+        "amountTotal": "Cantidad a pagar",
+        "complete": "Completar el pago",
+        "edit": "Editar deuda",
+        "create": "Nueva deuda",
+        "submit": "Listo",
+        "typeTitle": "Seleccionar tipo",
+        "type": {
+            "house": "Casa",
+            "incline": "Rampa",
+            "bridge": "Puente"
         },
-        "confirm":{
-            "header":"Confirmar pago",
-            "message":"¿Quieres pagar el total de la deuda?",
-            "cancel":"Cancelar"
+        "confirm": {
+            "header": "Confirmar pago",
+            "message": "¿Quieres pagar el total de la deuda?",
+            "cancel": "Cancelar"
         },
-        "placeHolder":"Click aquí para seleccionar"
+        "placeHolder": "Click aquí para seleccionar",
+        "bells": "bayas pagadas"
+    },
+    "villagers": {
+        "personality": "Personalidad",
+        "personalities": {
+            "Lazy": "Perezoso",
+            "Jock": "Atlético",
+            "Cranky": "Gruñón",
+            "Smug": "Esnob",
+            "Normal": "Normal",
+            "Peppy": "Alegre ",
+            "Snooty": "Presumida",
+            "Big sister": "Dulce"
+        },
+        "species": {
+            "Alligator": "Caimán",
+            "Anteater": "Oso hormiguero",
+            "Bear": "Oso",
+            "Bird": "Pájaro",
+            "Bull": "Toro",
+            "Cat": "Gato",
+            "Chicken": "Pollo",
+            "Cow": "Vaca",
+            "Bear cub": "Osito",
+            "Deer": "Ciervo",
+            "Dog": "Perro",
+            "Duck": "Pato",
+            "Eagle": "Águila",
+            "Elephant": "Elefante",
+            "Frog": "Rana",
+            "Goat": "Cabra",
+            "Gorilla": "Gorila",
+            "Hamster": "Hámster",
+            "Hippo": "Hipopótamo",
+            "Horse": "Caballo",
+            "Kangaroo": "Canguro",
+            "Koala": "Koala",
+            "Lion": "León",
+            "Monkey": "Mono",
+            "Mouse": "Ratón",
+            "Octopus": "Pulpo",
+            "Ostrich": "Avestruz",
+            "Penguin": "Pingüino",
+            "Pig": "Cerdo",
+            "Rabbit": "Conejo",
+            "Rhinoceros": "Rinoceronte",
+            "Sheep": "Oveja",
+            "Squirrel": "Ardilla",
+            "Tiger": "Tigre",
+            "Wolf": "Lobo"
+        },
+        "birthday": "Cumpleaños",
+        "months": {
+            "January": "Enero",
+            "February": "Febrero",
+            "March": "Marzo",
+            "April": "Abril",
+            "May": "Mayo",
+            "June": "Junio",
+            "July": "Julio",
+            "August": "Agosto",
+            "September": "Septiembre",
+            "October": "Octubre",
+            "November": "Noviembre",
+            "December": "Diciembre"
+        }
     }
 }
