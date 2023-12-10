@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController, AlertController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
+import { lastValueFrom } from 'rxjs';
 import { Loan } from 'src/app/core/interfaces/loan';
 import { LoanService } from 'src/app/core/services/loan.service';
 
@@ -28,7 +30,8 @@ export class LoanFormComponent implements OnInit {
     private formModal: ModalController,
     private formBuilder: FormBuilder,
     private loanService: LoanService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private translate:TranslateService
   ) {
     this.form = this.formBuilder.group({
       type: ['', Validators.required],
@@ -60,8 +63,9 @@ export class LoanFormComponent implements OnInit {
 
   async showConfirmPopup() {
     const alert = await this.alertController.create({
-      header: 'Confirmar Pago',
-      message: '¿Quieres pagar el total de la deuda?',
+      mode: 'ios',
+      header: await lastValueFrom(this.translate.get('loans.confirm.header')),
+      message: await lastValueFrom(this.translate.get('loans.confirm.message')),
       buttons: [
         {
           text: 'No',
@@ -71,18 +75,19 @@ export class LoanFormComponent implements OnInit {
           }
         },
         {
-          text: 'Sí',
+          text: await lastValueFrom(this.translate.get('loans.confirm.yes')),
           handler: () => {
             const amountTotal = this.form?.get('amountTotal')?.value;
             this.form?.get('amountPaid')?.setValue(amountTotal);
             this.form?.get('completed')?.setValue(true);
-            this.formModal.dismiss(this.form?.value, 'submit')
+            this.formModal.dismiss(this.form?.value, 'submit');
           }
         }
       ]
     });
-
+  
     await alert.present();
   }
+  
 
 }

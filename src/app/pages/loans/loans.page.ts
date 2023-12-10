@@ -17,6 +17,7 @@ import { LoanFormComponent } from 'src/app/shared/components/loan-form/loan-form
 export class LoansPage implements OnInit {
 
   _island: Island | null = null;
+  isModalOpen = false;
 
   constructor(
     public loanService: LoanService,
@@ -41,6 +42,7 @@ export class LoansPage implements OnInit {
     });
     modal.present();
     modal.onDidDismiss().then(result => {
+      this.isModalOpen = false;
       if (result && result.data) {
         onDismiss(result);
       }
@@ -49,6 +51,8 @@ export class LoansPage implements OnInit {
 
   
   onNewLoan() {
+    this.isModalOpen = true;
+
     var onDismiss = (info: any) => {
       switch (info.role) {
         case 'submit': {
@@ -56,7 +60,7 @@ export class LoansPage implements OnInit {
         }
           break;
         default: {
-          console.error("Error");
+          this.isModalOpen = false;
         }
       }
     }
@@ -64,6 +68,7 @@ export class LoansPage implements OnInit {
   }
 
   onEditClicked(loan: Loan) {
+    this.isModalOpen = true;
     var onDismiss = (info: any) => {
       switch (info.role) {
         case 'submit': {
@@ -72,7 +77,7 @@ export class LoansPage implements OnInit {
         }
           break;
         default: {
-          console.error("Error")
+          this.isModalOpen = false;
         }
       }
     }

@@ -17,6 +17,8 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { createTranslateLoader } from '../core/services/custom-translate.service';
 import { HttpClient } from '@angular/common/http';
 import { LatestThreePipe } from './pipes/latest-three.pipe';
+import { LoanItemComponent } from './components/loan-item/loan-item.component';
+import { BackgroundBlurDirective } from './directives/background-blur.directive';
 
 
 
@@ -40,6 +42,8 @@ import { LatestThreePipe } from './pipes/latest-three.pipe';
     LoanCompletedPipe,
     ProgressDirective,
     LatestThreePipe,
+    LoanItemComponent,
+    BackgroundBlurDirective,
 
   ],
   imports: [
@@ -70,11 +74,13 @@ import { LatestThreePipe } from './pipes/latest-three.pipe';
     LoanComponent,
     LoanFormComponent,
     TranslateModule,
+    LoanItemComponent,
     // pipe
     LoanCompletedPipe,
     LatestThreePipe,
     // directive
-    ProgressDirective
+    ProgressDirective,
+    BackgroundBlurDirective
   ]
 })
 export class SharedModule { }

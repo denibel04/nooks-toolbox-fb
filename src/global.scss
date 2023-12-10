@@ -42,13 +42,31 @@
 
 
 ion-alert {
-    // Para el título del alerta
-    .alert-head {
-      color: black;
-    }
-  
-    // Para el texto de las opciones
-    .alert-radio-label, .alert-checkbox-label {
-      color: black;
-    }
-  }
+    --background: var(--ion-background-color) !important;
+    --border-radius: 12px;
+    --width: auto;
+    --max-width: 500px;
+    --min-width: 280px;
+    --color: var(--custom-dark-color);
+}
+
+ion-alert .alert-head {
+    --background: var(--ion-background-color);
+}
+
+ion-alert .alert-message {
+    --color: var(--custom-dark-color);
+}
+
+ion-alert button {
+    --color: var(--ion-color-secondary) !important;
+    --background: transparent;
+    --background-activated: var(--ion-color-secondary-tint);
+    --background-focused: var(--ion-color-secondary-tint);
+    --background-hover: var(--ion-color-secondary-shade);
+}
+
+.blur-background {
+    filter: blur(5px);
+    transition: filter 0.3s;
+}

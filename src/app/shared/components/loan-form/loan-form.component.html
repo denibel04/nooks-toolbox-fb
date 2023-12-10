@@ -5,7 +5,7 @@
         <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title style="text-align: center"> {{mode=='New'?'New loan':'Edit loan'}} </ion-title>
+    <ion-title style="text-align: center"> {{ mode == 'New' ? ('loans.form.new' | translate) : ('loans.form.edit' | translate) }} </ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding">

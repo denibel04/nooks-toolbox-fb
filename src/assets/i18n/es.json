@@ -3,7 +3,9 @@
         "home": "Inicio"
     },
     "home": {
-        "edit": "Editar"
+        "message":"Crea una isla para empezar",
+        "edit": "Editar",
+        "seeAll": "Ver todas"
     },
     "menu": {
         "home": "Inicio",
@@ -13,7 +15,19 @@
     },
     "island": {
         "name": "Nombre de la isla",
-        "villagers": "Vecinos"
+        "villagers": "Vecinos",
+        "form":{
+            "none":"Ninguno",
+            "select":"Seleccionar",
+            "new":"Nueva isla",
+            "edit":"Editar isla",
+            "search":"Buscar"
+        },
+        "alert":{
+            "header":"¿Estás seguro?",
+            "message":"Al eliminar esta isla se eliminarán todas las deudas relacionadas.",
+            "cancel":"Cancelar"
+        }
     },
     "loans": {
         "noCompleted": "Por pagar",
@@ -34,10 +48,15 @@
         "confirm": {
             "header": "Confirmar pago",
             "message": "¿Quieres pagar el total de la deuda?",
-            "cancel": "Cancelar"
+            "cancel": "Cancelar",
+            "yes": "Sí"
         },
         "placeHolder": "Click aquí para seleccionar",
-        "bells": "bayas pagadas"
+        "bells": "bayas pagadas",
+        "form":{
+            "new":"Nueva deuda",
+            "edit":"Editar deuda"
+        }
     },
     "villagers": {
         "personality": "Personalidad",

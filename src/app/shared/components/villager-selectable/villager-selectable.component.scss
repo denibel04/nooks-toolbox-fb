@@ -1,0 +1,30 @@
+
+ion-avatar {
+    width:3vw; 
+    height:3vw; 
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1.5px solid #ffffff2d;
+    
+    background-color:var(--ion-color-primary-tint);
+    color: var(--custom-dark-color);
+}
+
+.icon {
+    background-color: var(--ion-primary-color-tint);
+}
+
+ion-avatar ion-img {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+}
+
+ion-avatar ion-icon {
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

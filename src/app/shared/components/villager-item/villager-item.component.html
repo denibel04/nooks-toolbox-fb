@@ -1,7 +1,6 @@
 <ion-item [button]="true" (click)="onVillagerClicked()">
   <ion-avatar slot="start">
-    <img *ngIf="!villager?.attributes?.image_url" alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
-    <img *ngIf="villager && villager.attributes.image_url" alt="Silhouette of a person's head" [src]="villager.attributes.image_url" />
+    <img [src]="villager?.attributes?.image_url" />
   </ion-avatar>
   <ion-label>{{villager?.attributes?.name}} </ion-label>
 </ion-item>

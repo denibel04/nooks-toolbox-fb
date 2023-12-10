@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertController, ModalController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 import { lastValueFrom } from 'rxjs';
 import { Island } from 'src/app/core/interfaces/island';
 import { Villager } from 'src/app/core/interfaces/villager';
@@ -41,7 +42,8 @@ export class IslandFormComponent implements OnInit {
     private formModal: ModalController,
     private formBuilder: FormBuilder,
     private villagerService:VillagerService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private translate:TranslateService
   ) {
     this.form = this.formBuilder.group({
       islandName: ['', [Validators.required]],
@@ -75,11 +77,11 @@ export class IslandFormComponent implements OnInit {
   async onDelete() {
     const alert = await this.alertController.create({
       mode: 'ios',
-      header: '¿Estás seguro?',
-      message: 'Al eliminar esta isla se eliminarán todas las deudas relacionadas.',
+      header: await lastValueFrom(this.translate.get('island.alert.header')),
+      message: await lastValueFrom(this.translate.get('island.alert.message')),
       buttons: [
         {
-          text: 'Cancelar',
+          text: await lastValueFrom(this.translate.get('island.alert.cancel')),
           role: 'cancel',
           cssClass: 'secondary',
           handler: () => {
@@ -97,6 +99,4 @@ export class IslandFormComponent implements OnInit {
 
     await alert.present();
   }
-
-
 }
