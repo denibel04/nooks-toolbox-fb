@@ -1,0 +1,42 @@
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+ion-item {
+    --background: var(--ion-background-color);
+    --border-color: transparent;
+    border-radius: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.171);
+    transition: box-shadow 0.3s ease-in-out;
+    width: 300px;
+    height: 50px;
+
+}
+
+ion-button {
+    --border-radius: 20px;
+}
+
+.error-message {
+    align-self: center;
+    justify-self: center;
+    font-size: 1em;
+}
+
+
+@media only screen and (width<=1300px) {
+    .error-message {
+        font-size: 0.8em;
+    }
+
+    ion-item {
+        width: 200px;
+        height: 40px;
+        font-size: smaller;
+    }
+}

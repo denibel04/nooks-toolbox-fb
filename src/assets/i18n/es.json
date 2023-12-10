@@ -2,16 +2,33 @@
     "main": {
         "home": "Inicio"
     },
+    "login": {
+        "username":"Nombre de usuario",
+        "password":"Contraseña",
+        "login":"Iniciar sesión",
+        "welcome":"¡Bienvenido de vuelta!",
+        "register":"¿No tienes cuenta?",
+        "create":"Registrarse",
+        "account":"Crea una cuenta",
+        "display":"Nombre visible",
+        "email":"Correo electrónico",
+        "confirm":"Confirmar constraseña",
+        "passwordError":"La contraseña debe tener al menos 8 caracteres, un número, una mayúsucla y una minúscula",
+        "confirmError":"Las contraseñas no coinciden"
+    },
     "home": {
+        "myLoans":"Mis deudas",
         "message":"Crea una isla para empezar",
         "edit": "Editar",
         "seeAll": "Ver todas"
     },
     "menu": {
+        "menu":"Menú",
         "home": "Inicio",
         "loans": "Mis deudas",
         "villagers": "Vecinos",
-        "about": "Quien soy"
+        "about": "Quien soy",
+        "logout": "Cerrar sesión"
     },
     "island": {
         "name": "Nombre de la isla",

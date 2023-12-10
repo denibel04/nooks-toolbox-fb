@@ -11,12 +11,12 @@
   <div class="content" *ngIf="is">
 
     <div class="loans">
+      <ion-button (click)="loans()" class="seeAll" color="secondary">
+        {{ 'home.seeAll' | translate}}
+        <ion-icon slot="end" name="resize-outline"></ion-icon>
+      </ion-button>
       <div class="title">
-        <h1>Mis deudas</h1>
-        <ion-button (click)="loans()" class="seeAll" color="secondary">
-          {{ 'home.seeAll' | translate}}
-          <ion-icon slot="end" name="resize-outline"></ion-icon>
-        </ion-button>
+        <h1>{{ 'home.myLoans' | translate }}</h1>
       </div>
       <app-loan-item class="loan"
         *ngFor="let loan of (loanService.loans$ | async) || [] | loanCompleted:false | latestThree" [loan]="loan"

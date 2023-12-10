@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { User } from './core/interfaces/user';
 import { AuthService } from './core/services/api/strapi/auth.service';
 import { NavigationEnd, Router } from '@angular/router';
-import { filter } from 'rxjs';
 import { CustomTranslateService } from './core/services/custom-translate.service';
 
 @Component({
@@ -19,6 +18,9 @@ export class AppComponent {
     private router:Router,
     public translate:CustomTranslateService
   ) {
+
+    this.lang = this.translate.getBrowserLang();
+
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.showNavbar = !['/login', '/register'].includes(event.urlAfterRedirects);
@@ -32,7 +34,6 @@ export class AppComponent {
         });
       }
     });
-    this.translate.use(this.lang);
   }
 
   onSignOut(){

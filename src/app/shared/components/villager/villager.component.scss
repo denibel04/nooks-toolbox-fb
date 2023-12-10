@@ -1,5 +1,7 @@
 ion-card {
     border-radius: 20px;
+    height: fit-content;
+    width: 45vh;
 }
 
 .villager-card {
@@ -25,7 +27,7 @@ ion-card {
     position: relative;
     display: flex;
     justify-content: center;
-    align-items: start;
+    align-items: flex-start;
 }
 
 .villager-image-container img {
@@ -43,7 +45,7 @@ ion-card {
 .villager-species {
     display: flex;
     align-items: center;
-    justify-content: end;
+    justify-content: flex-end;
     margin-bottom: 10px;
     gap: 10px;
 }
@@ -58,3 +60,21 @@ ion-icon {
     font-weight: bold;
 }
 
+
+@media only screen and (width<=1300px) {
+    ion-card {
+        width: 50vh;
+    }
+}
+
+@media only screen and (width<=750px) {
+    ion-card {
+        width: 65vh;
+    }
+}
+
+@media only screen and (width<=500px) {
+    ion-card {
+        width: 45vh;
+    }
+}

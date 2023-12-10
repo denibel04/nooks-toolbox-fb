@@ -83,3 +83,28 @@ ion-card-content {
     align-items: center;
     padding: 10px;
 }
+
+
+@media only screen and (width<=1300px) {
+
+    .loan-card h1 {
+        font-size: 3em;
+    }
+
+    .loan-card h2,
+    .loan-card h3 {
+        font-size: 1.2em;
+    }
+}
+
+@media only screen and (width<=450px) {
+
+    .loan-card h1 {
+        font-size: 2em;
+    }
+
+    .loan-card h2,
+    .loan-card h3 {
+        font-size: 1em;
+    }
+}

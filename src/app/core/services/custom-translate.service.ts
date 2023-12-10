@@ -17,6 +17,8 @@ export class CustomTranslateService {
   private _language:BehaviorSubject<string> = new BehaviorSubject<string>('es');
   public language$ = this._language.asObservable();
 
+  private supportedLangs = ['en', 'es'];
+
   constructor(
     private translate:TranslateService
   ) { 
@@ -39,5 +41,11 @@ export class CustomTranslateService {
 
   get(key:string):Observable<string>{
     return this.translate.get(key);
+  }
+
+  getBrowserLang() {
+    let browserLang = this.translate.getBrowserLang();
+    browserLang = (browserLang && this.supportedLangs.includes(browserLang)) ? browserLang : 'es';
+    return browserLang;
   }
 }

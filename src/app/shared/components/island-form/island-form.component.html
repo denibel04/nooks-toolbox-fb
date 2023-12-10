@@ -19,7 +19,8 @@
   <form [formGroup]="form" (ngSubmit)="onSubmit()" (keyup.enter)="onSubmit()">
     <ion-item>
       <ion-label position="floating">{{ 'island.name' | translate}}</ion-label>
-      <ion-input formControlName="islandName" type="text"></ion-input>
+      <ion-input formControlName="islandName" type="text" [counter]="true"
+      [maxlength]="10"></ion-input>
     </ion-item>
     <ng-container *ngFor="let num of numbers; let i = index">
     <ion-item >

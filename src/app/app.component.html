@@ -1,16 +1,73 @@
 <ion-app>
   <ion-router-outlet></ion-router-outlet>
-<div class="navbar">
-<ion-toolbar *ngIf="showNavbar">
-      <ion-buttons slot="end">
-        <a routerLink="/home" routerLinkActive="active-link" class="link-text">{{ 'menu.home' | translate}}</a>
-        <a routerLink="/loans" routerLinkActive="active-link" class="link-text">{{ 'menu.loans' | translate}}</a>
-        <a routerLink="/villagers" routerLinkActive="active-link" class="link-text">{{ 'menu.villagers' | translate}}</a>
-        <ion-button fill="clear" (click)="onSignOut()">
-          <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </ion-toolbar>
-</div>
-    
+
+  <ion-menu #menu contentId="main-content" side="end">
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>{{ 'menu.menu' | translate }}</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-list>
+        <ion-menu-toggle auto-hide="false">
+          <ion-item lines="none" routerLink="/home" routerDirection="root" routerLinkActive="active-link">
+            {{ 'menu.home' | translate }}
+          </ion-item>
+          <ion-item lines="none" routerLink="/loans" routerDirection="root" routerLinkActive="active-link">
+            {{ 'menu.loans' | translate }}
+          </ion-item>
+          <ion-item lines="none" routerLink="/villagers" routerDirection="root" routerLinkActive="active-link">
+            {{ 'menu.villagers' | translate }}
+          </ion-item>
+          <ion-item lines="none" button (click)="onLang('es')">
+            <ion-icon slot="start" name="language-outline"></ion-icon>
+            Cambiar Idioma a ES
+          </ion-item>
+          <ion-item lines="none" button (click)="onLang('en')">
+            <ion-icon slot="start" name="language-outline"></ion-icon>
+            Change Language to EN
+          </ion-item>
+          <ion-item lines="none" button (click)="onSignOut()">
+            <ion-icon slot="start" name="log-out-outline"></ion-icon>
+            {{ 'menu.logout' | translate }}
+          </ion-item>
+        </ion-menu-toggle>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+
+  <div class="ion-page" id="main-content" >
+    <div class="navbar">
+      <ion-toolbar *ngIf="showNavbar">
+        <ion-buttons slot="end">
+          <a routerLink="/home" routerLinkActive="active-link" class="link-text">{{ 'menu.home' | translate}}</a>
+          <a routerLink="/loans" routerLinkActive="active-link" class="link-text">{{ 'menu.loans' | translate}}</a>
+          <a routerLink="/villagers" routerLinkActive="active-link" class="link-text">{{ 'menu.villagers' |
+            translate}}</a>
+
+          <ion-button *ngIf="lang=='en'" fill="clear" (click)="onLang('es')">
+            <ion-icon slot="icon-only" name="language-outline"></ion-icon>
+          </ion-button>
+          <ion-button *ngIf="lang=='es'" fill="clear" (click)="onLang('en')">
+            <ion-icon slot="icon-only" name="language-outline"></ion-icon>
+          </ion-button>
+
+          <ion-button fill="clear" (click)="onSignOut()">
+            <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </div>
+      
+      <ion-toolbar *ngIf="showNavbar">
+        <ion-buttons slot="end">
+          <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+      </ion-toolbar>
+
+    <ion-router-outlet></ion-router-outlet>
+  </div>
+
+
+
 </ion-app>

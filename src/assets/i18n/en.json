@@ -1,32 +1,143 @@
 {
-    "main":{
-        "home":"Home"
+    "main": {
+        "home": "Home"
     },
-    "login":{
-        "user":"User",
-        "pwd":"Password",
-        "noAccount":"Need an account?",
-        "submit":"Access"
+    "login": {
+        "username": "Username",
+        "password": "Password",
+        "login": "Log in",
+        "welcome": "Welcome back!",
+        "register": "Don't have an account?",
+        "create": "Create",
+        "account": "Create an account",
+        "display": "Display Name",
+        "email": "Email",
+        "confirm": "Confirm Password",
+        "passwordError": "Password must be at least 8 characters, have a number, an uppercase, and a lowercase letter",
+        "confirmError": "Passwords do not match"
     },
-    "user-card":{
-        "name":"Name"
+    "home": {
+        "myLoans": "My Loans",
+        "message": "Create an island to get started",
+        "edit": "Edit",
+        "seeAll": "See All"
     },
-    "header":{
-        "user":{
-            "profile":"My profile",
-            "signout":"Sign out"
+    "menu": {
+        "menu": "Menu",
+        "home": "Home",
+        "loans": "My Loans",
+        "villagers": "Villagers",
+        "about": "About Me",
+        "logout": "Logout"
+    },
+    "island": {
+        "name": "Island Name",
+        "villagers": "Villagers",
+        "form": {
+            "none": "None",
+            "select": "Select",
+            "new": "New Island",
+            "edit": "Edit Island",
+            "search": "Search"
         },
-        "languages":{
-            "es":"Spanish",
-            "en":"English"
+        "alert": {
+            "header": "Are you sure?",
+            "message": "Deleting this island will also delete all related debts.",
+            "cancel": "Cancel"
         }
     },
-    "menu":{
-        "home":"Home",
-        "loans":"Loans",
-        "assignments":"Assignments",
-        "signout":"Sign out",
-        "profile":"My profile",
-        "about":"About Tasks"
+    "loans": {
+        "noCompleted": "Unpaid",
+        "completed": "Paid",
+        "title": "Title",
+        "amountPaid": "Amount Paid",
+        "amountTotal": "Total Amount",
+        "complete": "Complete Payment",
+        "edit": "Edit Debt",
+        "create": "New Debt",
+        "submit": "Submit",
+        "typeTitle": "Select Type",
+        "type": {
+            "house": "House",
+            "incline": "Incline",
+            "bridge": "Bridge"
+        },
+        "confirm": {
+            "header": "Confirm Payment",
+            "message": "Do you want to pay the total debt?",
+            "cancel": "Cancel",
+            "yes": "Yes"
+        },
+        "placeHolder": "Click here to select",
+        "bells": "bells paid",
+        "form": {
+            "new": "New Debt",
+            "edit": "Edit Debt"
+        }
+    },
+    "villagers": {
+        "personality": "Personality",
+        "personalities": {
+            "Lazy": "Lazy",
+            "Jock": "Jock",
+            "Cranky": "Cranky",
+            "Smug": "Smug",
+            "Normal": "Normal",
+            "Peppy": "Peppy",
+            "Snooty": "Snooty",
+            "Big sister": "Big Sister"
+        },
+        "species": {
+            "Alligator": "Alligator",
+            "Anteater": "Anteater",
+            "Bear": "Bear",
+            "Bird": "Bird",
+            "Bull": "Bull",
+            "Cat": "Cat",
+            "Chicken": "Chicken",
+            "Cow": "Cow",
+            "Bear cub": "Bear Cub",
+            "Deer": "Deer",
+            "Dog": "Dog",
+            "Duck": "Duck",
+            "Eagle": "Eagle",
+            "Elephant": "Elephant",
+            "Frog": "Frog",
+            "Goat": "Goat",
+            "Gorilla": "Gorilla",
+            "Hamster": "Hamster",
+            "Hippo": "Hippo",
+            "Horse": "Horse",
+            "Kangaroo": "Kangaroo",
+            "Koala": "Koala",
+            "Lion": "Lion",
+            "Monkey": "Monkey",
+            "Mouse": "Mouse",
+            "Octopus": "Octopus",
+            "Ostrich": "Ostrich",
+            "Penguin": "Penguin",
+            "Pig": "Pig",
+            "Rabbit": "Rabbit",
+            "Rhinoceros": "Rhinoceros",
+            "Sheep": "Sheep",
+            "Squirrel": "Squirrel",
+            "Tiger": "Tiger",
+            "Wolf": "Wolf"
+        },
+        "birthday": "Birthday",
+        "months": {
+            "January": "January",
+            "February": "February",
+            "March": "March",
+            "April": "April",
+            "May": "May",
+            "June": "June",
+            "July": "July",
+            "August": "August",
+            "September": "September",
+            "October": "October",
+            "November": "November",
+            "December": "December"
+        }
     }
 }

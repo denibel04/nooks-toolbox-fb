@@ -15,7 +15,8 @@
   margin-top: -50px;
   z-index: 2;
   box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.3);
-  height: 600px;
+  min-height: 600px;
+  height: fit-content;
   display: flex;
   flex-direction: row;
 }
@@ -40,11 +41,12 @@
   flex: 0 0 65%;
   padding: 0 2rem 0 2rem;
   margin-top: -0.5rem;
-  height: 100%;
+  height: 590px;
 }
 
 
 .title {
+  margin-top: -2.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -78,15 +80,86 @@ ion-button  {
 }
 
 .seeAll {
-    position: absolute;
+    position: relative;
     width: 8rem;
     height: 2.5rem;
-    top: 1.8rem;
-    left: 27rem;
+    top: -2.3rem;
+    left: -1rem;
     z-index: 10;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-self: flex-end;
     font-weight: bold;
     
+}
+
+
+@media only screen and (width<=1100px) {
+  .content {
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  .loans {
+    flex: 1;
+    order: 2; 
+    width: 92%;
+    margin: 0 2rem 0 2rem;
+  }
+
+  .islands {
+    flex: 1;
+    order: 1;
+  }
+
+  .title {
+    margin-top: -4rem;
+  }
+
+  .hero {
+  height: 45vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: scroll;
+  background-position: center;
+  }
+}
+
+@media only screen and (width<=800px) {
+
+
+  .content {
+    padding: 3rem 0 3rem 0;
+  }
+
+
+}
+
+@media only screen and (width<=600px) {
+
+  .loans {
+    width: 88%;
+  }
+
+}
+
+
+@media only screen and (width<=500px) {
+
+  .islands {
+    flex: 1;
+  }
+
+  .loans {
+    width: 85%;
+  }
+
+  .hero {
+    background-position:right;
+  }
+
+  .seeAll {
+    font-size: 12px;
+  }
+
 }

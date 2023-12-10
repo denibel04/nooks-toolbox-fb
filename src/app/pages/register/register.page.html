@@ -1,19 +1,18 @@
 <ion-content [fullscreen]="true">
-  
   <div class="container">
     <ion-card>
-      <ion-card-header>
-        <div class="logo">
-          <ion-thumbnail>
-            <!-- <img alt="logo of tasks" src="assets/imgs/logo-small.png" /> -->
-          </ion-thumbnail>
-          <ion-text >register</ion-text>
-        </div>
-        
+      <div class="img">
+        <img src="../../../assets/images/login.png" alt="Login">
+      </div>
+      <div class="form">
+        <ion-card-header>
+          <ion-card-title><h1>{{ 'login.account' | translate }}</h1></ion-card-title>
       </ion-card-header>
       <ion-card-content>
         <app-register-form (onsubmit)="onRegister($event)"></app-register-form>
       </ion-card-content>
+      </div>
+      
     </ion-card>
   </div>
   

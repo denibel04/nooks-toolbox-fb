@@ -1,18 +1,28 @@
 
   <form [formGroup]="form" (ngSubmit)="onSubmit()" (keyup.enter)="onSubmit()">
+    <div class="error-message" *ngIf="hasError('password', 'passwordProto')">
+      {{ 'login.passwordError' | translate }}
+    </div>
+    <div class="error-message" *ngIf="hasError('confirm', 'passwordMatch', true)">
+      {{ 'login.confirmError' | translate }}
+    </div>
     <ion-item>
-      <ion-input label="username" labelPlacement="start" formControlName="username" type="text"></ion-input>
+      <ion-input label="{{ 'login.username' | translate }}" labelPlacement="floating" formControlName="username" type="text"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-input label="display_name" labelPlacement="start" formControlName="display_name" type="text"></ion-input>
+      <ion-input label="{{ 'login.display' | translate }}" labelPlacement="floating" formControlName="display_name" type="text"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-input label="email" labelPlacement="start" formControlName="email" type="email"></ion-input>
+      <ion-input label="{{ 'login.email' | translate }}" labelPlacement="floating" formControlName="email" type="email"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-input label="password" labelPlacement="start" formControlName="password" type="password"></ion-input>
+      <ion-input label="{{ 'login.password' | translate }}" labelPlacement="floating" formControlName="password" type="password"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input label="{{ 'login.confirm' | translate }}" labelPlacement="floating" formControlName="confirm" type="password"></ion-input>
     </ion-item>
     <div class="ion-text-end">
-      <ion-button type="submit" style="text-transform: none;" [disabled]="!form.valid" (click)="onSubmit()">submit</ion-button>
+      <ion-button type="submit" color="secondary" style="text-transform: none;" [disabled]="!form.valid" (click)="onSubmit()">{{ 'login.create' | translate }}</ion-button>
     </div>
+    
   </form>

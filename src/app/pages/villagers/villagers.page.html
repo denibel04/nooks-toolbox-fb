@@ -6,7 +6,7 @@
 
 <ion-content class="ion-padding">
   <div class="villagers">
-    <app-villager
+    <app-villager class="villager"
       *ngFor="let villager of villagers$ | async; let i = index"
       [villager]="villager">
     </app-villager>

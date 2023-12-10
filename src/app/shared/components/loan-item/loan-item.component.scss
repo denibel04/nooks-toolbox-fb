@@ -1,6 +1,6 @@
 ion-card {
     width: 100%;
-    height: 14vh;
+    height: 16vh;
     border-radius: 20px;
     background-color: transparent;
     margin: 0;
@@ -28,6 +28,7 @@ ion-card-content {
     margin-top: -1.5rem;
     display: flex;
     flex-direction: column;
+
 }
 
 
@@ -70,4 +71,15 @@ ion-card-content {
     justify-content: flex-end;
     align-items: center;
     padding: 10px;
+}
+
+
+@media only screen and (width<=1300px) {
+    ion-card {
+        height: 17vh;
+    }
+}
+
+@media only screen and (width<=650px) {
+    
 }

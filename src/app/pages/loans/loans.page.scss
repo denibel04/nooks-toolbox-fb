@@ -4,13 +4,14 @@
     justify-content: center; 
     gap: 2rem; 
     padding: 0; 
+    margin: 0 auto;
 }
 
 
 .loan {
     display: flex;
-    flex-basis: 45%; 
-    margin: 0;
+    width: 80vh;
+    margin: 1rem; 
     padding: 0; 
     border-radius: 20px;
 }
@@ -44,4 +45,10 @@
     height: 1.5px;
     background-color: rgba(83, 77, 77, 0.233);
     flex: 1;
+}
+
+@media only screen and (width<=1300px) {
+  .loan {
+    width: 70vh;
+  }
 }

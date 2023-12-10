@@ -5,7 +5,7 @@ import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 })
 export class ProgressDirective {
   
-  private min_width = 7
+  private min_width =20
 
   @Input('appProgress') set progress(value: number) {
     const width= Math.max(value, this.min_width);
