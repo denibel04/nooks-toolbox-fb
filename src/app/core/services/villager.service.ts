@@ -24,7 +24,6 @@ export class VillagerService {
       map(response => ({
         data: response.data,
         pagination: response.pagination
-
       })))
   }
 

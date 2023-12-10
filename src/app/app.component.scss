@@ -11,30 +11,32 @@
 }
 
 .navbar {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+    ;
 }
 
 ion-button {
-    color:  var(--ion-background-color);
+    color: var(--ion-background-color);
 }
 
 ion-menu-button {
     color: white;
 }
-
+/*
 @media (min-width: 600px) {
     ion-menu-button {
-      display: none;
+        display: none;
     }
 
     ion-header {
         display: none;
     }
-  
-  }
-  
-  @media (max-width: 599px) {
+}
+
+@media (max-width: 599px) {
     .navbar {
-      display: none;
+        display: none;
     }
-  }
+
+
+}*/

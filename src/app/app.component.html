@@ -37,6 +37,7 @@
   </ion-menu>
 
   <div class="ion-page" id="main-content" >
+    <!--
     <div class="navbar">
       <ion-toolbar *ngIf="showNavbar">
         <ion-buttons slot="end">
@@ -57,13 +58,16 @@
           </ion-button>
         </ion-buttons>
       </ion-toolbar>
-    </div>
-      
+    </div>-->
+    <div class="menu toolbar">
       <ion-toolbar *ngIf="showNavbar">
         <ion-buttons slot="end">
           <ion-menu-button></ion-menu-button>
         </ion-buttons>
       </ion-toolbar>
+    </div>
+      
+      
 
     <ion-router-outlet></ion-router-outlet>
   </div>
