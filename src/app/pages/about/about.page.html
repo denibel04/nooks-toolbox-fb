@@ -1,0 +1,58 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>about</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="container">
+    <ion-card>
+      <div class="img">
+        <img src="https://avatars.githubusercontent.com/u/115071551?v=4" alt="Login">
+      </div>
+      <div class="form">
+        <ion-card-content>
+          <div class="aboutProject">
+            <div>
+              <ion-card-header>
+                <ion-card-title>
+                  <h1>{{ 'about.projectTitle' | translate }}</h1>
+                </ion-card-title>
+              </ion-card-header>
+            </div>
+            <div class="info">
+              <section id="description">
+                <p>{{ 'about.projectText' | translate }}</p>
+              </section>
+              <section id="functionalities">
+                <h2>{{ 'about.functionalities' | translate}}</h2>
+                <ul>
+                  <li>{{ 'about.characters' | translate }}</li>
+                  <li>{{ 'about.island' | translate }}</li>
+                  <li>{{ 'about.loans' | translate }}</li>
+                  <li>{{ 'about.trans' | translate }}</li>
+                </ul>
+              </section>
+              <section id="tech">
+                <h2>{{ 'about.technologies' | translate}}</h2>
+                <p><b>Front-end:</b> Typescript, Ionic, Angular, HTML, CSS</p>
+                <p><b>Back-end:</b> Render, strapi</p>
+              </section>
+            </div>
+            <div class="github">
+              <a href="https://github.com/denibel04/nooks-toolbox" target="_blank">
+                <ion-button color="secondary">
+                  <ion-icon name="logo-github" slot="start"></ion-icon>
+                  GitHub
+                </ion-button>
+              </a>
+            </div>
+          </div>
+        </ion-card-content>
+
+      </div>
+
+    </ion-card>
+
+  </div>
+</ion-content>

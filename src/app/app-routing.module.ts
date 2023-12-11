@@ -33,6 +33,12 @@ const routes: Routes = [
     loadChildren: () => import('./pages/loans/loans.module').then( m => m.LoansPageModule),
     canActivate:[AuthGuard]
   },
+  {
+    path: 'about',
+    loadChildren: () => import('./pages/about/about.module').then( m => m.AboutPageModule),
+    canActivate:[AuthGuard]
+  },
+
 
 
 ];

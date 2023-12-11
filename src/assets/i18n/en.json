@@ -139,5 +139,15 @@
             "November": "November",
             "December": "December"
         }
+    }, 
+    "about": {
+        "projectTitle": "About the Page",
+        "projectText": "Page for the Data Access subject of the second year in Multiplatform Application Development. It consists of a progress tracker for the game 'Animal Crossing New Horizons'",
+        "functionalities": "Key Functionalities",
+        "characters": "Character Information",
+        "island": "Island Management",
+        "loans": "Debt Management",
+        "trans": "Translation Service, Directives, Pipes",
+        "technologies": "Used Technologies"
     }
 }

@@ -83,7 +83,7 @@ export class LoanService {
 
   public deleteLoan(loan:Loan):Observable<Loan> {
     return this.dataService.delete<any>(`loans/${loan.id}`).pipe(tap(_=>{
-      this.getAll().subscribe();
+      this.getUserLoans().subscribe();
     }))
   }
 
@@ -97,7 +97,7 @@ export class LoanService {
 
   public updateLoan(loan:Loan):Observable<Loan> {
     return this.dataService.put<any>(`loans/${loan.id}`, loan.attributes).pipe(tap(_=>{
-      this.getAll().subscribe();
+      this.getUserLoans().subscribe();
     }))
   }
 }

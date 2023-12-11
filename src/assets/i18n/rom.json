@@ -26,7 +26,7 @@
         "menu": "Meniu",
         "home": "Acasă",
         "loans": "Împrumuturile mele",
-        "villagers": "Locuitori",
+        "villagers": "Personaje",
         "about": "Despre mine",
         "logout": "Deconectare"
     },
@@ -139,5 +139,15 @@
             "November": "Noiembrie",
             "December": "Decembrie"
         }
+    },
+    "about": {
+        "projectTitle": "Despre Pagină",
+        "projectText": "Pagină pentru subiectul Acces la Date din al doilea an al Dezvoltării de Aplicații Multiplatformă. Consta într-un urmăritor de progres pentru jocul 'Animal Crossing New Horizons'",
+        "functionalities": "Funcționalități Chei",
+        "characters": "Informații despre Personaje",
+        "island": "Gestionarea Insulei",
+        "loans": "Gestionarea de datorii",
+        "trans": "Serviciu de Traducere, Directive, Pipes",
+        "technologies": "Tehnologii Folosite"
     }
 }

@@ -139,5 +139,15 @@
             "November": "Noviembre",
             "December": "Diciembre"
         }
+    },
+    "about":{
+        "projectTitle":"Sobre la página",
+        "projectText":"Página para la asignatura de Acceso a datos de segundo curso de Desarrollo de aplicaciones multiplataforma. Consiste en un seguidor de progreso para el juego 'Animal Crossing New Horizons'",
+        "functionalities":"Funcionalidades clave",
+        "characters":"Información de personajes",
+        "island":"Gestión de isla",
+        "loans":"Gestión de deudas",
+        "trans":"Servicio de traducción, directivas, pipes",
+        "technologies":"Tecnologías usadas"
     }
 }

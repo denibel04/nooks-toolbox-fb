@@ -1,0 +1,154 @@
+ion-content {
+    min-height: 100vh;
+    background: var(--ion-background-color);
+    
+}
+
+.container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+ion-card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 600px;
+    width: 100vh;
+    padding: 0;
+    margin-top: -2rem;
+    background-color: var(--ion-background-color);
+    border-radius: 20px;
+    box-shadow: 0px 5px 60px rgba(0, 0, 0, 0.296); 
+}
+
+.github {
+    display: flex;  
+    justify-content: center;
+}
+
+
+.img {
+    margin: 0;
+    padding: 0;
+}
+
+.img img {
+    height: 600px;
+    width: 600px;
+}
+
+.form {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: justify;
+    margin:2rem;
+    gap: 2rem;
+}
+
+
+
+h1 {
+    color: var(--ion-color-secondary);
+    font-weight: bold;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+h2 {
+    color: var(--ion-color-secondary-tint);
+    font-weight: bold;
+    
+}
+
+ion-card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.link-text {
+    text-decoration: none;
+    color: var(--ion-color-secondary);
+    cursor: pointer;
+}
+
+.link-text:hover {
+    text-decoration: underline;
+}
+
+@media only screen and (width<=1700px) {
+    ion-card {
+        max-width: 90vw;
+        width: auto;
+        margin: auto;
+    }
+
+    .img img {
+        border-radius: 50%;
+        width: 100%;
+        height: 100%;
+    }
+
+    .img {
+        padding: 2rem;
+        width: 40%;
+        margin: auto;
+    }
+}
+
+@media only screen and (width<=850px) {
+    ion-card {
+        min-height: 85vh;
+        width: 45vh;
+        flex-direction: column;
+    }
+
+    .info {
+        gap: 0.5rem;
+        margin-top:0.5rem;
+    }
+
+    .img {
+        width: auto;
+        height: 30%;
+    }
+
+    .img img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .form {
+        gap: 0.5rem;
+        margin-top: -3rem;
+    }
+}
+
+
+@media only screen and (width<=460px) {
+    ion-card {
+        height: fit-content;
+    }
+
+    .info {
+        margin: 0;
+    }
+
+}
