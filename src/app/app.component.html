@@ -27,6 +27,10 @@
             <ion-icon slot="start" name="language-outline"></ion-icon>
             Change Language to EN
           </ion-item>
+          <ion-item lines="none" button (click)="onLang('rom')">
+            <ion-icon slot="start" name="language-outline"></ion-icon>
+            Change Language to ROM
+          </ion-item>
           <ion-item lines="none" button (click)="onSignOut()">
             <ion-icon slot="start" name="log-out-outline"></ion-icon>
             {{ 'menu.logout' | translate }}

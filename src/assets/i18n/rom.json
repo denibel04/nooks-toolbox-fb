@@ -1,0 +1,143 @@
+{
+    "main": {
+        "home": "Acasă"
+    },
+    "login": {
+        "username": "Nume de utilizator",
+        "password": "Parolă",
+        "login": "Autentificare",
+        "welcome": "Bine ai venit înapoi!",
+        "register": "Nu ai un cont?",
+        "create": "Creează",
+        "account": "Creează un cont",
+        "display": "Nume vizibil",
+        "email": "Adresă de email",
+        "confirm": "Confirmare parolă",
+        "passwordError": "Parola trebuie să aibă cel puțin 8 caractere, un număr, o majusculă și o minusculă",
+        "confirmError": "Parolele nu se potrivesc"
+    },
+    "home": {
+        "myLoans": "Împrumuturile mele",
+        "message": "Creează o insulă pentru a începe",
+        "edit": "Editează",
+        "seeAll": "Vezi toate"
+    },
+    "menu": {
+        "menu": "Meniu",
+        "home": "Acasă",
+        "loans": "Împrumuturile mele",
+        "villagers": "Locuitori",
+        "about": "Despre mine",
+        "logout": "Deconectare"
+    },
+    "island": {
+        "name": "Numele insulei",
+        "villagers": "Locuitori",
+        "form": {
+            "none": "Niciunul",
+            "select": "Selectează",
+            "new": "Insulă nouă",
+            "edit": "Editează insulă",
+            "search": "Caută"
+        },
+        "alert": {
+            "header": "Ești sigur?",
+            "message": "Ștergerea acestei insule va șterge și toate datoriile asociate.",
+            "cancel": "Anulează"
+        }
+    },
+    "loans": {
+        "noCompleted": "Neachitat",
+        "completed": "Achitat",
+        "title": "Titlu",
+        "amountPaid": "Suma achitată",
+        "amountTotal": "Suma totală",
+        "complete": "Achitare completă",
+        "edit": "Editează datorie",
+        "create": "Datorie nouă",
+        "submit": "Trimite",
+        "typeTitle": "Selectează tipul",
+        "type": {
+            "house": "Casa",
+            "incline": "Inclinare",
+            "bridge": "Pod"
+        },
+        "confirm": {
+            "header": "Confirmare plată",
+            "message": "Vrei să plătești întreaga datorie?",
+            "cancel": "Anulează",
+            "yes": "Da"
+        },
+        "placeHolder": "Apasă aici pentru a selecta",
+        "bells": "clopotei plătiți",
+        "form": {
+            "new": "Datorie nouă",
+            "edit": "Editează datorie"
+        }
+    },
+    "villagers": {
+        "personality": "Personalitate",
+        "personalities": {
+            "Lazy": "Leneș",
+            "Jock": "Atlet",
+            "Cranky": "Morf",
+            "Smug": "Îngâmfat",
+            "Normal": "Normal",
+            "Peppy": "Vioi",
+            "Snooty": "Înfumurat",
+            "Big sister": "Soră mai mare"
+        },
+        "species": {
+            "Alligator": "Aligator",
+            "Anteater": "Urșel cu furnici",
+            "Bear": "Urs",
+            "Bird": "Pasăre",
+            "Bull": "Taur",
+            "Cat": "Cățel",
+            "Chicken": "Pui",
+            "Cow": "Vaca",
+            "Bear cub": "Ursuleț",
+            "Deer": "Cerbuț",
+            "Dog": "Câine",
+            "Duck": "Rață",
+            "Eagle": "Vultur",
+            "Elephant": "Elefant",
+            "Frog": "Broască",
+            "Goat": "Capră",
+            "Gorilla": "Gorilă",
+            "Hamster": "Hamster",
+            "Hippo": "Hipopotam",
+            "Horse": "Cal",
+            "Kangaroo": "Cangur",
+            "Koala": "Koala",
+            "Lion": "Leu",
+            "Monkey": "Maimuță",
+            "Mouse": "Șoarece",
+            "Octopus": "Caracatiță",
+            "Ostrich": "Struț",
+            "Penguin": "Pinguin",
+            "Pig": "Porc",
+            "Rabbit": "Iepure",
+            "Rhinoceros": "Rinocer",
+            "Sheep": "Oaie",
+            "Squirrel": "Veveriță",
+            "Tiger": "Tigru",
+            "Wolf": "Lup"
+        },
+        "birthday": "Ziua de naștere",
+        "months": {
+            "January": "Ianuarie",
+            "February": "Februarie",
+            "March": "Martie",
+            "April": "Aprilie",
+            "May": "Mai",
+            "June": "Iunie",
+            "July": "Iulie",
+            "August": "August",
+            "September": "Septembrie",
+            "October": "Octombrie",
+            "November": "Noiembrie",
+            "December": "Decembrie"
+        }
+    }
+}
