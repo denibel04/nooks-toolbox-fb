@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
-
 import { IonicModule, IonicRouteStrategy, Platform } from '@ionic/angular';
-
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -18,22 +16,41 @@ import { AuthService } from './core/services/api/strapi/auth.service';
 import { AuthStrapiService } from './core/services/api/strapi/auth-strapi.service';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { createTranslateLoader } from './core/services/custom-translate.service';
+import { FirebaseService } from './core/services/firebase/firebase.service';
+import { FirebaseAuthService } from './core/services/api/firebase/firebase-auth.service';
+import { environment } from 'src/environments/environment';
 
 
 export function httpProviderFactory(
   http: HttpClient) {
   return new HttpClientWebProvider(http);
 }
+
 export function DataServiceFactory(
+  backend: string,
   api: ApiService) {
-  return new StrapiDataService(api);
+  switch (backend) {
+    case 'Strapi':
+      return new StrapiDataService(api);
+    default:
+      throw new Error("Not implemented");
+  }
 }
 
 export function AuthServiceFactory(
+  backend: string,
   jwt: JwtService,
-  api: ApiService
+  api: ApiService,
+  firebase: FirebaseService
 ) {
-  return new AuthStrapiService(jwt, api);
+  switch (backend) {
+    case 'Strapi':
+        return new AuthStrapiService(jwt, api);
+    case 'Firebase':
+      return new FirebaseAuthService(firebase);
+    default:
+      throw new Error("Not implemented");
+  }
 }
 
 @NgModule({
@@ -44,8 +61,33 @@ export function AuthServiceFactory(
       useFactory: (createTranslateLoader),
       deps: [HttpClient]
     }
-  }),],
+  }),SharedModule],
   providers: [
+    {
+      provide: 'firebase-config',
+      useValue:environment.firebase
+    },
+    {
+      provide: 'backend',
+      useValue:'Firebase'
+    },
+    {
+      provide: 'home',
+      useValue:'/home'
+    },
+    {
+      provide: 'login',
+      useValue:'/login'
+    },
+    {
+      provide: 'afterLogin',
+      useValue:'/home'
+    },
+    {
+      provide: AuthService,
+      deps: ['backend',JwtService, ApiService, FirebaseService],
+      useFactory: AuthServiceFactory,  
+    },
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {
       provide: HttpClientProvider,
@@ -56,11 +98,6 @@ export function AuthServiceFactory(
       provide: DataService,
       deps: [ApiService],
       useFactory: DataServiceFactory,
-    },
-    {
-      provide: AuthService,
-      deps: [JwtService, ApiService],
-      useFactory: AuthServiceFactory,  
     }
   ],
   bootstrap: [AppComponent],

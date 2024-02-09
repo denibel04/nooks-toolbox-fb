@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserRegisterInfo } from 'src/app/core/interfaces/user-register-info';
+import { FirebaseAuthService } from 'src/app/core/services/api/firebase/firebase-auth.service';
 import { AuthService } from 'src/app/core/services/api/strapi/auth.service';
 
 @Component({

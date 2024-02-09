@@ -32,7 +32,7 @@
     },
     "island": {
         "name": "Numele insulei",
-        "villagers": "Locuitori",
+        "villagers": "Personaje",
         "form": {
             "none": "Niciunul",
             "select": "Selectează",
