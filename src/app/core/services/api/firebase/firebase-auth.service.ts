@@ -51,6 +51,8 @@ export class FirebaseAuthService extends AuthService{
 
   public register(info:UserRegisterInfo):Observable<any|null>{
     return new Observable<any>(subscr=>{
+      console.log("REGISTER", info)
+
       this.firebaseSvc.createUserWithEmailAndPassword(info.email, info.password).then((credentials:FirebaseUserCredential|null)=>{
         if(!credentials || !credentials.user || !credentials.user.user || !credentials.user.user.uid)
           subscr.error('Cannot register');
