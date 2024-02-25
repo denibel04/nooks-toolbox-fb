@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { UserCredentials } from 'src/app/core/interfaces/user-credentials';
 import { UserRegisterInfo } from 'src/app/core/interfaces/user-register-info';
+import { FirebaseAuthService } from 'src/app/core/services/api/firebase/firebase-auth.service';
 import { AuthService } from 'src/app/core/services/api/strapi/auth.service';
 import { RegisterFormComponent } from 'src/app/shared/components/register-form/register-form.component';
 
@@ -14,7 +15,7 @@ import { RegisterFormComponent } from 'src/app/shared/components/register-form/r
 export class LoginPage implements OnInit {
 
   constructor(
-    private auth:AuthService,
+    private auth: FirebaseAuthService,
     private router:Router,
     private modal:ModalController
   ) { }

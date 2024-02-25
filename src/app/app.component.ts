@@ -26,14 +26,16 @@ export class AppComponent {
         this.showNavbar = !['/login', '/register'].includes(event.urlAfterRedirects);
       } });
 
-    this.auth.isLogged$.subscribe(logged=>{
+    
+    
+    /*  this.auth.isLogged$.subscribe(logged=>{
       
       if(logged){
         this.auth.me().subscribe(data=>{
           this.user = data;
         });
       }
-    });
+    });*/
   }
 
   onSignOut(){
@@ -48,6 +50,5 @@ export class AppComponent {
     this.lang = lang;
     this.translate.use(this.lang);
     return false;    
-  
   }
 }

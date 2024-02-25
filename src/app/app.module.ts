@@ -25,18 +25,21 @@ export function httpProviderFactory(
   http: HttpClient) {
   return new HttpClientWebProvider(http);
 }
-
+/*
 export function DataServiceFactory(
   backend: string,
-  api: ApiService) {
+  api: ApiService,
+  firebase: FirebaseService) {
   switch (backend) {
     case 'Strapi':
       return new StrapiDataService(api);
+    case 'Firebase':
+      return new FirebaseAuthService(firebase);
     default:
       throw new Error("Not implemented");
   }
 }
-
+*/
 export function AuthServiceFactory(
   backend: string,
   jwt: JwtService,
@@ -45,7 +48,7 @@ export function AuthServiceFactory(
 ) {
   switch (backend) {
     case 'Strapi':
-        return new AuthStrapiService(jwt, api);
+      return new AuthStrapiService(jwt, api);
     case 'Firebase':
       return new FirebaseAuthService(firebase);
     default:
@@ -55,38 +58,43 @@ export function AuthServiceFactory(
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, SharedModule, TranslateModule.forRoot({
-    loader: {
-      provide: TranslateLoader,
-      useFactory: (createTranslateLoader),
-      deps: [HttpClient]
-    }
-  }),SharedModule],
+  imports: [BrowserModule,
+    IonicModule.forRoot(),
+    AppRoutingModule,
+    HttpClientModule,
+    SharedModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [HttpClient]
+      }
+    }), SharedModule],
   providers: [
     {
       provide: 'firebase-config',
-      useValue:environment.firebase
+      useValue: environment.firebase
     },
     {
       provide: 'backend',
-      useValue:'Firebase'
+      useValue: 'Firebase'
     },
     {
       provide: 'home',
-      useValue:'/home'
+      useValue: '/home'
     },
     {
       provide: 'login',
-      useValue:'/login'
+      useValue: '/login'
     },
     {
       provide: 'afterLogin',
-      useValue:'/home'
+      useValue: '/home'
     },
     {
       provide: AuthService,
-      deps: ['backend',JwtService, ApiService, FirebaseService],
-      useFactory: AuthServiceFactory,  
+      deps: ['backend', JwtService, ApiService, FirebaseService],
+      useFactory: AuthServiceFactory,
     },
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {
@@ -94,11 +102,11 @@ export function AuthServiceFactory(
       deps: [HttpClient, Platform],
       useFactory: httpProviderFactory,
     },
-    {
+    /* {
       provide: DataService,
-      deps: [ApiService],
+      deps: ['backend', ApiService],
       useFactory: DataServiceFactory,
-    }
+    }*/
   ],
   bootstrap: [AppComponent],
 })

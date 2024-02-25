@@ -7,15 +7,18 @@ import { AuthService } from '../services/api/strapi/auth.service';
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
+ 
   constructor(
     private auth:AuthService,
-    private router:Router){}
-  canActivate( route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      return this.auth.isLogged$.pipe(map(logged=>{
-        if(!logged) {
-        return this.router.createUrlTree(['/login']);
-      } else {
-        return true;}
-      }));
+    private router:Router
+  ) {}
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    return this.auth.isLogged$.pipe(tap(logged => {
+      if(!logged) {
+        this.router.navigate(['/login']);
+      }
+    }));
   }
 }

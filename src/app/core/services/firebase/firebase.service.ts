@@ -29,6 +29,8 @@ export class FirebaseService {
   private _auth!:Auth;
   private _webStorage!:FirebaseStorage;
   private _user:User|null = null;
+
+  
   private _isLogged:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public isLogged$:Observable<boolean> = this._isLogged.asObservable();
   
@@ -268,6 +270,7 @@ export class FirebaseService {
         if(!this._auth)
             resolve(null);
         try {
+          console.log("AUTH:", this._auth, email, password)
             resolve({user: await createUserWithEmailAndPassword(this._auth!, email, password)});
         } catch (error:any) {
             switch (error.code) {

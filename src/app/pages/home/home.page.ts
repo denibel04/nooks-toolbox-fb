@@ -30,10 +30,10 @@ export class HomePage {
   ngOnInit() {};
 
   ngAfterViewInit() {
-    this.islandService.getUserIsland().subscribe(is=>{
+    /*this.islandService.getUserIsland().subscribe(is=>{
       this.is = !!is;
     })
-    this.loanService.getUserLoans().subscribe()
+    this.loanService.getUserLoans().subscribe()*/
   }
 
   public loans() {
