@@ -26,10 +26,8 @@ export class VillagersPage implements OnInit {
   ) { }
 
   ngOnInit():void {
-    this.villagerService.getVillagers().subscribe();
-    console.log(this.villagerService.villagers$)
   }
-  
+
   /*
   private loadVillagers(page:number=1, refresher:any=null) {
     this.villagerService.queryPaginated(page).subscribe({

@@ -30,10 +30,10 @@ export class HomePage {
   ngOnInit() {};
 
   ngAfterViewInit() {
-    /*this.islandService.getUserIsland().subscribe(is=>{
+    this.islandService.getUserIsland().subscribe(is=>{
       this.is = !!is;
     })
-    this.loanService.getUserLoans().subscribe()*/
+    //this.loanService.getUserLoans().subscribe()
   }
 
   public loans() {
@@ -86,14 +86,15 @@ export class HomePage {
           this.islandService.updateIsland(is, info).subscribe(is=>{
             this.is = !!is;
             this.isModalOpen = false;
-          });
+          })
         }
           break;
         case 'delete': {
           this.is = false;
           this.isModalOpen = false;
           console.log("delete")
-          this.loanService.deleteLoansOnCascade(is);
+          //this.loanService.deleteLoansOnCascade(is);
+          this.islandService.deleteIsland(is).subscribe()
         }
           break;
         default: {

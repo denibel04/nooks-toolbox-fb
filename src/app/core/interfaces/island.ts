@@ -1,7 +1,7 @@
 import { Villager } from "./villager"
 
 export interface Island {
-    id:number | undefined,
+    id:string,
     attributes: {
         islandName:string,
         villagers:Villager[] | undefined

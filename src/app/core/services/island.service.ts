@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, asyncScheduler, lastValueFrom } from 'rxjs';
+import { BehaviorSubject, Observable, asyncScheduler, from, lastValueFrom } from 'rxjs';
 import { Island } from '../interfaces/island';
 import { ApiService } from './api/api.service';
 import { map, tap } from 'rxjs/operators';
@@ -7,6 +7,8 @@ import { DataService } from './api/strapi/data.service';
 import { AuthStrapiService } from './api/strapi/auth-strapi.service';
 import { User } from '../interfaces/user';
 import { LoanService } from './loan.service';
+import { FirebaseAuthService } from './api/firebase/firebase-auth.service';
+import { FirebaseService } from './firebase/firebase.service';
 
 
 @Injectable({
@@ -21,9 +23,85 @@ export class IslandService {
   constructor(
     private dataService: DataService,
     private api: ApiService,
-    private authService:AuthStrapiService
+    private authService: AuthStrapiService,
+    private fbSvc: FirebaseService,
+    private fbAuth: FirebaseAuthService
   ) { }
 
+  public addIsland(is: any): Observable<Island> {
+    return new Observable(observer => {
+      let villagers = []
+      for (let i = 1; i <= 10; i++) {
+        if (is[`villager${i}`]) {
+          villagers.push({ id: is[`villager${i}`] });
+        }
+      }
+      const postdata = {
+        islandName: is.islandName,
+        villagers: villagers
+
+      }
+      this.fbAuth.user$.subscribe(user => {
+        this.fbSvc.createDocument(`users/${user!.uuid}/island`, postdata)
+      })
+    })
+  }
+
+  public getUserIsland(): Observable<Island> {
+    return new Observable(observer => {
+      this.fbAuth.user$.subscribe(user => {
+        this.fbSvc.getDocuments(`users/${user!.uuid}/island`).then(isDoc => {
+          const island:Island = {
+            id: isDoc[0]['id'],
+            attributes: {
+              islandName: isDoc[0].data['islandName'],
+              villagers: isDoc[0].data['villagers']
+            }
+          }
+          observer.next(island);
+          observer.complete();
+          this._islands.next(island);
+        })
+      })
+    })
+  }
+
+  public deleteIsland(is: Island): Observable<Island> {
+    return new Observable(observer => {
+      console.log("AFSGDSDFDS", is.id);
+      this.fbAuth.user$.subscribe(user => {
+        this.fbSvc.deleteDocument(`users/${user!.uuid}/island`, is.id) .then(() => {
+          observer.complete();
+        })
+      })
+    })
+  }
+
+  public updateIsland(is: Island, info: any):Observable<Island> {
+    let villagers = []
+    for (let i = 1; i <= 10; i++) {
+      if (info.data[`villager${i}`]) {
+        if (typeof info.data[`villager${i}`] === 'object')
+          villagers.push({ id: info.data[`villager${i}`].id });
+        else
+          villagers.push({ id: info.data[`villager${i}`] });
+      }
+    }
+    const postdata = {
+      islandName: info.data.islandName,
+      villagers: villagers
+
+    }
+
+    return new Observable(observer => {
+      let user = this.fbSvc.user
+      this.fbSvc.updateDocument(`users/${user!.uid}/island`, is.id, postdata)
+    })
+  }
+
+
+
+  /*
   public addIsland(is: any): Observable<Island> {
     let villagers = []
     for (let i = 1; i <= 10; i++) {
@@ -70,7 +148,7 @@ export class IslandService {
 
   public getIsland(id: number) {
     const params = { 'populate': 'villagers' };
-  
+
     return this.api.get(`${this.path}/${id}`, params).pipe(
       map((response: any) => {
         const islandData = response.data;
@@ -116,23 +194,24 @@ export class IslandService {
     }))
   }
 
-  public updateIsland(is: Island, info:any): Observable<Island> {
+  public updateIsland(is: Island, info: any): Observable<Island> {
     let villagers = []
     for (let i = 1; i <= 10; i++) {
       if (info.data[`villager${i}`]) {
         if (typeof info.data[`villager${i}`] === 'object')
-          villagers.push({ id: info.data[`villager${i}`].id}); 
+          villagers.push({ id: info.data[`villager${i}`].id });
         else
-        villagers.push({ id: info.data[`villager${i}`]});
+          villagers.push({ id: info.data[`villager${i}`] });
       }
     }
-      const postdata = {
-          islandName: info.data.islandName,
-          villagers: villagers
-        
-      }
+    const postdata = {
+      islandName: info.data.islandName,
+      villagers: villagers
+
+    }
     return this.dataService.put<any>(`islands/${is.id}`, postdata).pipe(tap(_ => {
       this.getUserIsland().subscribe();
     }))
   }
+  */
 }

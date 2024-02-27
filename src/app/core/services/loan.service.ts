@@ -92,7 +92,7 @@ export class LoanService {
     for (let loan of loans) {
       this.deleteLoan(loan).subscribe()
     }
-    this.islandService.deleteIsland(is).subscribe();
+    //this.islandService.deleteIsland(is).subscribe();
   }
 
   public updateLoan(loan:Loan):Observable<Loan> {
