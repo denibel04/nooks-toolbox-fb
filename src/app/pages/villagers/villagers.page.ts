@@ -16,8 +16,8 @@ export class VillagersPage implements OnInit {
   private _villagers = new BehaviorSubject<Villager[]>([]);
   public villagers$ = this._villagers.asObservable();
 
-  public _pagination = new BehaviorSubject<Pagination>({page:0, pageSize:0, pageCount:0, total:0});
-  private pagination$ = this._pagination.asObservable();
+  //public _pagination = new BehaviorSubject<Pagination>({page:0, pageSize:0, pageCount:0, total:0});
+  //private pagination$ = this._pagination.asObservable();
 
 
   constructor(
@@ -26,10 +26,11 @@ export class VillagersPage implements OnInit {
   ) { }
 
   ngOnInit():void {
-    this.loadVillagers();
-    console.log("villagers page", this._villagers)
+    this.villagerService.getVillagers().subscribe();
+    console.log(this.villagerService.villagers$)
   }
-
+  
+  /*
   private loadVillagers(page:number=1, refresher:any=null) {
     this.villagerService.queryPaginated(page).subscribe({
       next:response=>{
@@ -48,5 +49,5 @@ export class VillagersPage implements OnInit {
 
   doInfinite(event:any){
     this.loadVillagers(this._pagination.value.page+1, event.target);
-  }
+  }*/
 }

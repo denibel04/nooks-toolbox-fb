@@ -58,14 +58,14 @@ export class VillagerSelectableComponent implements OnInit, ControlValueAccessor
     
   }
 
-  private async selectVillager(id: number | undefined, propagate: boolean = false) {
+  private async selectVillager(id: string | undefined, propagate: boolean = false) {
     if(propagate){
       if (!id){
         this.villagerSelected = undefined;
         this.propagateChange(undefined);
       }
       else{
-        this.villagerSelected = this.villagers.find(v=>v.id==id);
+        this.villagerSelected = this.villagers.find(v=>v.id===id);
         this.propagateChange(this.villagerSelected!.id);
       }
     }

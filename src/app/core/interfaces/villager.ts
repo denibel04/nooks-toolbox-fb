@@ -1,7 +1,7 @@
 import { PaginatedData } from "./data"
 
 export interface Villager {
-    id: number,
+    id: string,
     attributes: {
         name: string,
         image_url: string,
