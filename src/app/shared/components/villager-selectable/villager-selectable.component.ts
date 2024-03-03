@@ -50,11 +50,9 @@ export class VillagerSelectableComponent implements OnInit, ControlValueAccessor
   }
 
   private async loadVillagers(filter: string) {
-    
     console.log("filter", filter)
-    const villagers = await lastValueFrom(this.villagerService.getFiltered(filter));
-    console.log("paginated villagers",this.num, villagers);
-    this.villagers = villagers;
+    this.villagers = this.villagerService.getFiltered(filter);
+    //console.log("paginated villagers",this.num, villagers);
     
   }
 

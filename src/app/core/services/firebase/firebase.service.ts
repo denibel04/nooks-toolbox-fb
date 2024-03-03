@@ -4,6 +4,7 @@ import { initializeApp, getApp, FirebaseApp } from "firebase/app";
 import { getFirestore, addDoc, collection, updateDoc, doc, onSnapshot, getDoc, setDoc, query, where, getDocs, Unsubscribe, DocumentData, deleteDoc, Firestore} from "firebase/firestore";
 import { getStorage, ref, getDownloadURL, uploadBytes, FirebaseStorage } from "firebase/storage";
 import { createUserWithEmailAndPassword, deleteUser, signInAnonymously, signOut, signInWithEmailAndPassword, initializeAuth, indexedDBLocalPersistence, UserCredential, Auth, User } from "firebase/auth";
+import { Router } from "@angular/router";
 
 export interface FirebaseStorageFile{
   path:string,
@@ -35,7 +36,9 @@ export class FirebaseService {
   public isLogged$:Observable<boolean> = this._isLogged.asObservable();
   
   constructor(
-    @Inject('firebase-config') config:any
+    @Inject('firebase-config') config:any,
+    private router:Router
+
   ) {
     this.init(config);
   }
@@ -51,11 +54,11 @@ export class FirebaseService {
       if(user){
         if(user.uid && user.email){
             this._isLogged.next(true);
+            this.router.navigate(['/home']);
         }
       } else{
         this._isLogged.next(false);
       }
-      
     });
   }
 

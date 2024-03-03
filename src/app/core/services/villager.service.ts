@@ -45,6 +45,7 @@ export class VillagerService {
   public getVillagers(): Observable<Villager[]> {
     return new Observable(observer => {
       this.fbSvc.getDocuments("villagers").then(villagerDocuments => {
+        console.log("GET DOCUMETS GETVILLAGERS")
         //console.log(villagerDocuments);
         const villagers = villagerDocuments.map(doc => {
           const data = doc.data;
@@ -70,15 +71,24 @@ export class VillagerService {
         this._villagers.next(villagers);
         observer.next(villagers);
         observer.complete();
-      }).catch(error => {
-        console.error('Error al obtener villagers:', error);
-        observer.error(error); // Pasamos el error al observer
       });
     });
   }
 
-  public getFiltered(name: string): Observable<Villager[]> {
-    return this.villagers$.pipe(
+  public getFiltered(name: string): Villager[] {
+    const filteredVillagers = this._villagers.value.filter(villager => {
+      const villagerName = villager.attributes.name;
+      return villagerName && villagerName.toLowerCase().includes(name.toLowerCase());
+    });
+    return filteredVillagers;
+  }
+
+  public getVillagerById(id: string): Villager|undefined {
+    return this._villagers.value.find(villager => villager.id === id);
+  }
+
+  /*
+return this.villagers$.pipe(
       map(villagers => {
         return villagers.filter(villager => {
           const villagerName = villager.attributes.name;
@@ -86,7 +96,7 @@ export class VillagerService {
         });
       })
     );
-  }
+  */
 
   /*public getFiltered(q: string): Observable<Villager[]> {
     return this.api.get(`/villagers?filters[name][$startsWithi]=${q}`).pipe(

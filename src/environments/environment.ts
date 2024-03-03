@@ -6,13 +6,13 @@ export const environment = {
   production: false,
   apiUrl: 'https://nookstoolbox-service.onrender.com/api',
   firebase: {
-    apiKey: "AIzaSyDTI8eDC1UV0-1KPuXzqcAJaD2w6nRSP5o",
-    authDomain: "nooks-toolbox.firebaseapp.com",
-    projectId: "nooks-toolbox",
-    storageBucket: "nooks-toolbox.appspot.com",
-    messagingSenderId: "1052521570202",
-    appId: "1:1052521570202:web:59aaf107a3683ec6cda423",
-    measurementId: "G-DRPPYSKFQR"
+    apiKey: "AIzaSyDtQJjhgAe5yV_0dMQwU7CE5JhXhDDytOU",
+    authDomain: "prueba-consultas-81849.firebaseapp.com",
+    projectId: "prueba-consultas-81849",
+    storageBucket: "prueba-consultas-81849.appspot.com",
+    messagingSenderId: "287262785152",
+    appId: "1:287262785152:web:ee03d84a9aaf81eeb57065",
+    measurementId: "G-LXDBTCQWG9"
   }
 };
 

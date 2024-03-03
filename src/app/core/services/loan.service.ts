@@ -6,6 +6,9 @@ import { map, tap } from 'rxjs/operators';
 import { DataService } from './api/strapi/data.service';
 import { IslandService } from './island.service';
 import { Island } from '../interfaces/island';
+import { FirebaseAuthService } from './api/firebase/firebase-auth.service';
+import { FirebaseService } from './firebase/firebase.service';
+import { DocumentData } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -14,16 +17,20 @@ export class LoanService {
 
   private _loans: BehaviorSubject<Loan[]> = new BehaviorSubject<Loan[]>([]);
   public loans$: Observable<Loan[]> = this._loans.asObservable();
-  private path = "/loans"
 
   constructor(
     private dataService:DataService,
     private api: ApiService,
-    private islandService:IslandService
-  ) { 
+    private islandService:IslandService,
+    private fbAuth: FirebaseAuthService,
+    private fbSvc: FirebaseService,
+    private isSvc: IslandService
+  ) { }
+
+  public getAll() {
 
   }
-
+/*
   public getAll() {
     return this.api.get(this.path).pipe(
       map((response: any) => {
@@ -65,7 +72,92 @@ export class LoanService {
       });
     });
   }
+*/
+  public addLoan(loan:Loan):Observable<Loan> {
+    return new Observable(observer => {
+      this.fbAuth.user$.subscribe(user => {
+        this.isSvc.getUserIsland().subscribe(is => {
+          this.fbSvc.createDocument(`users/${user!.uuid}/island/${is.id}/loans`, loan)
+        })
+      })
+    })
+  }
 
+  public getUserLoans(): Observable<Loan[]> {
+    return new Observable(observer => {
+      this.fbAuth.user$.subscribe(user => {
+        if (user) {
+          this.isSvc.getUserIsland().subscribe(is => {
+            const collectionName = `users/${user!.uuid}/island/${is.id}/loans`;
+            this.fbSvc.subscribeToCollection(
+              collectionName,
+                this._loans,
+              (doc: DocumentData) => ({
+                id: doc['id'],
+                attributes: {
+                  type: doc['data']()['type'],
+                  amountPaid: doc['data']()['amountPaid'],
+                  amountTotal: doc['data']()['amountTotal'],
+                  completed: doc['data']()['completed'],
+                  title: doc['data']()['title']
+                }
+              })
+            );
+          });
+        }
+      });
+    });
+  }
+
+  /*
+  public getUserLoans():Observable<Loan[]> {
+    return new Observable(observer => {
+      this.fbAuth.user$.subscribe(user => {
+        if (user) {
+          this.isSvc.getUserIsland().subscribe(is => {
+            this.fbSvc.getDocuments(`users/${user!.uuid}/island/${is.id}/loans`).then(loansDoc => {
+              const loans: Loan[] = loansDoc.map(doc => ({
+                id: doc['id'],
+                attributes: {
+                  type: doc.data['type'],
+                  amountPaid: doc.data['amountPaid'],
+                  amountTotal: doc.data['amountTotal'],
+                  completed: doc.data['completed'],
+                  title: doc.data['title']
+                }
+              }));
+              this._loans.next(loans);
+              observer.next(loans);
+              observer.complete();
+            });
+          })
+        }
+      })
+    })
+  }*/
+
+  public deleteLoan(loan:Loan):Observable<Loan> {
+    return new Observable(observer => {
+      this.fbAuth.user$.subscribe(user => {
+        this.isSvc.getUserIsland().subscribe(is => {
+          this.fbSvc.deleteDocument(`users/${user!.uuid}/island/${is.id}/loans`, loan.id)
+        })
+      })
+    })
+  }
+
+  public updateLoan(loan:Loan):Observable<Loan> {
+    return new Observable(observer => {
+      this.fbAuth.user$.subscribe(user => {
+        this.isSvc.getUserIsland().subscribe(is => {
+          this.fbSvc.updateDocument(`users/${user!.uuid}/island/${is.id}/loans`, loan.id, loan.attributes)
+        })
+      })
+    })
+  }
+
+
+  /*
   public addLoan(loan:Loan):Observable<Loan>{
     return new Observable<Loan>((observer)=>{
       this.dataService.post<Loan>("loans", loan).subscribe({
@@ -79,8 +171,10 @@ export class LoanService {
         }
       })
     })
-  }
+  }*/
 
+
+/*
   public deleteLoan(loan:Loan):Observable<Loan> {
     return this.dataService.delete<any>(`loans/${loan.id}`).pipe(tap(_=>{
       this.getUserLoans().subscribe();
@@ -99,5 +193,5 @@ export class LoanService {
     return this.dataService.put<any>(`loans/${loan.id}`, loan.attributes).pipe(tap(_=>{
       this.getUserLoans().subscribe();
     }))
-  }
+  }*/
 }

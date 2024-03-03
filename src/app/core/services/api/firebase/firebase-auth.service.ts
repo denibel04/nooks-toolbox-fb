@@ -83,6 +83,7 @@ export class FirebaseAuthService extends AuthService {
   public me(): Observable<User> {
     if (this.firebaseSvc.user?.uid)
       return from(this.firebaseSvc.getDocument('users', this.firebaseSvc.user.uid)).pipe(map(data => {
+        console.log("GET DOCUMETS ME")
         return {
           username: data.data['username'],
           display_name: data.data['display_name'],

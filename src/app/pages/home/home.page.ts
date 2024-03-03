@@ -8,6 +8,8 @@ import { IslandService } from 'src/app/core/services/island.service';
 import { LoanService } from 'src/app/core/services/loan.service';
 import { IslandFormComponent } from 'src/app/shared/components/island-form/island-form.component';
 import { LoanFormComponent } from 'src/app/shared/components/loan-form/loan-form.component';
+import { Geolocation } from '@capacitor/geolocation';
+
 
 @Component({
   selector: 'app-home',
@@ -33,7 +35,12 @@ export class HomePage {
     this.islandService.getUserIsland().subscribe(is=>{
       this.is = !!is;
     })
-    //this.loanService.getUserLoans().subscribe()
+    this.loanService.getUserLoans().subscribe()
+    const printCurrentPosition = async () => {
+      const coordinates = await Geolocation.getCurrentPosition();
+    
+      console.log('Current position:', coordinates);
+    };
   }
 
   public loans() {

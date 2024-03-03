@@ -1,14 +1,12 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, asyncScheduler, from, lastValueFrom } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Island } from '../interfaces/island';
 import { ApiService } from './api/api.service';
-import { map, tap } from 'rxjs/operators';
 import { DataService } from './api/strapi/data.service';
 import { AuthStrapiService } from './api/strapi/auth-strapi.service';
-import { User } from '../interfaces/user';
-import { LoanService } from './loan.service';
 import { FirebaseAuthService } from './api/firebase/firebase-auth.service';
 import { FirebaseService } from './firebase/firebase.service';
+import { VillagerService } from './villager.service';
 
 
 @Injectable({
@@ -25,7 +23,8 @@ export class IslandService {
     private api: ApiService,
     private authService: AuthStrapiService,
     private fbSvc: FirebaseService,
-    private fbAuth: FirebaseAuthService
+    private fbAuth: FirebaseAuthService,
+    private villagerService: VillagerService
   ) { }
 
   public addIsland(is: any): Observable<Island> {
@@ -38,11 +37,14 @@ export class IslandService {
       }
       const postdata = {
         islandName: is.islandName,
-        villagers: villagers
-
+        villagers: villagers,
+        loans: []
       }
       this.fbAuth.user$.subscribe(user => {
-        this.fbSvc.createDocument(`users/${user!.uuid}/island`, postdata)
+        this.fbSvc.createDocument(`users/${user!.uuid}/island`, postdata).then(() => {
+          observer.complete();
+          this.getUserIsland();
+        })
       })
     })
   }
@@ -50,34 +52,45 @@ export class IslandService {
   public getUserIsland(): Observable<Island> {
     return new Observable(observer => {
       this.fbAuth.user$.subscribe(user => {
-        this.fbSvc.getDocuments(`users/${user!.uuid}/island`).then(isDoc => {
-          const island:Island = {
-            id: isDoc[0]['id'],
-            attributes: {
-              islandName: isDoc[0].data['islandName'],
-              villagers: isDoc[0].data['villagers']
-            }
-          }
-          observer.next(island);
-          observer.complete();
-          this._islands.next(island);
-        })
-      })
-    })
+        if (user) {
+          this.fbSvc.getDocuments(`users/${user!.uuid}/island`).then(isDoc => {
+            console.log("GET DOCUMETS GETUSERISLAND")
+            const villagerPromises = isDoc[0].data['villagers'].map((villagerId: { id: string }) => {
+              return this.villagerService.getVillagerById(villagerId.id);
+            });
+            Promise.all(villagerPromises).then(completeVillagers => {
+              const island: Island = {
+                id: isDoc[0]['id'],
+                attributes: {
+                  islandName: isDoc[0].data['islandName'],
+                  villagers: completeVillagers,
+                  loans: isDoc[0].data['loans']
+                }
+              };
+              observer.next(island);
+              observer.complete();
+              this._islands.next(island);
+            });
+          });
+        }
+      });
+    });
   }
+
 
   public deleteIsland(is: Island): Observable<Island> {
     return new Observable(observer => {
       console.log("AFSGDSDFDS", is.id);
       this.fbAuth.user$.subscribe(user => {
-        this.fbSvc.deleteDocument(`users/${user!.uuid}/island`, is.id) .then(() => {
+        this.fbSvc.deleteDocument(`users/${user!.uuid}/island`, is.id).then(() => {
           observer.complete();
+          this.getUserIsland();
         })
       })
     })
   }
 
-  public updateIsland(is: Island, info: any):Observable<Island> {
+  public updateIsland(is: Island, info: any): Observable<Island> {
     let villagers = []
     for (let i = 1; i <= 10; i++) {
       if (info.data[`villager${i}`]) {
@@ -90,12 +103,14 @@ export class IslandService {
     const postdata = {
       islandName: info.data.islandName,
       villagers: villagers
-
     }
 
     return new Observable(observer => {
       let user = this.fbSvc.user
-      this.fbSvc.updateDocument(`users/${user!.uid}/island`, is.id, postdata)
+      this.fbSvc.updateDocument(`users/${user!.uid}/island`, is.id, postdata).then(() => {
+        observer.complete();
+        this.getUserIsland();
+      })
     })
   }
 

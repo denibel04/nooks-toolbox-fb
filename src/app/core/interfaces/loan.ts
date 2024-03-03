@@ -1,11 +1,10 @@
 export interface Loan {
-    id:number,
+    id:string,
     attributes: {
         type:string,
         amountPaid:number,
         amountTotal:number,
         completed:boolean,
-        title:string,
-        createdAt:Date
+        title:string
     }
 }
