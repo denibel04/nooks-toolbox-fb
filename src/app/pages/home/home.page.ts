@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { Island } from 'src/app/core/interfaces/island';
 import { Loan } from 'src/app/core/interfaces/loan';
 import { AuthStrapiService } from 'src/app/core/services/api/strapi/auth-strapi.service';
@@ -9,6 +9,8 @@ import { LoanService } from 'src/app/core/services/loan.service';
 import { IslandFormComponent } from 'src/app/shared/components/island-form/island-form.component';
 import { LoanFormComponent } from 'src/app/shared/components/loan-form/loan-form.component';
 import { Geolocation } from '@capacitor/geolocation';
+import { TranslateService } from '@ngx-translate/core';
+import { lastValueFrom } from 'rxjs';
 
 
 @Component({
@@ -20,13 +22,16 @@ export class HomePage {
 
   is:boolean = false;
   isModalOpen = false
+  currentPosition: any;
 
   constructor(
     public islandService: IslandService,
     public authService:AuthStrapiService,
     private modal: ModalController,
     public loanService:LoanService,
-    private router:Router
+    private router:Router,
+    private alertController: AlertController,
+    private translate: TranslateService
   ) { }
 
   ngOnInit() {};
@@ -36,11 +41,6 @@ export class HomePage {
       this.is = !!is;
     })
     this.loanService.getUserLoans().subscribe()
-    const printCurrentPosition = async () => {
-      const coordinates = await Geolocation.getCurrentPosition();
-    
-      console.log('Current position:', coordinates);
-    };
   }
 
   public loans() {
@@ -64,15 +64,18 @@ export class HomePage {
   }
 
 
-  onNewIsland() {
+  async onNewIsland() {
     this.isModalOpen = true;
     var onDismiss = async (info: any) => {
       switch (info.role) {
         case 'submit': {
-          this.islandService.addIsland(info.data).subscribe(is=>{
+          this.hemisphereAlert(info.data);
+          this.isModalOpen = false;
+          console.log("data", info.data)
+          /*this.islandService.addIsland(info.data).subscribe(is=>{
             this.is = !!is;
             this.isModalOpen = false;
-          });
+          });*/
         }
           break;
         default: {
@@ -82,6 +85,52 @@ export class HomePage {
       }
     }
     this.presentForm(null, onDismiss);
+  }
+
+    async hemisphereAlert(data:any) {
+      let hemisphere = await this.getHemisphere();
+      const alert = await this.alertController.create({
+        mode: 'ios',
+        header: await lastValueFrom(this.translate.get('island.hemisphere.confirm')),
+        message: `${await lastValueFrom(this.translate.get('island.hemisphere.youarein'))} ${await lastValueFrom(this.translate.get(`island.hemisphere.${hemisphere}`))} ${await lastValueFrom(this.translate.get('island.hemisphere.continue'))}`,
+        buttons: [
+          {
+            text: await lastValueFrom(this.translate.get('island.hemisphere.yes')),
+            handler: () => {
+              const isData = {...data, hemisphere}
+              console.log("is", isData)
+              this.islandService.addIsland(isData).subscribe(is=>{
+                this.is = !!is;
+              });
+            },
+          },
+          {
+            text: await lastValueFrom(this.translate.get('island.hemisphere.no')),
+            handler: () => {
+              if (hemisphere ===  'north')
+                hemisphere = 'south'
+              else
+                hemisphere =  'north'
+              const isData = {...data, hemisphere}
+              console.log("is", isData)
+              this.islandService.addIsland(isData).subscribe(is=>{
+                this.is = !!is;   
+              });
+            }
+          },
+        ],
+      });
+      await alert.present();
+    }
+
+  async getHemisphere(): Promise<string> {
+    try {
+      const coordinates = await Geolocation.getCurrentPosition();
+      return coordinates.coords.latitude >= 0 ? 'north' : 'south';
+    } catch (error) {
+      console.error('Error obteniendo la geolocalización:', error);
+      return 'unknown';
+    }
   }
 
 
@@ -94,6 +143,7 @@ export class HomePage {
             this.is = !!is;
             this.isModalOpen = false;
           })
+          this.islandService.getUserIsland().subscribe();
         }
           break;
         case 'delete': {

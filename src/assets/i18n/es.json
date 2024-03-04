@@ -44,6 +44,15 @@
             "header":"¿Estás seguro?",
             "message":"Al eliminar esta isla se eliminarán todas las deudas relacionadas.",
             "cancel":"Cancelar"
+        },
+        "hemisphere": {
+            "confirm": "Confirmar hemisferio",
+            "youarein": "Estas en el ",
+            "continue": "¿Desea continuar?",
+            "north": "hemisferio norte",
+            "south": "hemisferio sur",
+            "yes": "Continuar",
+            "no": "No, continuar con el otro"
         }
     },
     "loans": {

@@ -37,13 +37,14 @@ export class IslandService {
       }
       const postdata = {
         islandName: is.islandName,
+        hemisphere: is.hemisphere,
         villagers: villagers,
         loans: []
       }
       this.fbAuth.user$.subscribe(user => {
         this.fbSvc.createDocument(`users/${user!.uuid}/island`, postdata).then(() => {
           observer.complete();
-          this.getUserIsland();
+          this._islands.next;
         })
       })
     })
@@ -63,6 +64,7 @@ export class IslandService {
                 id: isDoc[0]['id'],
                 attributes: {
                   islandName: isDoc[0].data['islandName'],
+                  hemisphere: isDoc[0].data['hemisphere'],
                   villagers: completeVillagers,
                   loans: isDoc[0].data['loans']
                 }
@@ -84,7 +86,7 @@ export class IslandService {
       this.fbAuth.user$.subscribe(user => {
         this.fbSvc.deleteDocument(`users/${user!.uuid}/island`, is.id).then(() => {
           observer.complete();
-          this.getUserIsland();
+          this._islands.next(null);
         })
       })
     })
@@ -102,15 +104,15 @@ export class IslandService {
     }
     const postdata = {
       islandName: info.data.islandName,
+      hemisphere: is.attributes.hemisphere,
       villagers: villagers
     }
-
     return new Observable(observer => {
       let user = this.fbSvc.user
       this.fbSvc.updateDocument(`users/${user!.uid}/island`, is.id, postdata).then(() => {
         observer.complete();
-        this.getUserIsland();
       })
+      this.getUserIsland();
     })
   }
 

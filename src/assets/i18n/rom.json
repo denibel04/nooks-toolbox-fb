@@ -44,6 +44,15 @@
             "header": "Ești sigur?",
             "message": "Ștergerea acestei insule va șterge și toate datoriile asociate.",
             "cancel": "Anulează"
+        }, 
+        "hemisphere": {
+            "confirm": "Confirmă Hemisphere",
+            "youarein": "Ești în ",
+            "continue": "Doriți să continuați?",
+            "north": "Hemisfera de Nord",
+            "south": "Hemisfera de Sud",
+            "yes": "Continuați",
+            "no": "Nu, continuați cu celălalt"
         }
     },
     "loans": {

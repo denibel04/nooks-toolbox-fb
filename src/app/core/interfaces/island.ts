@@ -6,6 +6,7 @@ export interface Island {
     attributes: {
         islandName:string,
         villagers:Villager[] | undefined,
-        loans: Loan[] | undefined
+        loans: Loan[] | undefined,
+        hemisphere: string
     }
 }

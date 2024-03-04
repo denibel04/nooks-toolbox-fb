@@ -44,6 +44,15 @@
             "header": "Are you sure?",
             "message": "Deleting this island will also delete all related debts.",
             "cancel": "Cancel"
+        },
+        "hemisphere": {
+            "confirm": "Confirm Hemisphere",
+            "youarein": "You are in the ",
+            "continue": "Do you want to continue?",
+            "north": "North Hemisphere",
+            "south": "South Hemisphere",
+            "yes": "Continue",
+            "no": "No, continue with the other"
         }
     },
     "loans": {
@@ -139,7 +148,7 @@
             "November": "November",
             "December": "December"
         }
-    }, 
+    },
     "about": {
         "projectTitle": "About the Page",
         "projectText": "Page for the Data Access subject of the second year in Multiplatform Application Development. It consists of a progress tracker for the game 'Animal Crossing New Horizons'",
