@@ -1,6 +1,6 @@
 <form *ngIf="form" [formGroup]="form" (ngSubmit)="onSubmit()" (key.enter)="onSubmit()">
   <ion-item>
-    <ion-input labelPlacement="floating" label="{{ 'login.username' | translate}}" formControlName="username" type="text"></ion-input>
+    <ion-input labelPlacement="floating" label="{{ 'login.email' | translate}}" formControlName="username" type="text"></ion-input>
   </ion-item>
   <ion-item>
     <ion-input labelPlacement="floating" label="{{ 'login.password' | translate}}" formControlName="password" type="password"></ion-input>
