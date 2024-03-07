@@ -44,9 +44,10 @@ export class IslandService {
       this.fbAuth.user$.subscribe(user => {
         this.fbSvc.createDocument(`users/${user!.uuid}/island`, postdata).then(() => {
           observer.complete();
-          this._islands.next;
         })
+        
       })
+      
     })
   }
 

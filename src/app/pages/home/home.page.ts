@@ -20,24 +20,24 @@ import { lastValueFrom } from 'rxjs';
 })
 export class HomePage {
 
-  is:boolean = false;
+  is: boolean = false;
   isModalOpen = false
   currentPosition: any;
 
   constructor(
     public islandService: IslandService,
-    public authService:AuthStrapiService,
+    public authService: AuthStrapiService,
     private modal: ModalController,
-    public loanService:LoanService,
-    private router:Router,
+    public loanService: LoanService,
+    private router: Router,
     private alertController: AlertController,
     private translate: TranslateService
   ) { }
 
-  ngOnInit() {};
+  ngOnInit() { };
 
   ngAfterViewInit() {
-    this.islandService.getUserIsland().subscribe(is=>{
+    this.islandService.getUserIsland().subscribe(is => {
       this.is = !!is;
     })
     this.loanService.getUserLoans().subscribe()
@@ -72,10 +72,6 @@ export class HomePage {
           this.hemisphereAlert(info.data);
           this.isModalOpen = false;
           console.log("data", info.data)
-          /*this.islandService.addIsland(info.data).subscribe(is=>{
-            this.is = !!is;
-            this.isModalOpen = false;
-          });*/
         }
           break;
         default: {
@@ -85,43 +81,42 @@ export class HomePage {
       }
     }
     this.presentForm(null, onDismiss);
+  }async hemisphereAlert(data: any) {
+    let hemisphere = await this.getHemisphere();
+    const alert = await this.alertController.create({
+      mode: 'ios',
+      header: await lastValueFrom(this.translate.get('island.hemisphere.confirm')),
+      message: `${await lastValueFrom(this.translate.get('island.hemisphere.youarein'))} ${await lastValueFrom(this.translate.get(`island.hemisphere.${hemisphere}`))} ${await lastValueFrom(this.translate.get('island.hemisphere.continue'))}`,
+      buttons: [
+        {
+          text: await lastValueFrom(this.translate.get('island.hemisphere.yes')),
+          handler: () => {
+            const isData = { ...data, hemisphere };
+            this.islandService.getUserIsland().subscribe(updatedIsland => {
+              this.is = !!updatedIsland
+            });
+            this.islandService.addIsland(isData).subscribe();
+          },
+        },
+        {
+          text: await lastValueFrom(this.translate.get('island.hemisphere.no')),
+          handler: () => {
+            if (hemisphere === 'north')
+              hemisphere = 'south';
+            else
+              hemisphere = 'north';
+            const isData = { ...data, hemisphere };
+            console.log("is", isData);
+            this.islandService.getUserIsland().subscribe(updatedIsland => {
+              this.is = !!updatedIsland
+            });
+            this.islandService.addIsland(isData).subscribe();
+          }
+        },
+      ],
+    });
+    await alert.present();
   }
-
-    async hemisphereAlert(data:any) {
-      let hemisphere = await this.getHemisphere();
-      const alert = await this.alertController.create({
-        mode: 'ios',
-        header: await lastValueFrom(this.translate.get('island.hemisphere.confirm')),
-        message: `${await lastValueFrom(this.translate.get('island.hemisphere.youarein'))} ${await lastValueFrom(this.translate.get(`island.hemisphere.${hemisphere}`))} ${await lastValueFrom(this.translate.get('island.hemisphere.continue'))}`,
-        buttons: [
-          {
-            text: await lastValueFrom(this.translate.get('island.hemisphere.yes')),
-            handler: () => {
-              const isData = {...data, hemisphere}
-              console.log("is", isData)
-              this.islandService.addIsland(isData).subscribe(is=>{
-                this.is = !!is;
-              });
-            },
-          },
-          {
-            text: await lastValueFrom(this.translate.get('island.hemisphere.no')),
-            handler: () => {
-              if (hemisphere ===  'north')
-                hemisphere = 'south'
-              else
-                hemisphere =  'north'
-              const isData = {...data, hemisphere}
-              console.log("is", isData)
-              this.islandService.addIsland(isData).subscribe(is=>{
-                this.is = !!is;   
-              });
-            }
-          },
-        ],
-      });
-      await alert.present();
-    }
 
   async getHemisphere(): Promise<string> {
     try {
@@ -139,7 +134,7 @@ export class HomePage {
     var onDismiss = (info: any) => {
       switch (info.role) {
         case 'submit': {
-          this.islandService.updateIsland(is, info).subscribe(is=>{
+          this.islandService.updateIsland(is, info).subscribe(is => {
             this.is = !!is;
             this.isModalOpen = false;
           })
@@ -163,7 +158,7 @@ export class HomePage {
     this.presentForm(is, onDismiss);
   }
 
-  
+
   async presentLoanForm(data: Loan | null, onDismiss: (result: any) => void) {
     const modal = await this.modal.create({
       component: LoanFormComponent,
@@ -184,7 +179,7 @@ export class HomePage {
     var onDismiss = (info: any) => {
       switch (info.role) {
         case 'submit': {
-          loan.attributes= info.data
+          loan.attributes = info.data
           this.loanService.updateLoan(loan).subscribe();
         }
           break;
@@ -196,8 +191,8 @@ export class HomePage {
     this.presentLoanForm(loan, onDismiss);
   }
 
-  onDeleteClicked(loan:Loan) {
-    this.loanService.deleteLoan(loan).subscribe(deleted => {});
+  onDeleteClicked(loan: Loan) {
+    this.loanService.deleteLoan(loan).subscribe(deleted => { });
   }
 
 }
