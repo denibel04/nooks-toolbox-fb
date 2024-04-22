@@ -7,7 +7,7 @@ export interface User {
     display_name?:string,
     island?:any,
     extended_id?:number,
-    
+    profile_picture?:string
 }
 
 

@@ -26,16 +26,6 @@ export class AppComponent {
         this.showNavbar = !['/login', '/register'].includes(event.urlAfterRedirects);
       } });
 
-    
-    
-    /*  this.auth.isLogged$.subscribe(logged=>{
-      
-      if(logged){
-        this.auth.me().subscribe(data=>{
-          this.user = data;
-        });
-      }
-    });*/
   }
 
   onSignOut(){

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FirebaseAuthService } from 'src/app/core/services/api/firebase/firebase-auth.service';
 import { FirebaseService } from 'src/app/core/services/firebase/firebase.service';
 
 @Component({
@@ -8,16 +9,25 @@ import { FirebaseService } from 'src/app/core/services/firebase/firebase.service
 })
 export class ProfilePage  {
 
-  constructor(private firebaseService: FirebaseService) { }
+  constructor(    
+    private fbSvc: FirebaseService,
+    private fbAuth: FirebaseAuthService,) { }
 
-  onImageSelected(event: any) {
-    const file: File = event.target.files[0];
-    if (file) {
-      this.firebaseService.imageUpload(file).then(url => {
-        console.log('URL de descarga:', url);
-      }).catch(error => {
-        console.error('Error al cargar la imagen:', error);
-      });
+    onImageSelected(event: any) {
+      const file: File = event.target.files[0];
+      if (file) {
+        this.fbSvc.imageUpload(file).then(url => {
+          console.log('URL de descarga:', url);
+          this.fbAuth.user$.subscribe(user => {
+            if (user && user.uuid) { 
+              this.fbSvc.updateDocument('users', user.uuid, { profile_picture: url.file })
+            } else {
+              console.error('Error: No se pudo obtener el usuario.');
+            }
+          });
+        }).catch(error => {
+          console.error('Error al cargar la imagen:', error);
+        });
+      }
     }
-  }
 }
