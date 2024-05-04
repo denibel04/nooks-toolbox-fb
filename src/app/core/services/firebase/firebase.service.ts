@@ -1,8 +1,8 @@
 import { Inject, Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 import { initializeApp, getApp, FirebaseApp } from "firebase/app";
-import { getFirestore, addDoc, collection, updateDoc, doc, onSnapshot, getDoc, setDoc, query, where, getDocs, Unsubscribe, DocumentData, deleteDoc, Firestore, orderBy, startAt, limit } from "firebase/firestore";
-import { getStorage, ref, getDownloadURL, uploadBytes, FirebaseStorage } from "firebase/storage";
+import { getFirestore, addDoc, collection, updateDoc, doc, onSnapshot, getDoc, setDoc, query, where, getDocs, Unsubscribe, DocumentData, deleteDoc, Firestore, orderBy, startAt, limit, startAfter } from "firebase/firestore";
+import { getStorage, ref, getDownloadURL, uploadBytes, FirebaseStorage, deleteObject } from "firebase/storage";
 import { createUserWithEmailAndPassword, deleteUser, signInAnonymously, signOut, signInWithEmailAndPassword, initializeAuth, indexedDBLocalPersistence, UserCredential, Auth, User } from "firebase/auth";
 import { Router } from "@angular/router";
 
@@ -111,7 +111,19 @@ export class FirebaseService {
     return this.fileUpload(blob, 'image/jpeg', 'images', 'image', ".jpg");
   }
 
+  
+public deleteFile(path: string): Promise<void> {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const fileRef = ref(this._webStorage!, path);
 
+      await deleteObject(fileRef);
+      resolve();
+    } catch (error) {
+      reject(error);
+    }
+  });
+}
 
   public createDocument(collectionName: string, data: any): Promise<string> {
     return new Promise((resolve, reject) => {
@@ -176,17 +188,14 @@ export class FirebaseService {
         });
       }
 
-      console.log("aaa",this.getDocumentsBy("villagers", "id", lastDocument))
-
       let collectionRef = (collection(this._db, collectionName))
-      let queryRef = query(collectionRef, orderBy("name"), limit(pageSize));
-      console.log("lastdoc", lastDocument)
+      const q = query(collectionRef, orderBy("name"));
+      let paginatedQuery = query(q, limit(25));
       if (lastDocument) {
-         queryRef = query(collectionRef, orderBy("name"),  limit(pageSize), startAt(lastDocument)) ;
-      }
+        paginatedQuery = query(q, startAfter(lastDocument), limit(25));
+      } 
 
-
-      getDocs(queryRef)
+      getDocs(paginatedQuery)
         .then(querySnapshot => {
           const documents = querySnapshot.docs.map<FirebaseDocument>(doc => {
             return { id: doc.id, data: doc.data() };

@@ -13,7 +13,7 @@ export interface Villager {
         sign: string,
         quote: string,
         phrase: string,
-        islander: boolean
+        islander:boolean
     }
 }
 

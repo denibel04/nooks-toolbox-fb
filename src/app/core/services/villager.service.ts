@@ -25,6 +25,8 @@ export class VillagerService {
 
   private _villagers: BehaviorSubject<Villager[]> = new BehaviorSubject<Villager[]>([])
   public villagers$: Observable<Villager[]> = this._villagers.asObservable();
+
+  lastVillager: any = null
   /*
     public queryPaginated(page: number): Observable<PaginatedVillagers> {
       const paginationParams = `pagination[page]=${page}`;
@@ -46,7 +48,7 @@ export class VillagerService {
     public getPaginatedVillagers(): Observable<Villager[]> {
       console.log("getpag", this._villagers.value.length);
       return new Observable(observer => {
-        this.fbSvc.getDocumentsPaginated("villagers", 25, "0S8iWj94aXSpsYAx8Kdt").then(villagersPaginated => {
+        this.fbSvc.getDocumentsPaginated("villagers", 25, this.lastVillager).then(villagersPaginated => {
           console.log("paginated villagers", villagersPaginated);
           const newVillagers = villagersPaginated.map(doc => {
             const data = doc.data;
@@ -68,6 +70,8 @@ export class VillagerService {
             };
             return villager;
           });
+
+          this.lastVillager = newVillagers[newVillagers.length - 1].attributes.name;
     
           const currentVillagers = this._villagers.value;
           const updatedVillagers = [...currentVillagers, ...newVillagers];
