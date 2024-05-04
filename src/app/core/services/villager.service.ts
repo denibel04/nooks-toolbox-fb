@@ -15,8 +15,9 @@ export class VillagerService {
     private dataService: DataService,
     private fbSvc: FirebaseService,
     private api: ApiService
-  ) { 
-    this.getVillagers().subscribe();
+  ) {
+   // this.getVillagers().subscribe();
+    this.getPaginatedVillagers().subscribe()
   }
 
   private _villagersPaginated: BehaviorSubject<PaginatedVillagers> = new BehaviorSubject<PaginatedVillagers>({ data: [], pagination: { page: 0, pageCount: 0, pageSize: 0, total: 0 } });
@@ -42,39 +43,76 @@ export class VillagerService {
         })))
     }
   */
-  public getVillagers(): Observable<Villager[]> {
-    return new Observable(observer => {
-      this.fbSvc.getDocuments("villagers").then(villagerDocuments => {
-        console.log("GET DOCUMETS GETVILLAGERS")
-        //console.log(villagerDocuments);
-        const villagers = villagerDocuments.map(doc => {
-          const data = doc.data;
-          const villager: Villager = {
-            id: doc['id'],
-            attributes: {
-              name: data['name'],
-              image_url: data['image_url'],
-              species: data['species'],
-              personality: data['personality'],
-              gender: data['gender'],
-              birthday_month: data['birthday_month'],
-              birthday_day: parseInt(data['birthday_day']),
-              sign: data['sign'],
-              quote: data['quote'],
-              phrase: data['phrase'],
-              islander: data['islander']
-            }
-          };
-          //console.log(villager)
-          return villager;
+    public getPaginatedVillagers(): Observable<Villager[]> {
+      console.log("getpag", this._villagers.value.length);
+      return new Observable(observer => {
+        this.fbSvc.getDocumentsPaginated("villagers", 25, "0S8iWj94aXSpsYAx8Kdt").then(villagersPaginated => {
+          console.log("paginated villagers", villagersPaginated);
+          const newVillagers = villagersPaginated.map(doc => {
+            const data = doc.data;
+            const villager: Villager = {
+              id: doc['id'],
+              attributes: {
+                name: data['name'],
+                image_url: data['image_url'],
+                species: data['species'],
+                personality: data['personality'],
+                gender: data['gender'],
+                birthday_month: data['birthday_month'],
+                birthday_day: parseInt(data['birthday_day']),
+                sign: data['sign'],
+                quote: data['quote'],
+                phrase: data['phrase'],
+                islander: data['islander']
+              }
+            };
+            return villager;
+          });
+    
+          const currentVillagers = this._villagers.value;
+          const updatedVillagers = [...currentVillagers, ...newVillagers];
+    
+          this._villagers.next(updatedVillagers);
+          observer.next(updatedVillagers);
+          observer.complete();
         });
-        this._villagers.next(villagers);
-        observer.next(villagers);
-        observer.complete();
       });
-    });
-  }
-
+    }
+    
+  /*
+    public getVillagers(): Observable<Villager[]> {
+      return new Observable(observer => {
+        this.fbSvc.getDocuments("villagers").then(villagerDocuments => {
+          console.log("GET DOCUMETS GETVILLAGERS")
+          //console.log(villagerDocuments);
+          const villagers = villagerDocuments.map(doc => {
+            const data = doc.data;
+            const villager: Villager = {
+              id: doc['id'],
+              attributes: {
+                name: data['name'],
+                image_url: data['image_url'],
+                species: data['species'],
+                personality: data['personality'],
+                gender: data['gender'],
+                birthday_month: data['birthday_month'],
+                birthday_day: parseInt(data['birthday_day']),
+                sign: data['sign'],
+                quote: data['quote'],
+                phrase: data['phrase'],
+                islander: data['islander']
+              }
+            };
+            //console.log(villager)
+            return villager;
+          });
+          this._villagers.next(villagers);
+          observer.next(villagers);
+          observer.complete();
+        });
+      });
+    }
+  */
   public getFiltered(name: string): Villager[] {
     const filteredVillagers = this._villagers.value.filter(villager => {
       const villagerName = villager.attributes.name;
@@ -83,7 +121,7 @@ export class VillagerService {
     return filteredVillagers;
   }
 
-  public getVillagerById(id: string): Villager|undefined {
+  public getVillagerById(id: string): Villager | undefined {
     return this._villagers.value.find(villager => villager.id === id);
   }
 

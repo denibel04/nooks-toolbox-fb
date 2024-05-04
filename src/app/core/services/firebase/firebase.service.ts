@@ -1,7 +1,7 @@
 import { Inject, Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 import { initializeApp, getApp, FirebaseApp } from "firebase/app";
-import { getFirestore, addDoc, collection, updateDoc, doc, onSnapshot, getDoc, setDoc, query, where, getDocs, Unsubscribe, DocumentData, deleteDoc, Firestore } from "firebase/firestore";
+import { getFirestore, addDoc, collection, updateDoc, doc, onSnapshot, getDoc, setDoc, query, where, getDocs, Unsubscribe, DocumentData, deleteDoc, Firestore, orderBy, startAt, limit } from "firebase/firestore";
 import { getStorage, ref, getDownloadURL, uploadBytes, FirebaseStorage } from "firebase/storage";
 import { createUserWithEmailAndPassword, deleteUser, signInAnonymously, signOut, signInWithEmailAndPassword, initializeAuth, indexedDBLocalPersistence, UserCredential, Auth, User } from "firebase/auth";
 import { Router } from "@angular/router";
@@ -165,6 +165,37 @@ export class FirebaseService {
       resolve(querySnapshot.docs.map<FirebaseDocument>(doc => {
         return { id: doc.id, data: doc.data() }
       }));
+    });
+  }
+
+  public getDocumentsPaginated(collectionName:string, pageSize: number, lastDocument?: any):Promise<FirebaseDocument[]> {
+    return new Promise((resolve, reject) => {
+      if (!this._db) {
+        reject({
+          msg: "Database is not connected"
+        });
+      }
+
+      console.log("aaa",this.getDocumentsBy("villagers", "id", lastDocument))
+
+      let collectionRef = (collection(this._db, collectionName))
+      let queryRef = query(collectionRef, orderBy("name"), limit(pageSize));
+      console.log("lastdoc", lastDocument)
+      if (lastDocument) {
+         queryRef = query(collectionRef, orderBy("name"),  limit(pageSize), startAt(lastDocument)) ;
+      }
+
+
+      getDocs(queryRef)
+        .then(querySnapshot => {
+          const documents = querySnapshot.docs.map<FirebaseDocument>(doc => {
+            return { id: doc.id, data: doc.data() };
+          });
+          resolve(documents);
+        })
+        .catch(error => {
+          reject(error);
+        });
     });
   }
 

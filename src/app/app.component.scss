@@ -5,6 +5,12 @@
     cursor: pointer;
 }
 
+.user-icon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .link-text:hover {
     color: var(--ion-color-primary);
     text-decoration: underline;

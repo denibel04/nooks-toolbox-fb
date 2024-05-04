@@ -75,7 +75,8 @@ export class FirebaseAuthService extends AuthService {
     if (info.uuid)
       return from(this.firebaseSvc.createDocumentWithId('users', {
         username: info.username,
-        display_name: info.display_name
+        display_name: info.display_name,
+        profile_picture: info.profile_picture
       }, info.uuid))
     throw new Error('Error inesperado');
   }
@@ -85,6 +86,7 @@ export class FirebaseAuthService extends AuthService {
       return from(this.firebaseSvc.getDocument('users', this.firebaseSvc.user.uid)).pipe(map(data => {
         console.log("GET DOCUMETS ME")
         return {
+          profile_picture: data.data['profile_picture'],
           username: data.data['username'],
           display_name: data.data['display_name'],
           uuid: data.id

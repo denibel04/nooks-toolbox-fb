@@ -76,7 +76,16 @@
           Nook's toolbox
         </ion-title>
         <ion-buttons slot="end">
-          <ion-menu-button></ion-menu-button>
+          <ion-button routerLink="/profile" >
+            <ion-avatar class="user-icon" slot="start" *ngIf="user" >
+              <ion-img *ngIf="user.profile_picture" [src]="user.profile_picture"></ion-img>
+              <ion-icon  *ngIf="!user.profile_picture" size="large" name="person-circle"></ion-icon>
+            </ion-avatar>
+          </ion-button>
+
+          <ion-menu-button>
+
+          </ion-menu-button>
         </ion-buttons>
       </ion-toolbar>
     </div>
