@@ -58,7 +58,10 @@ export class FirebaseAuthService extends AuthService {
         if (!credentials || !credentials.user || !credentials.user.user || !credentials.user.user.uid)
           subscr.error('Cannot register');
         if (credentials) {
-          var _info: User = { ...info };
+          var _info: User = {
+            ...info,
+            role: 'normal'
+          };
           _info.uuid = this.firebaseSvc.user?.uid;
           this.postRegister(_info).subscribe(data => {
             this._user.next(_info);
@@ -76,7 +79,8 @@ export class FirebaseAuthService extends AuthService {
       return from(this.firebaseSvc.createDocumentWithId('users', {
         username: info.username,
         display_name: info.display_name,
-        profile_picture: info.profile_picture
+        profile_picture: info.profile_picture,
+        role: 'normal'
       }, info.uuid))
     throw new Error('Error inesperado');
   }
@@ -89,7 +93,8 @@ export class FirebaseAuthService extends AuthService {
           profile_picture: data.data['profile_picture'],
           username: data.data['username'],
           display_name: data.data['display_name'],
-          dream_code: data.data['dream_code'],          
+          dream_code: data.data['dream_code'],   
+          role: data.data['role'],
           uuid: data.id
         }
       }));

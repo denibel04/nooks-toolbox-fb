@@ -180,7 +180,7 @@ public deleteFile(path: string): Promise<void> {
     });
   }
 
-  public getDocumentsPaginated(collectionName:string, pageSize: number, lastDocument?: any):Promise<FirebaseDocument[]> {
+  public getDocumentsPaginated(collectionName:string, pageSize: number, filterBy:string, lastDocument?: any):Promise<FirebaseDocument[]> {
     return new Promise((resolve, reject) => {
       if (!this._db) {
         reject({
@@ -189,10 +189,10 @@ public deleteFile(path: string): Promise<void> {
       }
 
       let collectionRef = (collection(this._db, collectionName))
-      const q = query(collectionRef, orderBy("name"));
-      let paginatedQuery = query(q, limit(25));
+      const q = query(collectionRef, orderBy(filterBy));
+      let paginatedQuery = query(q, limit(pageSize));
       if (lastDocument) {
-        paginatedQuery = query(q, startAfter(lastDocument), limit(25));
+        paginatedQuery = query(q, startAfter(lastDocument), limit(pageSize));
       } 
 
       getDocs(paginatedQuery)
