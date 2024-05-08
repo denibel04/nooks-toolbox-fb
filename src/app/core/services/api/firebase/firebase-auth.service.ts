@@ -84,11 +84,12 @@ export class FirebaseAuthService extends AuthService {
   public me(): Observable<User> {
     if (this.firebaseSvc.user?.uid)
       return from(this.firebaseSvc.getDocument('users', this.firebaseSvc.user.uid)).pipe(map(data => {
-        console.log("GET DOCUMETS ME")
+        console.log("GET DOCUMETS ME", data)
         return {
           profile_picture: data.data['profile_picture'],
           username: data.data['username'],
           display_name: data.data['display_name'],
+          dream_code: data.data['dream_code'],          
           uuid: data.id
         }
       }));
@@ -98,5 +99,9 @@ export class FirebaseAuthService extends AuthService {
 
   public logout(): Observable<any> {
     return from(this.firebaseSvc.signOut(false));
+  }
+
+  updateProfilePictureAndUser(updatedUser: User) {
+    this._user.next(updatedUser);
   }
 }

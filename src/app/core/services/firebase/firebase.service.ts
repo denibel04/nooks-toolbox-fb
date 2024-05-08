@@ -1,5 +1,5 @@
 import { Inject, Injectable } from "@angular/core";
-import { BehaviorSubject, Observable } from "rxjs";
+import { BehaviorSubject, Observable, UnaryFunction } from "rxjs";
 import { initializeApp, getApp, FirebaseApp } from "firebase/app";
 import { getFirestore, addDoc, collection, updateDoc, doc, onSnapshot, getDoc, setDoc, query, where, getDocs, Unsubscribe, DocumentData, deleteDoc, Firestore, orderBy, startAt, limit, startAfter } from "firebase/firestore";
 import { getStorage, ref, getDownloadURL, uploadBytes, FirebaseStorage, deleteObject } from "firebase/storage";
@@ -155,7 +155,7 @@ public deleteFile(path: string): Promise<void> {
     });
   }
 
-  public updateDocument(collectionName: string, document: string, data: any): Promise<void> {
+  public updateDocument(collectionName: string, document: string | undefined, data: any): Promise<void> {
     return new Promise(async (resolve, reject) => {
       if (!this._db)
         reject({

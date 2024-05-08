@@ -158,5 +158,8 @@
         "loans":"Gestión de deudas",
         "trans":"Servicio de traducción, directivas, pipes",
         "technologies":"Tecnologías usadas"
+    },
+    "profile":{
+        "dreamCode": "Código de sueño"
     }
 }

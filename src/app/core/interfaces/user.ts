@@ -7,7 +7,8 @@ export interface User {
     display_name?:string,
     island?:any,
     extended_id?:number,
-    profile_picture?:string
+    profile_picture?:string,
+    dream_code?:string
 }
 
 

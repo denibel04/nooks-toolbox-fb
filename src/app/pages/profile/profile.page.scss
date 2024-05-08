@@ -1,0 +1,49 @@
+img {
+    height: 10rem;
+    width: 10rem;
+    border-radius: 50%;
+}
+
+ion-card {
+    border-radius: 25px;
+    width: 20rem;
+    height: 22rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    h1 {
+        font-weight: bold;
+    }
+}
+
+ion-card-header, .user-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+
+table {
+    margin: 1rem 0rem -2rem -1rem;
+    align-self: flex-end;
+    width: 115%;
+    border-collapse: collapse;
+    height: 70%;
+}
+
+th, td {
+    text-align: center;
+    padding: 10px;
+    height: 4rem;
+}
+
+
+tr:first-child td {
+    border-top: 3px solid var(--ion-color-step-200); 
+  }
+
+td:first-child {
+    border-right: 3px solid var(--ion-color-step-200); 
+}

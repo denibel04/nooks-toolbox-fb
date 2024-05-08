@@ -18,19 +18,17 @@ export class AppComponent {
     public auth:AuthService,
     private router:Router,
     public translate:CustomTranslateService,
-    private fbAuth: FirebaseAuthService,
+    public fbAuth: FirebaseAuthService,
   ) {
     this.fbAuth.user$.subscribe(user => {
       this.user =user;
       console.log("app user", this.user)
-     })
+    })
     this.lang = this.translate.getBrowserLang();
-
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.showNavbar = !['/login', '/register'].includes(event.urlAfterRedirects);
       } });
-
   }
 
   onSignOut(){
@@ -39,7 +37,6 @@ export class AppComponent {
       this.user = null;
     });
   }
-
   
   onLang(lang:string){
     this.lang = lang;
