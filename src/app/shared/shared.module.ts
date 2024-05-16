@@ -19,6 +19,7 @@ import { HttpClient } from '@angular/common/http';
 import { LatestThreePipe } from './pipes/latest-three.pipe';
 import { LoanItemComponent } from './components/loan-item/loan-item.component';
 import { BackgroundBlurDirective } from './directives/background-blur.directive';
+import { UserCardComponent } from './components/user-card/user-card.component';
 
 
 
@@ -26,6 +27,7 @@ import { BackgroundBlurDirective } from './directives/background-blur.directive'
   declarations: [
     // directives
     ProgressDirective,
+    BackgroundBlurDirective,
     // pipes
     LoanCompletedPipe,
     LatestThreePipe,
@@ -43,8 +45,7 @@ import { BackgroundBlurDirective } from './directives/background-blur.directive'
     ProgressDirective,
     LatestThreePipe,
     LoanItemComponent,
-    BackgroundBlurDirective,
-
+    UserCardComponent
   ],
   imports: [
     CommonModule,
@@ -75,6 +76,7 @@ import { BackgroundBlurDirective } from './directives/background-blur.directive'
     LoanFormComponent,
     TranslateModule,
     LoanItemComponent,
+    UserCardComponent,
     // pipe
     LoanCompletedPipe,
     LatestThreePipe,

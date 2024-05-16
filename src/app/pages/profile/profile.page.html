@@ -10,26 +10,6 @@
   <div>
 
 
-  </div>
+  </div><app-user-card [user]="user$ | async"></app-user-card>
 
-  <ion-card class="profile-container" color="primary">
-
-    <ion-card-header>
-      <div class="img">
-        <img src="{{(user$ | async)?.profile_picture}}" alt="user-pfp">
-      </div>
-    </ion-card-header>
-    <ion-card-content>
-      <div class="user-info">
-        <h1>@{{(user$ | async)?.username}}</h1>
-        <span>{{'profile.dreamCode' | translate}}: {{(user$ | async)?.dream_code}}</span>
-      </div>
-      <table class="followers-table">
-        <tr>
-          <td>Columna 1</td>
-          <td>Columna 2</td>
-        </tr>
-      </table>
-    </ion-card-content>
-  </ion-card>
 </ion-content>

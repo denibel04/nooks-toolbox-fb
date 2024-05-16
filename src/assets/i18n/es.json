@@ -160,6 +160,11 @@
         "technologies":"Tecnologías usadas"
     },
     "profile":{
-        "dreamCode": "Código de sueño"
+        "dreamCode": "Código de sueño",
+        "following": "Siguiendo",
+        "followers": "Seguidores",
+        "follow": "Seguir",
+        "unfollow":"Dejar de seguir",
+        "ban": "Banear"
     }
 }

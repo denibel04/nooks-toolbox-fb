@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
   selector: 'app-admin',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminPage implements OnInit {
 
-  constructor() { }
+  constructor(
+    public userSvc: UserService
+  ) { }
 
   ngOnInit() {
+    this.userSvc.getPaginatedUsers().subscribe();
   }
 
 }

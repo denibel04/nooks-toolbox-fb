@@ -1,0 +1,29 @@
+<ion-card class="profile-container" color="primary">
+  <ion-card-header>
+    <div class="img">
+      <img [src]="user?.profile_picture" alt="user-pfp">
+    </div>
+  </ion-card-header>
+  <ion-card-content>
+    <div class="user-info">
+      <h1>@{{user?.username}}</h1>
+      <span>{{'profile.dreamCode' | translate}}: {{user?.dream_code}}</span>
+    </div>
+    <table class="followers-table">
+      <tr>
+        <td>
+          <p>
+            {{ 'profile.following' | translate}}
+          </p>
+          <h1>89</h1>
+        </td>
+        <td>
+          <p>
+            {{ 'profile.followers' | translate}}
+          </p>
+          <h1>12</h1>
+        </td>
+      </tr>
+    </table>
+  </ion-card-content>
+</ion-card>

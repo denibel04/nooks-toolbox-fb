@@ -23,10 +23,11 @@ export class UserService {
 public getPaginatedUsers(): Observable<User[]> {
   console.log("getpag", this._users.value.length);
   return new Observable(observer => {
-    this.fbSvc.getDocumentsPaginated("users", 25, "uuid", this.lastUser).then(usersPaginated => {
+    this.fbSvc.getDocumentsPaginated("users", 25, "username", this.lastUser).then(usersPaginated => {
       console.log("paginated users", usersPaginated);
       const newUsers = usersPaginated.map(doc => {
         const data = doc.data;
+        console.log("user data", data)
         const user: User = {
           uuid: doc['id'],
           username: data['username'],
