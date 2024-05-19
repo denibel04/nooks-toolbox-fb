@@ -1,3 +1,14 @@
-<p>
-  user-form works!
-</p>
+<form *ngIf="userForm" [formGroup]="userForm" (ngSubmit)="onSubmit()">
+  <app-picture-selectable formControlName="profile_picture"></app-picture-selectable>
+  <ion-item>
+    <ion-input labelPlacement="floating" label="Username" formControlName="username" type="text"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-input labelPlacement="floating" label="Dream Code" formControlName="dream_code" type="text"></ion-input>
+  </ion-item>
+  <div class="ion-text-end">
+    <ion-button type="submit" [color]="buttonConfig.color" [fill]="buttonConfig.fill" [disabled]="!userForm.valid">
+      {{ buttonConfig.text }}
+    </ion-button>
+  </div>
+</form>
