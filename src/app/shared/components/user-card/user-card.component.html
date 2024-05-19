@@ -1,15 +1,20 @@
 <ion-card class="profile-container" color="primary">
-  <ion-card-header>
-    <div class="img">
-      <img [src]="user?.profile_picture" alt="user-pfp">
-    </div>
-  </ion-card-header>
   <ion-card-content>
+    <div class="button">
+      <ion-button shape="round" [color]="buttonConfig.color" [fill]="buttonConfig.fill" (click)="handleButtonClick()">
+        {{ buttonConfig.text }}
+      </ion-button>
+    </div>
+    <div class="img">
+      <img *ngIf="user?.profile_picture" [src]="user?.profile_picture"/>
+      <ion-icon *ngIf="!user?.profile_picture" size="large" name="person-circle"></ion-icon>
+    </div>
     <div class="user-info">
       <h1>@{{user?.username}}</h1>
       <span>{{'profile.dreamCode' | translate}}: {{user?.dream_code}}</span>
     </div>
-    <table class="followers-table">
+    <div class="follow-table">
+      <table class="followers-table">
       <tr>
         <td>
           <p>
@@ -25,5 +30,7 @@
         </td>
       </tr>
     </table>
+    </div>
+    
   </ion-card-content>
 </ion-card>
