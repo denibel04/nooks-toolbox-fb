@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit, ViewChild, forwardRef } from '@angular/core';
+import { Component, OnDestroy, OnInit, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { BehaviorSubject } from 'rxjs';
@@ -13,17 +13,16 @@ export const PICTURE_SELECTABLE_VALUE_ACCESSOR: any = {
   selector: 'app-picture-selectable',
   templateUrl: './picture-selectable.component.html',
   styleUrls: ['./picture-selectable.component.scss'],
-  providers:[PICTURE_SELECTABLE_VALUE_ACCESSOR]
+  providers: [PICTURE_SELECTABLE_VALUE_ACCESSOR]
 })
-export class PictureSelectableComponent  implements OnInit, ControlValueAccessor, OnDestroy {
+export class PictureSelectableComponent implements OnInit, ControlValueAccessor, OnDestroy {
 
-  private _picture = new BehaviorSubject("");
+  private _picture = new BehaviorSubject<string>("");
   public picture$ = this._picture.asObservable();
-  isDisabled:boolean = false;
-  hasValue:boolean = false;
-  constructor(
-    private pictureModal:ModalController
-  ) { }
+  isDisabled: boolean = false;
+  hasValue: boolean = false;
+
+  constructor(private pictureModal: ModalController) { }
 
   ngOnDestroy(): void {
     this._picture.complete();
@@ -31,11 +30,10 @@ export class PictureSelectableComponent  implements OnInit, ControlValueAccessor
 
   ngOnInit() {}
 
-  propagateChange = (obj: any) => {
-  }
+  propagateChange = (obj: any) => {}
 
   writeValue(obj: any): void {
-    if(obj){
+    if (obj) {
       this.hasValue = true;
       this._picture.next(obj);
     }
@@ -45,45 +43,42 @@ export class PictureSelectableComponent  implements OnInit, ControlValueAccessor
     this.propagateChange = fn;
   }
 
-  registerOnTouched(fn: any): void {
-  }
+  registerOnTouched(fn: any): void {}
 
   setDisabledState?(isDisabled: boolean): void {
     this.isDisabled = isDisabled;
   }
 
-  changePicture(picture:string){
-    this.hasValue = picture!='';
-    this._picture.next(picture);
-    this.propagateChange(picture);
+  changePicture(base64: string, file: any) {
+    this.hasValue = base64 !== '';
+    this._picture.next(base64);
+    this.propagateChange(file);
   }
 
-  onChangePicture(event:Event, fileLoader:HTMLInputElement){
+  onChangePicture(event: any, fileLoader: HTMLInputElement) {
     event.stopPropagation();
-    fileLoader.onchange = ()=>{
-      if(fileLoader.files && fileLoader.files?.length>0){
-        var file = fileLoader.files[0];
-        var reader = new FileReader();
+    fileLoader.onchange = () => {
+      if (fileLoader.files && fileLoader.files.length > 0) {
+        const file = fileLoader.files[0];
+        const reader = new FileReader();
         reader.onload = () => {
-          this.changePicture(reader.result as string);
+          this.changePicture(reader.result as string, file);
         };
-        reader.onerror = (error) =>{
+        reader.onerror = (error) => {
           console.log(error);
-        }
+        };
         reader.readAsDataURL(file);
       }
-    }
+    };
     fileLoader.click();
   }
 
-  onDeletePicture(event:Event){
+  onDeletePicture(event: Event) {
     event.stopPropagation();
-    this.changePicture('');
+    this.changePicture('', null);
   }
 
-  close(){
-    this.pictureModal?.dismiss();
+  close() {
+    this.pictureModal.dismiss();
   }
-
 }
-

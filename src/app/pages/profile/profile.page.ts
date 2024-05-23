@@ -27,6 +27,7 @@ export class ProfilePage  {
     
     onImageSelected(event: any) {
       const file: File = event.target.files[0];
+      console.log("file",file)
       if (file) {
         this.fbSvc.imageUpload(file).then(url => {
           this.fbAuth.me().subscribe(user => {

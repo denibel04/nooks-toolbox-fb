@@ -20,6 +20,8 @@ import { LatestThreePipe } from './pipes/latest-three.pipe';
 import { LoanItemComponent } from './components/loan-item/loan-item.component';
 import { BackgroundBlurDirective } from './directives/background-blur.directive';
 import { UserCardComponent } from './components/user-card/user-card.component';
+import { PictureSelectableComponent } from './components/picture-selectable/picture-selectable.component';
+import { UserFormComponent } from './components/user-form/user-form.component';
 
 
 
@@ -45,7 +47,9 @@ import { UserCardComponent } from './components/user-card/user-card.component';
     ProgressDirective,
     LatestThreePipe,
     LoanItemComponent,
-    UserCardComponent
+    UserCardComponent,
+    PictureSelectableComponent,
+    UserFormComponent,
   ],
   imports: [
     CommonModule,
@@ -77,6 +81,8 @@ import { UserCardComponent } from './components/user-card/user-card.component';
     TranslateModule,
     LoanItemComponent,
     UserCardComponent,
+    PictureSelectableComponent,
+    UserFormComponent,
     // pipe
     LoanCompletedPipe,
     LatestThreePipe,

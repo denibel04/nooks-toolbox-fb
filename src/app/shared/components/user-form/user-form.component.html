@@ -1,3 +1,16 @@
+<ion-header>
+  <ion-toolbar>
+  <ion-buttons slot="start">
+    <ion-button color="primary" fill="clear" (click)="onCancel()">
+      <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+  <ion-title style="text-align: center;">
+    Editar perfil 
+  </ion-title>
+</ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding form">
 <form *ngIf="userForm" [formGroup]="userForm" (ngSubmit)="onSubmit()">
   <app-picture-selectable formControlName="profile_picture"></app-picture-selectable>
   <ion-item>
@@ -6,9 +19,8 @@
   <ion-item>
     <ion-input labelPlacement="floating" label="Dream Code" formControlName="dream_code" type="text"></ion-input>
   </ion-item>
-  <div class="ion-text-end">
-    <ion-button type="submit" [color]="buttonConfig.color" [fill]="buttonConfig.fill" [disabled]="!userForm.valid">
-      {{ buttonConfig.text }}
-    </ion-button>
-  </div>
 </form>
+</ion-content>
+<ion-footer>
+  <ion-button type="submit" [disabled]="!userForm.valid || !userForm.dirty" class="ion-padding" expand="full" (click)="onSubmit()"> Guardar </ion-button>
+</ion-footer>

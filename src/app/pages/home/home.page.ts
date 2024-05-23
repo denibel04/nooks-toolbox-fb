@@ -81,7 +81,9 @@ export class HomePage {
       }
     }
     this.presentForm(null, onDismiss);
-  }async hemisphereAlert(data: any) {
+  }
+  
+  async hemisphereAlert(data: any) {
     let hemisphere = await this.getHemisphere();
     const alert = await this.alertController.create({
       mode: 'ios',

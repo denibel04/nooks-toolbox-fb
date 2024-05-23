@@ -52,8 +52,18 @@ public getPaginatedUsers(): Observable<User[]> {
   });
 }
 
-// update user
+//TODO update user
 
-// delete user
+public updateUser(user:User, info:any):Observable<User> {
+  return new Observable(observer => {
+    
+  })
+}
+
+//TODO get user by uuid
+
+//TODO get user by username
+
+//TODO delete/ban user
 
 }

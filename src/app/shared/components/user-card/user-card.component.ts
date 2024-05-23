@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { User } from 'src/app/core/interfaces/user';
+import { UserFormComponent } from '../user-form/user-form.component';
+import { ModalController } from '@ionic/angular';
 
 interface ButtonConfig {
   text: string;
@@ -15,7 +17,9 @@ interface ButtonConfig {
 })
 export class UserCardComponent  implements OnInit {
 
-  constructor() { }
+  constructor(
+    private modal: ModalController,
+  ) { }
   @Input() user: User | null  = null;
   @Input() buttonType: string = "";
 
@@ -62,7 +66,7 @@ export class UserCardComponent  implements OnInit {
         //this.unfollowUser();
         break;
       case 'edit':
-        //this.editUser();
+        this.onEditClicked(this.user!)
         break;
       case 'ban':
         //this.banUser();
@@ -71,5 +75,55 @@ export class UserCardComponent  implements OnInit {
         console.warn('Acción no reconocida:', this.buttonConfig.action);
     }
   }
+
+
+
+  onEditClicked(user: User) {
+    var onDismiss = (info: any) => {
+      if (info.role == 'submit') {
+        
+      }
+      /*switch (info.role) {
+        case 'submit': {
+          this.islandService.updateIsland(is, info).subscribe(is => {
+            this.is = !!is;
+            this.isModalOpen = false;
+          })
+          this.islandService.getUserIsland().subscribe();
+        }
+          break;
+        case 'delete': {
+          this.is = false;
+          this.isModalOpen = false;
+          console.log("delete")
+          //this.loanService.deleteLoansOnCascade(is);
+          this.islandService.deleteIsland(is).subscribe()
+        }
+          break;
+        default: {
+          this.isModalOpen = false;
+          console.error("Error")
+        }
+      }*/
+    }
+    this.presentUserForm(user, onDismiss);
+  }
+
+  async presentUserForm(data: User | null, onDismiss: (result: any) => void) {
+    const modal = await this.modal.create({
+      component: UserFormComponent,
+      componentProps: {
+        user: data
+      }
+    });
+    modal.present();
+    modal.onDidDismiss().then(result => {
+      if (result && result.data) {
+        onDismiss(result);
+      }
+    })
+  }
+
+
 
 }
