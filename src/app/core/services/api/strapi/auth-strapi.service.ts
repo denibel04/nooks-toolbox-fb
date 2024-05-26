@@ -97,7 +97,9 @@ export class AuthStrapiService extends AuthService {
             display_name: extended_user.data[0].attributes.display_name,
             island: extended_user.data[0].attributes.island,
             extended_id:extended_user.data[0].id,
-            role:extended_user.data[0].role
+            role:extended_user.data[0].role,
+            followers:[],
+            following:[]
           }
           obs.next(ret);
           obs.complete();

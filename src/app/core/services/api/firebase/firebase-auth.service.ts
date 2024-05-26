@@ -60,7 +60,9 @@ export class FirebaseAuthService extends AuthService {
         if (credentials) {
           var _info: User = {
             ...info,
-            role: 'normal'
+            role: 'normal',
+            followers: [],
+            following: []
           };
           _info.uuid = this.firebaseSvc.user?.uid;
           this.postRegister(_info).subscribe(data => {
@@ -80,7 +82,9 @@ export class FirebaseAuthService extends AuthService {
         username: info.username,
         display_name: info.display_name,
         profile_picture: info.profile_picture,
-        role: 'normal'
+        role: 'normal',
+        followers: [],
+        following: []
       }, info.uuid))
     throw new Error('Error inesperado');
   }
@@ -95,7 +99,9 @@ export class FirebaseAuthService extends AuthService {
           display_name: data.data['display_name'],
           dream_code: data.data['dream_code'],   
           role: data.data['role'],
-          uuid: data.id
+          uuid: data.id,
+          followers: data.data['followers'],
+          following: data.data['following']
         }
       }));
     else

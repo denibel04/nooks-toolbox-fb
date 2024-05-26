@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { User } from 'src/app/core/interfaces/user';
 import { UserFormComponent } from '../user-form/user-form.component';
 import { ModalController } from '@ionic/angular';
+import { UserService } from 'src/app/core/services/user.service';
 
 interface ButtonConfig {
   text: string;
@@ -19,6 +20,7 @@ export class UserCardComponent  implements OnInit {
 
   constructor(
     private modal: ModalController,
+    private userSvc:UserService
   ) { }
   @Input() user: User | null  = null;
   @Input() buttonType: string = "";
@@ -81,7 +83,11 @@ export class UserCardComponent  implements OnInit {
   onEditClicked(user: User) {
     var onDismiss = (info: any) => {
       if (info.role == 'submit') {
-        
+        this.userSvc.updateUser(user, info);
+        //this.isModalOpen = false;
+      } else {
+        //this.isModalOpen = false;
+        console.error("Error")
       }
       /*switch (info.role) {
         case 'submit': {

@@ -9,7 +9,9 @@ export interface User {
     extended_id?:number,
     profile_picture?:string,
     dream_code?:string,
-    role: 'normal' | 'admin';
+    role: 'normal' | 'admin',
+    followers:[],
+    following:[]
 }
 
 

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { FirebaseService } from './firebase/firebase.service';
 import { User } from '../interfaces/user';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { FirebaseAuthService } from './api/firebase/firebase-auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,7 @@ export class UserService {
 
   constructor(
     private fbSvc: FirebaseService,
+    private fbAuth: FirebaseAuthService
   ) { }
 
   lastUser : any = null
@@ -35,7 +37,9 @@ public getPaginatedUsers(): Observable<User[]> {
           island: data['island'],
           profile_picture: data['profile_picture'],
           dream_code: data['dream_code'],
-          role: data['role']
+          role: data['role'],
+          followers: data['followers'],
+          following: data['following']
         };
         return user;
       });
@@ -52,13 +56,50 @@ public getPaginatedUsers(): Observable<User[]> {
   });
 }
 
-//TODO update user
+public async updateUser(user: User, info: any): Promise<Observable<User>> {
+  console.log("update user", user, info);
+  let postdata: any = {
+    username: info.data.username || user.username,
+    role: user.role
+  };
 
-public updateUser(user:User, info:any):Observable<User> {
-  return new Observable(observer => {
-    
-  })
+  if (info.data.dream_code || user.dream_code) {
+    postdata.dream_code =  info.data.dream_code || user.dream_code;
+  }
+
+  if (info.data.profile_picture) {
+    const file: File = info.data.profile_picture;
+    try {
+      const url = await this.fbSvc.imageUpload(file);
+      console.log("file", url);
+      if (user.profile_picture) {
+        await this.fbSvc.deleteFile(user.profile_picture);
+      }
+      postdata.profile_picture = url.file;
+    } catch (error) {
+      console.error('Error al subir la nueva imagen:', error);
+      throw error;
+    }
+  } else if(user.profile_picture) {
+    postdata.profile_picture = user.profile_picture;
+  }
+
+  console.log("postdata", postdata);
+
+  try {
+    await this.fbSvc.updateDocument('users', user.uuid, postdata);
+    this.fbAuth.me().subscribe(updatedUser => {
+      this.fbAuth.updateProfilePictureAndUser(updatedUser);
+    });
+    return new Observable(observer => {
+      observer.complete();
+    });
+  } catch (error) {
+    console.error('Error al actualizar el documento del usuario:', error);
+    throw error;
+  }
 }
+
 
 //TODO get user by uuid
 
