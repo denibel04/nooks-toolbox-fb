@@ -19,11 +19,12 @@ export class VillagersPage implements OnInit {
   ) { }
 
   ngOnInit():void {
+    this.villagerService.getPaginatedVillagers().subscribe()
   }
 
 doInfinite(event: any) {
   this.villagerService.getPaginatedVillagers().subscribe(() => {
-    event.target.complete(); // Marcar el evento como completo para que esté listo para más datos
+    event.target.complete(); 
   });
 }
 }

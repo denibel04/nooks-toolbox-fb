@@ -15,9 +15,7 @@ export class VillagerService {
     private dataService: DataService,
     private fbSvc: FirebaseService,
     private api: ApiService
-  ) {
-    this.getPaginatedVillagers().subscribe()
-  }
+  ) { }
 
   private _villagersPaginated: BehaviorSubject<PaginatedVillagers> = new BehaviorSubject<PaginatedVillagers>({ data: [], pagination: { page: 0, pageCount: 0, pageSize: 0, total: 0 } });
   public villagersPaginated$: Observable<PaginatedVillagers> = this._villagersPaginated.asObservable();

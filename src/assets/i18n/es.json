@@ -165,6 +165,7 @@
         "followers": "Seguidores",
         "follow": "Seguir",
         "unfollow":"Dejar de seguir",
-        "ban": "Banear"
+        "ban": "Banear",
+        "edit": "Editar"
     }
 }

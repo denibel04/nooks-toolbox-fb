@@ -3,6 +3,7 @@ import { User } from 'src/app/core/interfaces/user';
 import { UserFormComponent } from '../user-form/user-form.component';
 import { ModalController } from '@ionic/angular';
 import { UserService } from 'src/app/core/services/user.service';
+import { FirebaseAuthService } from 'src/app/core/services/api/firebase/firebase-auth.service';
 
 interface ButtonConfig {
   text: string;
@@ -20,12 +21,14 @@ export class UserCardComponent  implements OnInit {
 
   constructor(
     private modal: ModalController,
-    private userSvc:UserService
+    private userSvc:UserService,
+    private fbAuth:FirebaseAuthService
   ) { }
   @Input() user: User | null  = null;
   @Input() buttonType: string = "";
 
   buttonConfig!: ButtonConfig;
+  isModalOpen:Boolean = false;
 
   private readonly BUTTON_CONFIGS: { [key: string]: ButtonConfig } = {
     follow: {
@@ -35,7 +38,7 @@ export class UserCardComponent  implements OnInit {
       fill: 'solid'
     },
     unfollow: {
-      text: 'undollow',
+      text: 'unfollow',
       action: 'unfollow',
       color: 'secondary',
       fill: 'outline'
@@ -62,11 +65,11 @@ export class UserCardComponent  implements OnInit {
   handleButtonClick() {
     switch (this.buttonConfig.action) {
       case 'follow':
-        //this.followUser();
+        this.onFollowClicked(this.user!);
         break;
       case 'unfollow':
-        //this.unfollowUser();
-        break;
+        this.onUnfollowClicked(this.user!)
+      break;
       case 'edit':
         this.onEditClicked(this.user!)
         break;
@@ -78,39 +81,15 @@ export class UserCardComponent  implements OnInit {
     }
   }
 
-
-
   onEditClicked(user: User) {
     var onDismiss = (info: any) => {
       if (info.role == 'submit') {
         this.userSvc.updateUser(user, info);
-        //this.isModalOpen = false;
+        this.isModalOpen = false;
       } else {
-        //this.isModalOpen = false;
+        this.isModalOpen = false;
         console.error("Error")
       }
-      /*switch (info.role) {
-        case 'submit': {
-          this.islandService.updateIsland(is, info).subscribe(is => {
-            this.is = !!is;
-            this.isModalOpen = false;
-          })
-          this.islandService.getUserIsland().subscribe();
-        }
-          break;
-        case 'delete': {
-          this.is = false;
-          this.isModalOpen = false;
-          console.log("delete")
-          //this.loanService.deleteLoansOnCascade(is);
-          this.islandService.deleteIsland(is).subscribe()
-        }
-          break;
-        default: {
-          this.isModalOpen = false;
-          console.error("Error")
-        }
-      }*/
     }
     this.presentUserForm(user, onDismiss);
   }
@@ -130,6 +109,22 @@ export class UserCardComponent  implements OnInit {
     })
   }
 
-
-
+  
+  onFollowClicked(user: User) {
+    console.log("event", user);
+    this.userSvc.followUser(user).subscribe(() => {
+      this.fbAuth.me().subscribe(data => {
+        this.fbAuth.updateProfilePictureAndUser(data);
+      });
+    });
+  }
+  
+  onUnfollowClicked(user: User) {
+    this.userSvc.unfollowUser(user).subscribe(() => {
+      this.fbAuth.me().subscribe(data => {
+        this.fbAuth.updateProfilePictureAndUser(data);
+      });
+    });
+  
+}
 }

@@ -107,7 +107,8 @@ export class FirebaseAuthService extends AuthService {
     else
       throw new Error('User is not connected');
   }
-
+  
+  
   public logout(): Observable<any> {
     return from(this.firebaseSvc.signOut(false));
   }
@@ -115,4 +116,5 @@ export class FirebaseAuthService extends AuthService {
   updateProfilePictureAndUser(updatedUser: User) {
     this._user.next(updatedUser);
   }
+
 }

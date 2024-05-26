@@ -73,6 +73,7 @@ export class LoanService {
   public updateLoan(loan:Loan):Observable<Loan> {
     return new Observable(observer => {
       this.fbAuth.user$.subscribe(user => {
+        console.log("loan user", user)
         this.isSvc.getUserIsland().subscribe(is => {
           this.fbSvc.updateDocument(`users/${user!.uuid}/island/${is.id}/loans`, loan.id, loan.attributes)
         })

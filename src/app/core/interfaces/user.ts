@@ -10,8 +10,8 @@ export interface User {
     profile_picture?:string,
     dream_code?:string,
     role: 'normal' | 'admin',
-    followers:[],
-    following:[]
+    followers: string[],
+    following: string[]
 }
 
 

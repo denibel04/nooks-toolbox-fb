@@ -2,7 +2,7 @@
   <ion-card-content>
     <div class="button">
       <ion-button shape="round" [color]="buttonConfig.color" [fill]="buttonConfig.fill" (click)="handleButtonClick()">
-        {{ buttonConfig.text }}
+        {{ 'profile.' + buttonConfig.text  | translate}}
       </ion-button>
     </div>
     <div class="img">
