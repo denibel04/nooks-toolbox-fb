@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { FirebaseAuthService } from 'src/app/core/services/api/firebase/firebase-auth.service';
 import { FirebaseService } from 'src/app/core/services/firebase/firebase.service';
 import { UserService } from 'src/app/core/services/user.service';
+import { TabViewModule } from 'primeng/tabview';
 
 @Component({
   selector: 'app-profile',

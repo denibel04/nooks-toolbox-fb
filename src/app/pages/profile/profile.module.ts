@@ -9,6 +9,10 @@ import { ProfilePageRoutingModule } from './profile-routing.module';
 import { ProfilePage } from './profile.page';
 import { SharedModule } from 'src/app/shared/shared.module';
 
+import { TabViewModule } from 'primeng/tabview';
+import { AvatarModule } from 'primeng/avatar';
+import { BadgeModule } from 'primeng/badge';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -16,7 +20,10 @@ import { SharedModule } from 'src/app/shared/shared.module';
     IonicModule,
     ProfilePageRoutingModule, 
     SharedModule, 
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TabViewModule,
+    AvatarModule,
+    BadgeModule
   ],
   declarations: [ProfilePage]
 })

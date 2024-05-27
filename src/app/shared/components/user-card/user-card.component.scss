@@ -1,6 +1,6 @@
 .img {
     height: 20rem;
-    width:20rem;
+    width: 20rem;
     align-self: center;
 }
 
@@ -13,8 +13,8 @@ img, ion-icon {
     height: 100%;
     width: 100%;
     border-radius: 50%;
+    object-fit: cover; 
 }
-
 ion-card {
     border-radius: 25px;
     width: 30rem;
@@ -27,19 +27,44 @@ ion-card-content {
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-    
+    padding-bottom: 0 !important;
 
     h1 {
         font-weight: bold;
+        color: var(--ion-color-primary-dark) !important;    
     }
 }
 
-.img, .user-info {
+.user-info {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    margin:2rem;
+    gap: 1rem;
+    
+    color: var(--ion-color-primary-dark) !important;    
+
+    h1 {
+        font-size: 2.3rem;
+    }
+
+    span {
+        font-size: 1.2rem;
+    }
 }
+
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%; /* Asegura que el ion-card ocupe toda la altura disponible */
+  }
+  
+  .follow-table {
+    margin-top: auto; /* Empuja el div follow-table hacia la parte inferior */
+  }
+  
 
 
 table {
@@ -47,24 +72,42 @@ table {
     align-self: flex-end;
     width: 115%;
     border-collapse: collapse;
-    height: 70%;
+    height: 75%;
 }
 
 th, td {
     text-align: center;
     padding: 10px;
-    height: 4rem;
+    height: 6rem;
+
+    
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    p {
+        font-size: 1.2rem;
+    }
 }
 
 
 tr:first-child td {
-    border-top: 3px solid var(--ion-color-step-200); 
+    border-top: 3px solid  var(--ion-color-secondary); 
   }
 
 td:first-child {
-    border-right: 3px solid var(--ion-color-step-200); 
+    border-right: 3px solid  var(--ion-color-secondary); 
 }
 
 .follow-cell {
     cursor: pointer;
+}
+
+.profile-container,
+.profile-container ion-card-content,
+.user-info h1,
+.user-info span,
+.follow-cell p,
+.follow-cell h1 {
+    color:  var(--ion-color-secondary) !important;    
 }
