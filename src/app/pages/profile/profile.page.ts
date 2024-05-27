@@ -33,18 +33,16 @@ export class ProfilePage {
 
 
   onFollowClicked(user: User) {
-    this.userSvc.followUser(user).subscribe(() => {
-      this.fbAuth.me().subscribe(data => {
-        this.fbAuth.updateProfilePictureAndUser(data);
-      });
+    this.userSvc.followUser(user, this._user.value!).subscribe();
+    this.fbAuth.me().subscribe(data => {
+      this._user.next(data);
     });
   }
 
   onUnfollowClicked(user: User) {
-    this.userSvc.unfollowUser(user).subscribe(() => {
-      this.fbAuth.me().subscribe(data => {
-        this.fbAuth.updateProfilePictureAndUser(data);
-      });
+    this.userSvc.unfollowUser(user, this._user.value!).subscribe() 
+    this.fbAuth.me().subscribe(data => {
+      this._user.next(data);
     });
   }
 }

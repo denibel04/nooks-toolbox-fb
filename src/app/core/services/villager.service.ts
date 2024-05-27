@@ -17,9 +17,6 @@ export class VillagerService {
     private api: ApiService
   ) { }
 
-  private _villagersPaginated: BehaviorSubject<PaginatedVillagers> = new BehaviorSubject<PaginatedVillagers>({ data: [], pagination: { page: 0, pageCount: 0, pageSize: 0, total: 0 } });
-  public villagersPaginated$: Observable<PaginatedVillagers> = this._villagersPaginated.asObservable();
-
   private _villagers: BehaviorSubject<Villager[]> = new BehaviorSubject<Villager[]>([])
   public villagers$: Observable<Villager[]> = this._villagers.asObservable();
 
@@ -62,18 +59,64 @@ export class VillagerService {
       });
     });
   }
+  public async getFiltered(name: string): Promise<Villager[]> {
+    const villagersFiltered = await this.fbSvc.getDocumentsFiltered("villagers", "name", name);
+    const villagers: Villager[] = [];
 
-  public getFiltered(name: string): Villager[] {
-    const filteredVillagers = this._villagers.value.filter(villager => {
-      const villagerName = villager.attributes.name;
-      return villagerName && villagerName.toLowerCase().includes(name.toLowerCase());
+    villagersFiltered.forEach(doc => {
+      const data = doc.data;
+      const villager: Villager = {
+        id: doc['id'],
+        attributes: {
+          name: data['name'],
+          image_url: data['image_url'],
+          species: data['species'],
+          personality: data['personality'],
+          gender: data['gender'],
+          birthday_month: data['birthday_month'],
+          birthday_day: parseInt(data['birthday_day']),
+          sign: data['sign'],
+          quote: data['quote'],
+          phrase: data['phrase'],
+          islander: data['islander']
+        }
+      };
+      villagers.push(villager);
     });
-    return filteredVillagers;
+  
+    return villagers;
   }
+  
 
-  public getVillagerById(id: string): Villager | undefined {
-    return this._villagers.value.find(villager => villager.id === id);
+  public async getVillagerByName(name: string): Promise<Villager | undefined> {
+    const docs = await this.fbSvc.getDocumentsBy("villagers", "name", name);
+    if (docs.length > 0) {
+      const data = docs[0].data;
+      console.log(data)
+      return {
+        id: docs[0].id,
+        attributes: {
+          name: data['name'],
+          image_url: data['image_url'],
+          species: data['species'],
+          personality: data['personality'],
+          gender: data['gender'],
+          birthday_month: data['birthday_month'],
+          birthday_day: parseInt(data['birthday_day']),
+          sign: data['sign'],
+          quote: data['quote'],
+          phrase: data['phrase'],
+          islander: data['islander']
+        }
+      };
+    } else {
+      return undefined;
+    }
   }
+  
+
+
+  public searchVillager() {}
 
 }
 

@@ -51,20 +51,20 @@ export class VillagerSelectableComponent implements OnInit, ControlValueAccessor
 
   private async loadVillagers(filter: string) {
     console.log("filter", filter)
-    this.villagers = this.villagerService.getFiltered(filter);
+    this.villagers = await this.villagerService.getFiltered(filter);
     //console.log("paginated villagers",this.num, villagers);
     
   }
 
-  private async selectVillager(id: string | undefined, propagate: boolean = false) {
+  private async selectVillager(name: string | undefined, propagate: boolean = false) {
     if(propagate){
-      if (!id){
+      if (!name){
         this.villagerSelected = undefined;
         this.propagateChange(undefined);
       }
       else{
-        this.villagerSelected = this.villagers.find(v=>v.id===id);
-        this.propagateChange(this.villagerSelected!.id);
+        this.villagerSelected = this.villagers.find(v=>v.attributes.name===name);
+        this.propagateChange(this.villagerSelected!.attributes.name);
       }
     }
     
@@ -98,7 +98,7 @@ export class VillagerSelectableComponent implements OnInit, ControlValueAccessor
   }
 
   onVillagerClicked(popover:IonPopover, villager:Villager){
-    this.selectVillager(villager.id, true);
+    this.selectVillager(villager.attributes.name, true);
     popover.dismiss();
   }
 

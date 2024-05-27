@@ -7,6 +7,7 @@ import { AuthStrapiService } from './api/strapi/auth-strapi.service';
 import { FirebaseAuthService } from './api/firebase/firebase-auth.service';
 import { FirebaseService } from './firebase/firebase.service';
 import { VillagerService } from './villager.service';
+import { Villager } from '../interfaces/villager';
 
 
 @Injectable({
@@ -53,10 +54,11 @@ export class IslandService {
       this.fbAuth.user$.subscribe(user => {
         if (user) {
           this.fbSvc.getDocuments(`users/${user!.uuid}/island`).then(isDoc => {
-            console.log("GET DOCUMETS GETUSERISLAND")
+            console.log("GET DOCUMETS GETUSERISLAND", isDoc)
             const villagerPromises = isDoc[0].data['villagers'].map((villagerId: { id: string }) => {
-              return this.villagerService.getVillagerById(villagerId.id);
+              return this.villagerService.getVillagerByName(villagerId.id);
             });
+            console.log("vp",villagerPromises)
             Promise.all(villagerPromises).then(completeVillagers => {
               const island: Island = {
                 id: isDoc[0]['id'],
@@ -95,7 +97,7 @@ export class IslandService {
     for (let i = 1; i <= 10; i++) {
       if (info.data[`villager${i}`]) {
         if (typeof info.data[`villager${i}`] === 'object')
-          villagers.push({ id: info.data[`villager${i}`].id });
+          villagers.push({ id: info.data[`villager${i}`].attributes.name });
         else
           villagers.push({ id: info.data[`villager${i}`] });
       }

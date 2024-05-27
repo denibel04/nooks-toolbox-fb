@@ -62,7 +62,8 @@ export class IslandFormComponent implements OnInit {
   }
 
   async ngOnInit() { 
-    this.villagers = this.villagerService.getFiltered("");
+    this.villagers = await this.villagerService.getFiltered("a");
+    console.log(this.villagers)
   }
 
   onCancel() {

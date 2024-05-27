@@ -43,15 +43,15 @@ export class UserService {
           } else {
             return undefined;
           }
-        }).filter((user): user is User => user !== undefined); 
-  
+        }).filter((user): user is User => user !== undefined);
+
         if (newUsers.length > 0) {
           this.lastUser = newUsers[newUsers.length - 1].username;
         }
-  
+
         const currentUsers = this._users.value;
         const updatedUsers = [...currentUsers, ...newUsers];
-  
+
         this._users.next(updatedUsers);
         observer.next(updatedUsers);
         observer.complete();
@@ -61,7 +61,7 @@ export class UserService {
       });
     });
   }
-  
+
 
   public async updateUser(user: User, info: any): Promise<Observable<User>> {
     console.log("update user", user, info);
@@ -105,74 +105,70 @@ export class UserService {
     }
   }
 
-  followUser(userToFollow: User): Observable<void> {
+  followUser(userToFollow: User, currentUser: User): Observable<void> {
     return new Observable(observer => {
-      this.fbAuth.user$.subscribe(currentUser => {
-        if (currentUser) {
-          const newFollowing = [...currentUser.following, userToFollow.uuid];
-          this.fbSvc.updateDocument('users', currentUser.uuid, { following: newFollowing }).then(() => {
-            const newFollowers = [...userToFollow.followers, currentUser!.uuid];
-            this.fbSvc.updateDocument('users', userToFollow.uuid, { followers: newFollowers }).then(() => {
-              // Update local state
-              this.updateLocalUsers(currentUser.uuid!, userToFollow.uuid!, true);
-              observer.complete();
-            });
+      if (currentUser) {
+        const newFollowing = [...currentUser.following, userToFollow.uuid];
+        this.fbSvc.updateDocument('users', currentUser.uuid, { following: newFollowing }).then(() => {
+          const newFollowers = [...userToFollow.followers, currentUser!.uuid];
+          this.fbSvc.updateDocument('users', userToFollow.uuid, { followers: newFollowers }).then(() => {
+            // Update local state
+            this.updateLocalUsers(currentUser.uuid!, userToFollow.uuid!, true);
+            observer.complete();
           });
-        } else {
-          observer.error('No se encontró el usuario actual');
-        }
-      });
+        });
+      } else {
+        observer.error('No se encontró el usuario actual');
+      }
     });
   }
-  
 
-  unfollowUser(userToUnfollow: User): Observable<void> {
+
+  unfollowUser(userToUnfollow: User, currentUser: User): Observable<void> {
     return new Observable(observer => {
-      this.fbAuth.user$.subscribe(currentUser => {
-        if (currentUser) {
-          const newFollowing = currentUser.following.filter(uuid => uuid !== userToUnfollow.uuid);
-          this.fbSvc.updateDocument('users', currentUser.uuid, { following: newFollowing }).then(() => {
-            const newFollowers = userToUnfollow.followers.filter(uuid => uuid !== currentUser!.uuid);
-            this.fbSvc.updateDocument('users', userToUnfollow.uuid, { followers: newFollowers }).then(() => {
-              // Update local state
-              this.updateLocalUsers(currentUser.uuid!, userToUnfollow.uuid!, false);
-              observer.complete();
-            });
+      if (currentUser) {
+        const newFollowing = currentUser.following.filter(uuid => uuid !== userToUnfollow.uuid);
+        this.fbSvc.updateDocument('users', currentUser.uuid, { following: newFollowing }).then(() => {
+          const newFollowers = userToUnfollow.followers.filter(uuid => uuid !== currentUser!.uuid);
+          this.fbSvc.updateDocument('users', userToUnfollow.uuid, { followers: newFollowers }).then(() => {
+            // Update local state
+            this.updateLocalUsers(currentUser.uuid!, userToUnfollow.uuid!, false);
+            observer.complete();
           });
-        } else {
-          observer.error('No se encontró el usuario actual');
-        }
-      });
+        });
+      } else {
+        observer.error('No se encontró el usuario actual');
+      }
     });
   }
-  
 
-private updateLocalUsers(currentUserId: string, targetUserId: string, isFollowing: boolean): void {
-  const currentUsers = this._users.value;
 
-  const updatedUsers = currentUsers.map(user => {
-    if (user.uuid === currentUserId) {
-      // Update following list of the current user
-      return {
-        ...user,
-        following: isFollowing
-          ? [...user.following, targetUserId]
-          : user.following.filter(id => id !== targetUserId)
-      };
-    } else if (user.uuid === targetUserId) {
-      // Update followers list of the target user
-      return {
-        ...user,
-        followers: isFollowing
-          ? [...user.followers, currentUserId]
-          : user.followers.filter(id => id !== currentUserId)
-      };
-    }
-    return user;
-  });
+  private updateLocalUsers(currentUserId: string, targetUserId: string, isFollowing: boolean): void {
+    const currentUsers = this._users.value;
 
-  this._users.next(updatedUsers);
-}
+    const updatedUsers = currentUsers.map(user => {
+      if (user.uuid === currentUserId) {
+        // Update following list of the current user
+        return {
+          ...user,
+          following: isFollowing
+            ? [...user.following, targetUserId]
+            : user.following.filter(id => id !== targetUserId)
+        };
+      } else if (user.uuid === targetUserId) {
+        // Update followers list of the target user
+        return {
+          ...user,
+          followers: isFollowing
+            ? [...user.followers, currentUserId]
+            : user.followers.filter(id => id !== currentUserId)
+        };
+      }
+      return user;
+    });
+
+    this._users.next(updatedUsers);
+  }
 
 
   //TODO get user by uuid

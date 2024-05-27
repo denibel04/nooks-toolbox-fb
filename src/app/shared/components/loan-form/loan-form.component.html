@@ -25,14 +25,15 @@
     </ion-item>
 
     <ion-item>
-      <ion-label position="floating">{{ 'loans.amountPaid' | translate}}</ion-label>
-      <ion-input aria-label="amountPaid" formControlName="amountPaid" type="number"></ion-input>
+      <ion-label position="floating">{{ 'loans.amountPaid' | translate }}</ion-label>
+      <ion-input aria-label="amountPaid" formControlName="amountPaid" type="number" inputmode="numeric" pattern="[0-9]*"></ion-input>
     </ion-item>
-
+    
     <ion-item *ngIf="mode=='New'">
-      <ion-label position="floating">{{ 'loans.amountTotal' | translate}}</ion-label>
-      <ion-input aria-label="amountTotal" formControlName="amountTotal" type="number"></ion-input>
+      <ion-label position="floating">{{ 'loans.amountTotal' | translate }}</ion-label>
+      <ion-input aria-label="amountTotal" formControlName="amountTotal" type="number" inputmode="numeric" pattern="[0-9]*"></ion-input>
     </ion-item>
+    
 
     <ion-item >
       <ion-toggle aria-label="completed" formControlName="completed" labelPlacement="stacked" alignment="start">{{ 'loans.complete' | translate}}</ion-toggle>

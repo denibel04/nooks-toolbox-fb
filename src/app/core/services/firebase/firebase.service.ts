@@ -241,6 +241,23 @@ public deleteFile(path: string): Promise<void> {
     });
   }
 
+  public getDocumentsFiltered(collectionName: string, field: string, value: any): Promise<FirebaseDocument[]> {
+    return new Promise(async (resolve, reject) => {
+      if (!this._db)
+        reject({
+          msg: "Database is not connected"
+        });
+      let search = value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
+      const q = query(collection(this._db!, collectionName), where(field, ">=", search), where(field, "<=", search + '\uf8ff'));
+  
+      const querySnapshot = await getDocs(q);
+      resolve(querySnapshot.docs.map<FirebaseDocument>(doc => {
+        return { id: doc.id, data: doc.data() }
+      }));
+    });
+  } 
+  
+
   public deleteDocument(collectionName: string, docId: string): Promise<void> {
     return new Promise(async (resolve, reject) => {
       if (!this._db)
