@@ -19,9 +19,6 @@ export class UserService {
   private _users: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([])
   public users$: Observable<User[]> = this._users.asObservable();
 
-
-
-  // get paginated users
   public getPaginatedUsers(): Observable<User[]> {
     console.log("getpag", this._users.value.length);
     return new Observable(observer => {
@@ -29,32 +26,42 @@ export class UserService {
         console.log("paginated users", usersPaginated);
         const newUsers = usersPaginated.map(doc => {
           const data = doc.data;
-          console.log("user data", data)
-          const user: User = {
-            uuid: doc['id'],
-            username: data['username'],
-            display_name: data['display_name'],
-            island: data['island'],
-            profile_picture: data['profile_picture'],
-            dream_code: data['dream_code'],
-            role: data['role'],
-            followers: data['followers'],
-            following: data['following']
-          };
-          return user;
-        });
-
-        this.lastUser = newUsers[newUsers.length - 1].username;
-
+          console.log("user data", data);
+          if (data && data['username']) {
+            const user: User = {
+              uuid: doc['id'],
+              username: data['username'],
+              display_name: data['display_name'],
+              island: data['island'],
+              profile_picture: data['profile_picture'],
+              dream_code: data['dream_code'],
+              role: data['role'],
+              followers: data['followers'],
+              following: data['following']
+            };
+            return user;
+          } else {
+            return undefined;
+          }
+        }).filter((user): user is User => user !== undefined); 
+  
+        if (newUsers.length > 0) {
+          this.lastUser = newUsers[newUsers.length - 1].username;
+        }
+  
         const currentUsers = this._users.value;
         const updatedUsers = [...currentUsers, ...newUsers];
-
+  
         this._users.next(updatedUsers);
         observer.next(updatedUsers);
         observer.complete();
+      }).catch(error => {
+        console.error('Error fetching paginated users:', error);
+        observer.error(error);
       });
     });
   }
+  
 
   public async updateUser(user: User, info: any): Promise<Observable<User>> {
     console.log("update user", user, info);
@@ -102,45 +109,71 @@ export class UserService {
     return new Observable(observer => {
       this.fbAuth.user$.subscribe(currentUser => {
         if (currentUser) {
-          // Actualizar el array following del usuario actual
           const newFollowing = [...currentUser.following, userToFollow.uuid];
           this.fbSvc.updateDocument('users', currentUser.uuid, { following: newFollowing }).then(() => {
-            // Actualizar el array followers del usuario a seguir
-            console.log("hola")
             const newFollowers = [...userToFollow.followers, currentUser!.uuid];
             this.fbSvc.updateDocument('users', userToFollow.uuid, { followers: newFollowers }).then(() => {
-              this.getPaginatedUsers().subscribe()
-
+              // Update local state
+              this.updateLocalUsers(currentUser.uuid!, userToFollow.uuid!, true);
               observer.complete();
             });
           });
-        
         } else {
           observer.error('No se encontró el usuario actual');
         }
       });
     });
   }
+  
 
   unfollowUser(userToUnfollow: User): Observable<void> {
-  return new Observable(observer => {
-    this.fbAuth.user$.subscribe(currentUser => {
-      if (currentUser) {
-        // Eliminar la UUID del usuario a dejar de seguir del array following del usuario actual
-        const newFollowing = currentUser.following.filter(uuid => uuid !== userToUnfollow.uuid);
-        this.fbSvc.updateDocument('users', currentUser.uuid, { following: newFollowing }).then(() => {
-          // Eliminar la UUID del usuario actual del array followers del usuario a dejar de seguir
-          const newFollowers = userToUnfollow.followers.filter(uuid => uuid !== currentUser!.uuid);
-          this.fbSvc.updateDocument('users', userToUnfollow.uuid, { followers: newFollowers }).then(() => {
-            observer.complete();
+    return new Observable(observer => {
+      this.fbAuth.user$.subscribe(currentUser => {
+        if (currentUser) {
+          const newFollowing = currentUser.following.filter(uuid => uuid !== userToUnfollow.uuid);
+          this.fbSvc.updateDocument('users', currentUser.uuid, { following: newFollowing }).then(() => {
+            const newFollowers = userToUnfollow.followers.filter(uuid => uuid !== currentUser!.uuid);
+            this.fbSvc.updateDocument('users', userToUnfollow.uuid, { followers: newFollowers }).then(() => {
+              // Update local state
+              this.updateLocalUsers(currentUser.uuid!, userToUnfollow.uuid!, false);
+              observer.complete();
+            });
           });
-        });
-      } else {
-        observer.error('No se encontró el usuario actual');
-      }
+        } else {
+          observer.error('No se encontró el usuario actual');
+        }
+      });
     });
+  }
+  
+
+private updateLocalUsers(currentUserId: string, targetUserId: string, isFollowing: boolean): void {
+  const currentUsers = this._users.value;
+
+  const updatedUsers = currentUsers.map(user => {
+    if (user.uuid === currentUserId) {
+      // Update following list of the current user
+      return {
+        ...user,
+        following: isFollowing
+          ? [...user.following, targetUserId]
+          : user.following.filter(id => id !== targetUserId)
+      };
+    } else if (user.uuid === targetUserId) {
+      // Update followers list of the target user
+      return {
+        ...user,
+        followers: isFollowing
+          ? [...user.followers, currentUserId]
+          : user.followers.filter(id => id !== currentUserId)
+      };
+    }
+    return user;
   });
+
+  this._users.next(updatedUsers);
 }
+
 
   //TODO get user by uuid
 

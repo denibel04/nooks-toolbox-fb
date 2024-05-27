@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { User } from 'src/app/core/interfaces/user';
 import { UserFormComponent } from '../user-form/user-form.component';
 import { ModalController } from '@ionic/angular';
@@ -26,6 +26,10 @@ export class UserCardComponent  implements OnInit {
   ) { }
   @Input() user: User | null  = null;
   @Input() buttonType: string = "";
+
+  @Output() follow = new EventEmitter<User>();
+  @Output() unfollow = new EventEmitter<User>();
+
 
   buttonConfig!: ButtonConfig;
   isModalOpen:Boolean = false;
@@ -65,10 +69,10 @@ export class UserCardComponent  implements OnInit {
   handleButtonClick() {
     switch (this.buttonConfig.action) {
       case 'follow':
-        this.onFollowClicked(this.user!);
+        this.follow.emit(this.user!);
         break;
       case 'unfollow':
-        this.onUnfollowClicked(this.user!)
+        this.unfollow.emit(this.user!)
       break;
       case 'edit':
         this.onEditClicked(this.user!)
@@ -108,23 +112,5 @@ export class UserCardComponent  implements OnInit {
       }
     })
   }
-
   
-  onFollowClicked(user: User) {
-    console.log("event", user);
-    this.userSvc.followUser(user).subscribe(() => {
-      this.fbAuth.me().subscribe(data => {
-        this.fbAuth.updateProfilePictureAndUser(data);
-      });
-    });
-  }
-  
-  onUnfollowClicked(user: User) {
-    this.userSvc.unfollowUser(user).subscribe(() => {
-      this.fbAuth.me().subscribe(data => {
-        this.fbAuth.updateProfilePictureAndUser(data);
-      });
-    });
-  
-}
 }

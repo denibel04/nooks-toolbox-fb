@@ -30,4 +30,21 @@ export class ProfilePage {
   isUserFollowed(userUuid: any): boolean {
     return this._user.value!.following.includes(userUuid);
   }
+
+
+  onFollowClicked(user: User) {
+    this.userSvc.followUser(user).subscribe(() => {
+      this.fbAuth.me().subscribe(data => {
+        this.fbAuth.updateProfilePictureAndUser(data);
+      });
+    });
+  }
+
+  onUnfollowClicked(user: User) {
+    this.userSvc.unfollowUser(user).subscribe(() => {
+      this.fbAuth.me().subscribe(data => {
+        this.fbAuth.updateProfilePictureAndUser(data);
+      });
+    });
+  }
 }
