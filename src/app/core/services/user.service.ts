@@ -186,6 +186,27 @@ export class UserService {
     } else {
       return undefined;
     }
+  }
 
+  public async getFiltered(username: string): Promise<User[]> {
+    const usersFiltered = await this.fbSvc.getDocumentsFiltered("users", "username", username);
+    const users: User[] = [];
+
+    usersFiltered.forEach(doc => {
+      const data = doc.data;
+      const user: User = {
+        uuid: doc.id,
+        username: data['username'],
+        display_name: data['display_name'],
+        island: data['island'],
+        profile_picture: data['profile_picture'],
+        dream_code: data['dream_code'],
+        role: data['role'],
+        followers: data['followers'],
+        following: data['following']
+      };
+      users.push(user);
+    });
+    return users;
   }
 }  
