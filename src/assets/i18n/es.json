@@ -166,6 +166,7 @@
         "follow": "Seguir",
         "unfollow":"Dejar de seguir",
         "ban": "Banear",
-        "edit": "Editar"
+        "edit": "Editar",
+        "edit-profile":"Editar perfil"
     }
 }

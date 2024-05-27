@@ -170,11 +170,28 @@ export class UserService {
     this._users.next(updatedUsers);
   }
 
-
-  //TODO get user by uuid
-
-  //TODO get user by username
-
-  //TODO delete/ban user
-
-}
+  public async getUserById(uid: string): Promise<User | undefined> {
+    try {
+      const doc = await this.fbSvc.getDocument("users", uid);
+      if (doc) {
+        const data = doc.data;
+        return {
+          uuid: doc.id,
+          username: data['username'],
+          display_name: data['display_name'],
+          island: data['island'],
+          profile_picture: data['profile_picture'],
+          dream_code: data['dream_code'],
+          role: data['role'],
+          followers: data['followers'],
+          following: data['following']
+        };
+      } else {
+        return undefined;
+      }
+    } catch (error) {
+      console.error("Error getting user by ID:", error);
+      return undefined;
+    }
+  }  
+}  

@@ -114,10 +114,6 @@ export class VillagerService {
     }
   }
   
-
-
-  public searchVillager() {}
-
 }
 
 

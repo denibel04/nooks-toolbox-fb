@@ -25,6 +25,25 @@ export class ProfilePage {
     });
 
     this.userSvc.getPaginatedUsers().subscribe();
+
+  }
+
+
+  async ngOnInit() {
+    await this.loadUserDetails();
+  }
+
+  private async loadUserDetails() {
+    try {
+      if (this._user && this._user.value && this._user.value.uuid) {
+        const userId = this._user.value.uuid;
+        console.log("useruid", await this.userSvc.getUserById(userId));
+      } else {
+        console.error('User ID is not available');
+      }
+    } catch (error) {
+      console.error('Error fetching user details', error);
+    }
   }
 
   isUserFollowed(userUuid: any): boolean {
