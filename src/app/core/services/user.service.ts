@@ -148,7 +148,6 @@ export class UserService {
 
     const updatedUsers = currentUsers.map(user => {
       if (user.uuid === currentUserId) {
-        // Update following list of the current user
         return {
           ...user,
           following: isFollowing
@@ -156,7 +155,6 @@ export class UserService {
             : user.following.filter(id => id !== targetUserId)
         };
       } else if (user.uuid === targetUserId) {
-        // Update followers list of the target user
         return {
           ...user,
           followers: isFollowing
@@ -171,27 +169,23 @@ export class UserService {
   }
 
   public async getUserById(uid: string): Promise<User | undefined> {
-    try {
-      const doc = await this.fbSvc.getDocument("users", uid);
-      if (doc) {
-        const data = doc.data;
-        return {
-          uuid: doc.id,
-          username: data['username'],
-          display_name: data['display_name'],
-          island: data['island'],
-          profile_picture: data['profile_picture'],
-          dream_code: data['dream_code'],
-          role: data['role'],
-          followers: data['followers'],
-          following: data['following']
-        };
-      } else {
-        return undefined;
-      }
-    } catch (error) {
-      console.error("Error getting user by ID:", error);
+    const doc = await this.fbSvc.getDocument("users", uid);
+    if (doc) {
+      const data = doc.data;
+      return {
+        uuid: doc.id,
+        username: data['username'],
+        display_name: data['display_name'],
+        island: data['island'],
+        profile_picture: data['profile_picture'],
+        dream_code: data['dream_code'],
+        role: data['role'],
+        followers: data['followers'],
+        following: data['following']
+      };
+    } else {
       return undefined;
     }
-  }  
+
+  }
 }  

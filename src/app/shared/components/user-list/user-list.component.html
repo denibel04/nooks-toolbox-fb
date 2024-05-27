@@ -6,10 +6,22 @@
     </ion-button>
   </ion-buttons>
   <ion-title style="text-align: center;">
-    {{ }}
+   {{ 'profile.' + listType | translate}}
   </ion-title>
 </ion-toolbar>
 </ion-header>
-<ion-content class="user-list">
-
+<ion-content >
+  <div class="user-list">
+    <ion-list>
+      <ion-item *ngFor="let user of users">
+        <ion-avatar aria-hidden="true" slot="start">
+          <img *ngIf="user?.profile_picture" [src]="user?.profile_picture" />
+          <ion-icon *ngIf="!user?.profile_picture" size="large" name="person-circle"></ion-icon>
+        </ion-avatar>
+        <ion-label>
+          <h2>@{{ user.username }}</h2>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
 </ion-content>

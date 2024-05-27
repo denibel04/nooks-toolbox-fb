@@ -2,11 +2,11 @@
   <ion-card-content>
     <div class="button">
       <ion-button shape="round" [color]="buttonConfig.color" [fill]="buttonConfig.fill" (click)="handleButtonClick()">
-        {{ 'profile.' + buttonConfig.text  | translate}}
+        {{ 'profile.' + buttonConfig.text | translate}}
       </ion-button>
     </div>
     <div class="img">
-      <img *ngIf="user?.profile_picture" [src]="user?.profile_picture"/>
+      <img *ngIf="user?.profile_picture" [src]="user?.profile_picture" />
       <ion-icon *ngIf="!user?.profile_picture" size="large" name="person-circle"></ion-icon>
     </div>
     <div class="user-info">
@@ -16,20 +16,18 @@
     <div class="follow-table">
       <table class="followers-table">
         <tr>
-          <td>
-            <p>
-              {{ 'profile.following' | translate}}
-            </p>
+          <td class="follow-cell" (click)="openUserListModal('following')">
+            <p>{{ 'profile.following' | translate }}</p>
             <h1>{{user?.following?.length}}</h1>
           </td>
-          <td>
-            <p>
-              {{ 'profile.followers' | translate}}
-            </p>
+          <td class="follow-cell" (click)="openUserListModal('followers')">
+            <p>{{ 'profile.followers' | translate }}</p>
             <h1>{{user?.followers?.length}}</h1>
           </td>
         </tr>
       </table>
+      
+      
     </div>
   </ion-card-content>
 </ion-card>

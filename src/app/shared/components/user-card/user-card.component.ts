@@ -4,6 +4,7 @@ import { UserFormComponent } from '../user-form/user-form.component';
 import { ModalController } from '@ionic/angular';
 import { UserService } from 'src/app/core/services/user.service';
 import { FirebaseAuthService } from 'src/app/core/services/api/firebase/firebase-auth.service';
+import { UserListComponent } from '../user-list/user-list.component';
 
 interface ButtonConfig {
   text: string;
@@ -50,7 +51,7 @@ export class UserCardComponent  implements OnInit {
     edit: {
       text: 'edit',
       action: 'edit',
-      color: 'primary',
+      color: 'secondary',
       fill: 'solid'
     },
     ban: {
@@ -111,6 +112,25 @@ export class UserCardComponent  implements OnInit {
         onDismiss(result);
       }
     })
+  }
+
+  async openUserListModal(listType: string) {
+    let userUuids: string[] | undefined;
+  
+    if (listType === "following") {
+      userUuids = this.user?.following;
+    } else {
+      userUuids = this.user?.followers;
+    }
+  
+    const modal = await this.modal.create({
+      component: UserListComponent,
+      componentProps: {
+        userUuids: userUuids,
+        listType: listType
+      }
+    });
+    return await modal.present();
   }
   
 }

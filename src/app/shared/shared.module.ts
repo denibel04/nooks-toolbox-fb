@@ -22,6 +22,7 @@ import { BackgroundBlurDirective } from './directives/background-blur.directive'
 import { UserCardComponent } from './components/user-card/user-card.component';
 import { PictureSelectableComponent } from './components/picture-selectable/picture-selectable.component';
 import { UserFormComponent } from './components/user-form/user-form.component';
+import { UserListComponent } from './components/user-list/user-list.component';
 
 
 
@@ -50,6 +51,7 @@ import { UserFormComponent } from './components/user-form/user-form.component';
     UserCardComponent,
     PictureSelectableComponent,
     UserFormComponent,
+    UserListComponent
   ],
   imports: [
     CommonModule,
@@ -83,6 +85,7 @@ import { UserFormComponent } from './components/user-form/user-form.component';
     UserCardComponent,
     PictureSelectableComponent,
     UserFormComponent,
+    UserListComponent,
     // pipe
     LoanCompletedPipe,
     LatestThreePipe,

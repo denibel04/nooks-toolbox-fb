@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { User } from 'src/app/core/interfaces/user';
 import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
@@ -10,18 +11,26 @@ import { UserService } from 'src/app/core/services/user.service';
 export class UserListComponent  implements OnInit {
 
   @Input() userUuids: string[] = [];
+  @Input() listType:string = ""
+  users: any[] = [];
 
   constructor(
     private modalController: ModalController,
     private userSvc: UserService
   ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.loadUsers();
+  }
 
   onCancel() {
     this.modalController.dismiss();
   }
 
-  
+  async loadUsers() {
+    const userPromises = this.userUuids.map(uuid => this.userSvc.getUserById(uuid));
+    this.users = await Promise.all(userPromises);
+    console.log("users", this.users)
+  }
 
 }
