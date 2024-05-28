@@ -8,7 +8,7 @@ import { FirebaseAuthService } from './core/services/api/firebase/firebase-auth.
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
-  styleUrls: ['app.component.scss'],
+  styleUrls: ['app.component.scss']
 })
 export class AppComponent {
   showNavbar:boolean = true;

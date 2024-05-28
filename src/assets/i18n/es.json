@@ -167,6 +167,8 @@
         "unfollow":"Dejar de seguir",
         "ban": "Banear",
         "edit": "Editar",
-        "edit-profile":"Editar perfil"
+        "edit-profile":"Editar perfil",
+        "mutuals":"Amigos",
+        "search":"Búsqueda"
     }
 }

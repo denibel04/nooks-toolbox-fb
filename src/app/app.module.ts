@@ -19,6 +19,7 @@ import { createTranslateLoader } from './core/services/custom-translate.service'
 import { FirebaseService } from './core/services/firebase/firebase.service';
 import { FirebaseAuthService } from './core/services/api/firebase/firebase-auth.service';
 import { environment } from 'src/environments/environment';
+import { TabViewModule } from 'primeng/tabview';
 
 
 export function httpProviderFactory(
@@ -63,6 +64,7 @@ export function AuthServiceFactory(
     AppRoutingModule,
     HttpClientModule,
     SharedModule,
+    TabViewModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

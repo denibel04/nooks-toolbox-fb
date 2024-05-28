@@ -10,61 +10,35 @@
     <app-user-card [user]="user$ | async" [buttonType]="'edit'"></app-user-card>
   </div>
 
-<!--
-  <div class="users">
-    <app-user-card *ngFor="let user of (userSvc.users$ | async)" [user]="user"
-      [buttonType]="isUserFollowed(user.uuid) ? 'unfollow' : 'follow'" (follow)="onFollowClicked(user)"
-      (unfollow)="onUnfollowClicked(user)">
-    </app-user-card>
-  </div>-->
 
-  <p-tabView styleClass="tabview-custom">
-    <p-tabPanel>
+  <div class="card">
+    <p-tabView styleClass="tabview-custom">
+      <p-tabPanel>
         <ng-template pTemplate="header">
-            <div class="flex align-items-center gap-2">
-                <p-avatar 
-                    image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" 
-                    shape="circle" />
-                <span class="font-bold white-space-nowrap m-0">
-                    Amy Elsner
-                </span>
-            </div>
+          <i class="pi pi-user"></i>
+          <span> {{ 'profile.mutuals' | translate }}</span>
+        </ng-template>
+        <div class="users">
+          <app-user-card *ngFor="let user of (userSvc.users$ | async)" [user]="user"
+            [buttonType]="isUserFollowed(user.uuid) ? 'unfollow' : 'follow'" (follow)="onFollowClicked(user)"
+            (unfollow)="onUnfollowClicked(user)">
+          </app-user-card>
+        </div>
+      </p-tabPanel>
+      <p-tabPanel header="Header II">
+        <ng-template pTemplate="header">
+          <i class="pi pi-search"></i>
+          <span> {{ 'profile.search' | translate }}</span>
         </ng-template>
         <p>
-            Lorem ipsum dolor sit amet...
+          Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
+          aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+          Nemo enim
+          ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui
+          ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
         </p>
-    </p-tabPanel>
-    <p-tabPanel header="Header II">
-        <ng-template pTemplate="header">
-            <div class="flex align-items-center gap-2">
-                <p-avatar 
-                    image="https://primefaces.org/cdn/primeng/images/demo/avatar/onyamalimba.png" 
-                    shape="circle" />
-                <span class="font-bold white-space-nowrap m-0">
-                    Onyama Limba
-                </span>
-            </div>
-        </ng-template>
-        <p>
-            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium...
-        </p>
-    </p-tabPanel>
-    <p-tabPanel header="Header III">
-        <ng-template pTemplate="header">
-            <div class="flex align-items-center gap-2">
-                <p-avatar 
-                    image="https://primefaces.org/cdn/primeng/images/demo/avatar/ionibowcher.png" 
-                    shape="circle" />
-                <span class="font-bold white-space-nowrap m-0">
-                    Ioni Bowcher
-                </span>
-                <p-badge value="2" />
-            </div>
-        </ng-template>
-        <p>
-            At vero eos et accusamus et iusto odio dignissimos...
-        </p>
-    </p-tabPanel>
-</p-tabView>
+      </p-tabPanel>
+    </p-tabView>
+  </div>
 
 </ion-content>

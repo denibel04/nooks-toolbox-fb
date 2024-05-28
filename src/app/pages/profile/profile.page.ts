@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { User } from 'src/app/core/interfaces/user';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { FirebaseAuthService } from 'src/app/core/services/api/firebase/firebase-auth.service';
@@ -10,6 +10,7 @@ import { TabViewModule } from 'primeng/tabview';
   selector: 'app-profile',
   templateUrl: './profile.page.html',
   styleUrls: ['./profile.page.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ProfilePage {
   protected _user = new BehaviorSubject<User | null>(null);
