@@ -15,9 +15,19 @@
   <ion-item>
     <ion-input labelPlacement="floating" label="Username" formControlName="username" type="text"></ion-input>
   </ion-item>
+  <!--
   <ion-item>
     <ion-input labelPlacement="floating" label="Dream Code" formControlName="dream_code" type="text"></ion-input>
-  </ion-item>
+  </ion-item>-->
+<div style="display: flex;">
+  <p class="da">DA</p>
+  <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="config"></ng-otp-input>
+  <p class="da">-</p>
+  <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="config"></ng-otp-input>
+  <p class="da">-</p>
+  <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="config"></ng-otp-input>
+
+</div>
 </form>
 </ion-content>
 <ion-footer>

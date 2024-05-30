@@ -9,8 +9,20 @@
   <div>
     <app-user-card [user]="user$ | async" [buttonType]="'edit'"></app-user-card>
   </div>
+  <div style="display: flex;">
+    <p class="da">DA</p>
+    <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="config"></ng-otp-input>
+    <p class="da">-</p>
+    <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="config"></ng-otp-input>
+    <p class="da">-</p>
+    <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="config"></ng-otp-input>
 
-  <ng-otp-input (onInputChange)="onOtpChange($event)" ></ng-otp-input>
+  </div>
+
+  <div style="margin: 1rem;">
+    <p-inputMask mask="DA-9999-9999-9999"   placeholder="DA-____-____-____" [(ngModel)]="value"></p-inputMask>
+  </div>
+
 
 
   <div class="card">
@@ -22,12 +34,11 @@
         </ng-template>
         <div class="users">
           <ng-container *ngFor="let user of (userSvc.users$ | async)">
-            <app-user-card *ngIf="(user$ | async)?.uuid !== user.uuid" [user]="user" 
-              [buttonType]="isUserFollowed(user.uuid) ? 'unfollow' : 'follow'" 
-              (follow)="onFollowClicked(user)"
+            <app-user-card *ngIf="(user$ | async)?.uuid !== user.uuid" [user]="user"
+              [buttonType]="isUserFollowed(user.uuid) ? 'unfollow' : 'follow'" (follow)="onFollowClicked(user)"
               (unfollow)="onUnfollowClicked(user)">
             </app-user-card>
-          </ng-container>          
+          </ng-container>
         </div>
       </p-tabPanel>
       <p-tabPanel header="Header II">

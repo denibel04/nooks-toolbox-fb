@@ -1,14 +1,16 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { User } from 'src/app/core/interfaces/user';
+import { NgOtpInputModule } from 'ng-otp-input';
 
 @Component({
   selector: 'app-user-form',
   templateUrl: './user-form.component.html',
   styleUrls: ['./user-form.component.scss'],
+  imports: [NgOtpInputModule]
 })
-export class UserFormComponent implements OnInit {
+export class UserFormComponent {
   userForm: FormGroup;
 
   @Input() set user(_user: User | null) { 
@@ -25,18 +27,31 @@ export class UserFormComponent implements OnInit {
 
   @Output() saveEvent = new EventEmitter<any>();
 
+  @ViewChild('ngOtpInput', { static: false }) ngOtpInput: any;
+
+  config = {
+    allowNumbersOnly: false,
+    length: 5,
+    isPasswordInput: false,
+    disableAutoFocus: false,
+    placeholder: '',
+    inputStyles: {
+      'width': '30px',
+      'height': '30px',
+      'font-size': '20px'
+    }
+  };
+
   constructor(
     private formModal: ModalController,
     private formBuilder: FormBuilder
-  ) { 
+  ) {
     this.userForm = this.formBuilder.group({
       username: ['', [Validators.required]],
       dream_code: [],
       profile_picture: []
     });
   }
-
-  ngOnInit() {}
 
   onCancel() {
     this.formModal.dismiss(null, 'cancel');
@@ -55,7 +70,11 @@ export class UserFormComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log("añaña",this.getDirtyValues(this.userForm))
+    console.log("añaña", this.getDirtyValues(this.userForm))
     this.formModal.dismiss(this.getDirtyValues(this.userForm), 'submit');
+  }
+
+  onOtpChange(event: any) {
+    // Handle OTP change here
   }
 }

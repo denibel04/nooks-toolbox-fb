@@ -15,6 +15,10 @@ import { NgOtpInputModule } from 'ng-otp-input';
 
 
 
+import { InputMaskModule } from 'primeng/inputmask';
+
+
+
 @NgModule({
   imports: [
     CommonModule,
@@ -23,7 +27,8 @@ import { NgOtpInputModule } from 'ng-otp-input';
     SharedModule,
     TabViewModule,
     InputTextModule,
-    NgOtpInputModule
+    NgOtpInputModule,
+    InputMaskModule,
   ],
   declarations: [ProfilePage]
 })
