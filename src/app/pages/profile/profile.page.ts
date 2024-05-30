@@ -1,10 +1,11 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { User } from 'src/app/core/interfaces/user';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, debounceTime, distinctUntilChanged } from 'rxjs';
 import { FirebaseAuthService } from 'src/app/core/services/api/firebase/firebase-auth.service';
 import { FirebaseService } from 'src/app/core/services/firebase/firebase.service';
 import { UserService } from 'src/app/core/services/user.service';
 import { TabViewModule } from 'primeng/tabview';
+import { IonInput } from '@ionic/angular';
 
 @Component({
   selector: 'app-profile',
@@ -15,6 +16,10 @@ import { TabViewModule } from 'primeng/tabview';
 export class ProfilePage {
   protected _user = new BehaviorSubject<User | null>(null);
   public user$: Observable<User | null> = this._user.asObservable();
+
+  public filteredUsers: User[] | undefined;
+
+  otpValue: string = '123456';
 
   constructor(
     private fbSvc: FirebaseService,
@@ -30,6 +35,17 @@ export class ProfilePage {
 
   }
 
+  async onFilter(event: any) {
+    if (event.detail.value === '') {
+      this.filteredUsers = []
+    } else {
+      this.filteredUsers = await this.userSvc.getFiltered(event.detail.value)
+    }
+    console.log("filtered", this.filteredUsers, event)
+  }
+  onOtpChange(event:any) {
+    console.log("otp",event)
+  }
 
   async ngOnInit() {
     await this.loadUserDetails();
@@ -61,7 +77,7 @@ export class ProfilePage {
   }
 
   onUnfollowClicked(user: User) {
-    this.userSvc.unfollowUser(user, this._user.value!).subscribe() 
+    this.userSvc.unfollowUser(user, this._user.value!).subscribe()
     this.fbAuth.me().subscribe(data => {
       this._user.next(data);
     });

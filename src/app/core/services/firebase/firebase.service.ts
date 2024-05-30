@@ -5,6 +5,7 @@ import { getFirestore, addDoc, collection, updateDoc, doc, onSnapshot, getDoc, s
 import { getStorage, ref, getDownloadURL, uploadBytes, FirebaseStorage, deleteObject } from "firebase/storage";
 import { createUserWithEmailAndPassword, deleteUser, signInAnonymously, signOut, signInWithEmailAndPassword, initializeAuth, indexedDBLocalPersistence, UserCredential, Auth, User } from "firebase/auth";
 import { Router } from "@angular/router";
+import { fakeAsync } from "@angular/core/testing";
 
 export interface FirebaseStorageFile {
   path: string,
@@ -241,16 +242,19 @@ public deleteFile(path: string): Promise<void> {
     });
   }
 
-  public getDocumentsFiltered(collectionName: string, field: string, value: any): Promise<FirebaseDocument[]> {
+  public getDocumentsFiltered(collectionName: string, field: string, value: any, capitalize:boolean = false): Promise<FirebaseDocument[]> {
     return new Promise(async (resolve, reject) => {
       if (!this._db)
         reject({
           msg: "Database is not connected"
         });
-      let search = value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
+        let search = value
+        if (capitalize) {
+           search = value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
+        }
       const q = query(collection(this._db!, collectionName), where(field, ">=", search), where(field, "<=", search + '\uf8ff'));
   
-      const querySnapshot = await getDocs(q);
+      const querySnapshot = await getDocs(q)  ;
       resolve(querySnapshot.docs.map<FirebaseDocument>(doc => {
         return { id: doc.id, data: doc.data() }
       }));

@@ -189,7 +189,10 @@ export class UserService {
   }
 
   public async getFiltered(username: string): Promise<User[]> {
+
     const usersFiltered = await this.fbSvc.getDocumentsFiltered("users", "username", username);
+    console.log("gf", usersFiltered)
+
     const users: User[] = [];
 
     usersFiltered.forEach(doc => {

@@ -1,6 +1,8 @@
 .users {
     display: flex;
-    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
 }
 
 span {
@@ -12,16 +14,26 @@ span {
     padding: 1.5rem;
 }
 
-/* not selected */
-.p-tabview .p-tabview-nav li .p-tabview-nav-link {
-    }
-    /* hover */
-    .p-tabview .p-tabview-nav li:not(.p-highlight):not(.p-disabled):hover .p-tabview-nav-link {
+/* hover */
+.p-tabview .p-tabview-nav li:not(.p-highlight):not(.p-disabled):hover .p-tabview-nav-link {
     border-color: var(--ion-color-secondary-tint);
     color: var(--ion-color-secondary-tint);
-    }
-    /* selected */
-    .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+}
+
+/* selected */
+.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
     color: var(--ion-color-secondary);
     border-color: var(--ion-color-secondary);
-    }
+}
+
+ion-searchbar {
+    --background: var(--ion-color-secondary-light) !important;
+    --color: var(--ion-color-secondary-shade) !important;
+    --placeholder-color: var(--ion-color-secondary-shade) !important;
+    --icon-color: var(--ion-color-secondary-shade) !important;
+    --clear-button-color: var(--ion-color-secondary-shade) !important;
+}
+
+ion-searchbar.ios.custom {
+    --cancel-button-color: var(--ion-color-secondary-shade) !important;
+}

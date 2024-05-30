@@ -60,7 +60,7 @@ export class VillagerService {
     });
   }
   public async getFiltered(name: string): Promise<Villager[]> {
-    const villagersFiltered = await this.fbSvc.getDocumentsFiltered("villagers", "name", name);
+    const villagersFiltered = await this.fbSvc.getDocumentsFiltered("villagers", "name", name, true);
     const villagers: Villager[] = [];
 
     villagersFiltered.forEach(doc => {

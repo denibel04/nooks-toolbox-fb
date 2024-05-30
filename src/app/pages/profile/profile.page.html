@@ -10,6 +10,8 @@
     <app-user-card [user]="user$ | async" [buttonType]="'edit'"></app-user-card>
   </div>
 
+  <ng-otp-input (onInputChange)="onOtpChange($event)" ></ng-otp-input>
+
 
   <div class="card">
     <p-tabView styleClass="tabview-custom">
@@ -19,10 +21,13 @@
           <span> {{ 'profile.mutuals' | translate }}</span>
         </ng-template>
         <div class="users">
-          <app-user-card *ngFor="let user of (userSvc.users$ | async)" [user]="user"
-            [buttonType]="isUserFollowed(user.uuid) ? 'unfollow' : 'follow'" (follow)="onFollowClicked(user)"
-            (unfollow)="onUnfollowClicked(user)">
-          </app-user-card>
+          <ng-container *ngFor="let user of (userSvc.users$ | async)">
+            <app-user-card *ngIf="(user$ | async)?.uuid !== user.uuid" [user]="user" 
+              [buttonType]="isUserFollowed(user.uuid) ? 'unfollow' : 'follow'" 
+              (follow)="onFollowClicked(user)"
+              (unfollow)="onUnfollowClicked(user)">
+            </app-user-card>
+          </ng-container>          
         </div>
       </p-tabPanel>
       <p-tabPanel header="Header II">
@@ -30,13 +35,16 @@
           <i class="pi pi-search"></i>
           <span> {{ 'profile.search' | translate }}</span>
         </ng-template>
-        <p>
-          Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
-          aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-          Nemo enim
-          ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui
-          ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
-        </p>
+        <ion-searchbar mode="ios" show-clear-button="focus" #search
+          placeholder="{{ 'island.form.search' | translate}}..." type="text" (ionInput)="onFilter($event)"
+          debounce="300"></ion-searchbar>
+        <div class="users">
+          <app-user-card *ngFor="let user of filteredUsers" [user]="user"
+            [buttonType]="isUserFollowed(user.uuid) ? 'unfollow' : 'follow'" (follow)="onFollowClicked(user)"
+            (unfollow)="onUnfollowClicked(user)">
+          </app-user-card>
+        </div>
+
       </p-tabPanel>
     </p-tabView>
   </div>
