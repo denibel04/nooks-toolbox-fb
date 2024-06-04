@@ -70,7 +70,6 @@ export class AuthStrapiService extends AuthService {
           await lastValueFrom(this.jwtSvc.saveToken(data.jwt));
           const _extended_user: StrapiExtendedUser = {
             data:{
-              display_name: info.display_name,
               user_id: data.user.id,
               user: data.user.id
             }
@@ -94,7 +93,6 @@ export class AuthStrapiService extends AuthService {
           let ret: User = {
             id: user.id,
             username: user.username,
-            display_name: extended_user.data[0].attributes.display_name,
             island: extended_user.data[0].attributes.island,
             extended_id:extended_user.data[0].id,
             role:extended_user.data[0].role,

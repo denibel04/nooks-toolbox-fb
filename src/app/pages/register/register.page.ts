@@ -12,7 +12,7 @@ import { AuthService } from 'src/app/core/services/api/strapi/auth.service';
 export class RegisterPage implements OnInit {
 
   constructor(
-    private auth:AuthService,
+    private auth:FirebaseAuthService,
     private router:Router,
   ) { }
 

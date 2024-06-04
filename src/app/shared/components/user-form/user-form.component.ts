@@ -1,17 +1,18 @@
-import { Component, Input, Output, EventEmitter, ViewChild } from '@angular/core';
+
+
+import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { User } from 'src/app/core/interfaces/user';
-import { NgOtpInputModule } from 'ng-otp-input';
 
 @Component({
   selector: 'app-user-form',
   templateUrl: './user-form.component.html',
-  styleUrls: ['./user-form.component.scss'],
-  imports: [NgOtpInputModule]
+  styleUrls: ['./user-form.component.scss']
 })
 export class UserFormComponent {
   userForm: FormGroup;
+
 
   @Input() set user(_user: User | null) { 
     if (_user) {
@@ -24,23 +25,6 @@ export class UserFormComponent {
       }
     }
   }
-
-  @Output() saveEvent = new EventEmitter<any>();
-
-  @ViewChild('ngOtpInput', { static: false }) ngOtpInput: any;
-
-  config = {
-    allowNumbersOnly: false,
-    length: 5,
-    isPasswordInput: false,
-    disableAutoFocus: false,
-    placeholder: '',
-    inputStyles: {
-      'width': '30px',
-      'height': '30px',
-      'font-size': '20px'
-    }
-  };
 
   constructor(
     private formModal: ModalController,
@@ -74,7 +58,5 @@ export class UserFormComponent {
     this.formModal.dismiss(this.getDirtyValues(this.userForm), 'submit');
   }
 
-  onOtpChange(event: any) {
-    // Handle OTP change here
-  }
 }
+

@@ -1,35 +1,27 @@
 <ion-header>
   <ion-toolbar>
-  <ion-buttons slot="start">
-    <ion-button color="primary" fill="clear" (click)="onCancel()">
-      <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
-    </ion-button>
-  </ion-buttons>
-  <ion-title style="text-align: center;">
-{{ 'edit-profile' | translate }}  </ion-title>
-</ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="primary" fill="clear" (click)="onCancel()">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title style="text-align: center;">
+      {{ 'edit-profile' | translate }} </ion-title>
+  </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding form">
-<form *ngIf="userForm" [formGroup]="userForm" (ngSubmit)="onSubmit()">
-  <app-picture-selectable formControlName="profile_picture"></app-picture-selectable>
-  <ion-item>
-    <ion-input labelPlacement="floating" label="Username" formControlName="username" type="text"></ion-input>
-  </ion-item>
-  <!--
-  <ion-item>
-    <ion-input labelPlacement="floating" label="Dream Code" formControlName="dream_code" type="text"></ion-input>
-  </ion-item>-->
-<div style="display: flex;">
-  <p class="da">DA</p>
-  <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="config"></ng-otp-input>
-  <p class="da">-</p>
-  <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="config"></ng-otp-input>
-  <p class="da">-</p>
-  <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="config"></ng-otp-input>
-
-</div>
-</form>
+  <form *ngIf="userForm" [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <app-picture-selectable formControlName="profile_picture"></app-picture-selectable>
+    <ion-item>
+      <ion-input labelPlacement="floating" label="{{ 'form.username' | translate}}" formControlName="username" type="text"></ion-input>
+    </ion-item>
+    <span class="p-float-label" style="margin: 1rem;">
+      <p-inputMask mask="DA-9999-9999-9999" formControlName="dream_code"  id="dream_code" placeholder="DA-____-____-____"></p-inputMask>
+      <label htmlFor="dream_code">{{ 'profile.dreamCode' | translate}}</label>
+  </span>
+  </form>
 </ion-content>
 <ion-footer>
-  <ion-button type="submit" [disabled]="!userForm.valid || !userForm.dirty" class="ion-padding" expand="full" (click)="onSubmit()"> Guardar </ion-button>
+  <ion-button type="submit" [disabled]="!userForm.valid || !userForm.dirty" class="ion-padding" expand="full"
+    (click)="onSubmit()"> {{ 'form.save' | translate}} </ion-button>
 </ion-footer>

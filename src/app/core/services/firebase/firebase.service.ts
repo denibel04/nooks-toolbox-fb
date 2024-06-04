@@ -332,6 +332,7 @@ public deleteFile(path: string): Promise<void> {
   }
 
   public createUserWithEmailAndPassword(email: string, password: string): Promise<FirebaseUserCredential | null> {
+    console.log("create user",email, password)
     return new Promise(async (resolve, reject) => {
       if (!this._auth)
         resolve(null);

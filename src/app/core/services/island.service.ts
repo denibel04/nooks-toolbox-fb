@@ -43,9 +43,9 @@ export class IslandService {
         this.fbSvc.createDocument(`users/${user!.uuid}/island`, postdata).then(() => {
           observer.complete();
         })
-        
+
       })
-      
+
     })
   }
 
@@ -55,24 +55,30 @@ export class IslandService {
         if (user) {
           this.fbSvc.getDocuments(`users/${user!.uuid}/island`).then(isDoc => {
             console.log("GET DOCUMETS GETUSERISLAND", isDoc)
-            const villagerPromises = isDoc[0].data['villagers'].map((villagerId: { id: string }) => {
-              return this.villagerService.getVillagerByName(villagerId.id);
-            });
-            console.log("vp",villagerPromises)
-            Promise.all(villagerPromises).then(completeVillagers => {
-              const island: Island = {
-                id: isDoc[0]['id'],
-                attributes: {
-                  islandName: isDoc[0].data['islandName'],
-                  hemisphere: isDoc[0].data['hemisphere'],
-                  villagers: completeVillagers,
-                  loans: isDoc[0].data['loans']
-                }
-              };
-              observer.next(island);
+            if (isDoc.length === 0) {
+              observer.next(undefined);
               observer.complete();
-              this._islands.next(island);
-            });
+              return;
+            } else {
+              const villagerPromises = isDoc[0].data['villagers'].map((villagerId: { id: string }) => {
+                return this.villagerService.getVillagerByName(villagerId.id);
+              });
+              console.log("vp", villagerPromises)
+              Promise.all(villagerPromises).then(completeVillagers => {
+                const island: Island = {
+                  id: isDoc[0]['id'],
+                  attributes: {
+                    islandName: isDoc[0].data['islandName'],
+                    hemisphere: isDoc[0].data['hemisphere'],
+                    villagers: completeVillagers,
+                    loans: isDoc[0].data['loans']
+                  }
+                };
+                observer.next(island);
+                observer.complete();
+                this._islands.next(island);
+              });
+            }
           });
         }
       });

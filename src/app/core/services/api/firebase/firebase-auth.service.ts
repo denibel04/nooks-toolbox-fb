@@ -53,6 +53,7 @@ export class FirebaseAuthService extends AuthService {
   }
 
   public register(info: UserRegisterInfo): Observable<any | null> {
+    console.log("register")
     return new Observable<any>(subscr => {
       this.firebaseSvc.createUserWithEmailAndPassword(info.email, info.password).then((credentials: FirebaseUserCredential | null) => {
         if (!credentials || !credentials.user || !credentials.user.user || !credentials.user.user.uid)
@@ -77,11 +78,10 @@ export class FirebaseAuthService extends AuthService {
   }
 
   private postRegister(info: User): Observable<any> {
+    console.log("postreg")
     if (info.uuid)
       return from(this.firebaseSvc.createDocumentWithId('users', {
         username: info.username,
-        display_name: info.display_name,
-        profile_picture: info.profile_picture,
         role: 'normal',
         followers: [],
         following: []
@@ -96,7 +96,6 @@ export class FirebaseAuthService extends AuthService {
         return {
           profile_picture: data.data['profile_picture'],
           username: data.data['username'],
-          display_name: data.data['display_name'],
           dream_code: data.data['dream_code'],   
           role: data.data['role'],
           uuid: data.id,

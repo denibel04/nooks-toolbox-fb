@@ -19,22 +19,6 @@ export class ProfilePage {
 
   public filteredUsers: User[] | undefined;
 
-  value: string = '';
-
-  @ViewChild('ngOtpInput', { static: false}) ngOtpInput: any;
-  config = {
-    allowNumbersOnly: false,
-    length: 5,
-    isPasswordInput: false,
-    disableAutoFocus: false,
-    placeholder: '',
-    inputStyles: {
-      'width': '30px',
-      'height': '30px',
-      'font-size':'20px'
-    }
-  };
-
   constructor(
     private fbSvc: FirebaseService,
     public fbAuth: FirebaseAuthService,

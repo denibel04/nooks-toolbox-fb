@@ -9,21 +9,6 @@
   <div>
     <app-user-card [user]="user$ | async" [buttonType]="'edit'"></app-user-card>
   </div>
-  <div style="display: flex;">
-    <p class="da">DA</p>
-    <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="config"></ng-otp-input>
-    <p class="da">-</p>
-    <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="config"></ng-otp-input>
-    <p class="da">-</p>
-    <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="config"></ng-otp-input>
-
-  </div>
-
-  <div style="margin: 1rem;">
-    <p-inputMask mask="DA-9999-9999-9999"   placeholder="DA-____-____-____" [(ngModel)]="value"></p-inputMask>
-  </div>
-
-
 
   <div class="card">
     <p-tabView styleClass="tabview-custom">

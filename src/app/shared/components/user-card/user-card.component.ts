@@ -34,6 +34,7 @@ export class UserCardComponent  implements OnInit {
 
   buttonConfig!: ButtonConfig;
   isModalOpen:Boolean = false;
+  followersCount:number  = 0
 
   private readonly BUTTON_CONFIGS: { [key: string]: ButtonConfig } = {
     follow: {
@@ -65,15 +66,20 @@ export class UserCardComponent  implements OnInit {
 
   ngOnInit() {
     this.buttonConfig = this.BUTTON_CONFIGS[this.buttonType];
+    this.followersCount  = this.user!.followers.length
   }
 
   handleButtonClick() {
     switch (this.buttonConfig.action) {
       case 'follow':
         this.follow.emit(this.user!);
+        this.buttonConfig =  this.BUTTON_CONFIGS['unfollow']
+        this.followersCount! +=1
         break;
       case 'unfollow':
         this.unfollow.emit(this.user!)
+        this.buttonConfig =  this.BUTTON_CONFIGS['follow']
+        this.followersCount! -=1
       break;
       case 'edit':
         this.onEditClicked(this.user!)

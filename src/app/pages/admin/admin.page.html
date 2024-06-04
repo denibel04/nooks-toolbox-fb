@@ -5,11 +5,11 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ng-container>
+  <div *ngFor="let user of (userSvc.users$ | async)">
     <app-user-card 
-      *ngFor="let user of (userSvc.users$ | async)" 
+      *ngIf="user.role != 'admin'"
       [user]="user"
       [buttonType]="'ban'">
     </app-user-card>
-  </ng-container>
+  </div>
 </ion-content>

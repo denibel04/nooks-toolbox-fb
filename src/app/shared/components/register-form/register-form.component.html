@@ -10,9 +10,6 @@
       <ion-input label="{{ 'login.username' | translate }}" labelPlacement="floating" formControlName="username" type="text"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-input label="{{ 'login.display' | translate }}" labelPlacement="floating" formControlName="display_name" type="text"></ion-input>
-    </ion-item>
-    <ion-item>
       <ion-input label="{{ 'login.email' | translate }}" labelPlacement="floating" formControlName="email" type="email"></ion-input>
     </ion-item>
     <ion-item>
@@ -22,7 +19,7 @@
       <ion-input label="{{ 'login.confirm' | translate }}" labelPlacement="floating" formControlName="confirm" type="password"></ion-input>
     </ion-item>
     <div class="ion-text-end">
-      <ion-button type="submit" color="secondary" style="text-transform: none;" [disabled]="!form.valid" (click)="onSubmit()">{{ 'login.create' | translate }}</ion-button>
+      <ion-button type="submit" color="secondary" style="text-transform: none;" [disabled]="!form.valid">{{ 'login.create' | translate }}</ion-button>
     </div>
     
   </form>

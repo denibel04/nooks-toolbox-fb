@@ -31,7 +31,6 @@ export class UserService {
             const user: User = {
               uuid: doc['id'],
               username: data['username'],
-              display_name: data['display_name'],
               island: data['island'],
               profile_picture: data['profile_picture'],
               dream_code: data['dream_code'],
@@ -175,7 +174,6 @@ export class UserService {
       return {
         uuid: doc.id,
         username: data['username'],
-        display_name: data['display_name'],
         island: data['island'],
         profile_picture: data['profile_picture'],
         dream_code: data['dream_code'],
@@ -200,7 +198,6 @@ export class UserService {
       const user: User = {
         uuid: doc.id,
         username: data['username'],
-        display_name: data['display_name'],
         island: data['island'],
         profile_picture: data['profile_picture'],
         dream_code: data['dream_code'],

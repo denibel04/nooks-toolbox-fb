@@ -39,21 +39,28 @@ export class LoanService {
       this.fbAuth.user$.subscribe(user => {
         if (user) {
           this.isSvc.getUserIsland().subscribe(is => {
-            const collectionName = `users/${user!.uuid}/island/${is.id}/loans`;
-            this.fbSvc.subscribeToCollection(
-              collectionName,
-                this._loans,
-              (doc: DocumentData) => ({
-                id: doc['id'],
-                attributes: {
-                  type: doc['data']()['type'],
-                  amountPaid: doc['data']()['amountPaid'],
-                  amountTotal: doc['data']()['amountTotal'],
-                  completed: doc['data']()['completed'],
-                  title: doc['data']()['title']
-                }
-              })
-            );
+            if (is) {
+              const collectionName = `users/${user!.uuid}/island/${is.id}/loans`;
+              this.fbSvc.subscribeToCollection(
+                collectionName,
+                  this._loans,
+                (doc: DocumentData) => ({
+                  id: doc['id'],
+                  attributes: {
+                    type: doc['data']()['type'],
+                    amountPaid: doc['data']()['amountPaid'],
+                    amountTotal: doc['data']()['amountTotal'],
+                    completed: doc['data']()['completed'],
+                    title: doc['data']()['title']
+                  }
+                })
+              );
+            } else {
+              observer.next([]);
+              observer.complete();
+              return;
+            }
+            
           });
         }
       });
