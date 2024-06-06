@@ -10,6 +10,9 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class FirebaseAuthService extends AuthService {
+  loadUser() {
+    throw new Error('Method not implemented.');
+  }
 
   constructor(
     private firebaseSvc: FirebaseService
