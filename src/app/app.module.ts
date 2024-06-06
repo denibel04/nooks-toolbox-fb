@@ -5,7 +5,6 @@ import { IonicModule, IonicRouteStrategy, Platform } from '@ionic/angular';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { HttpClientProvider } from './core/services/http/http-client.provider copy';
 import { HttpClientWebProvider } from './core/services/http/http-client-web.provider';
 import { ApiService } from './core/services/api/api.service';
 import { JwtService } from './core/services/api/strapi/jwt.service';
@@ -20,27 +19,15 @@ import { FirebaseService } from './core/services/firebase/firebase.service';
 import { FirebaseAuthService } from './core/services/api/firebase/firebase-auth.service';
 import { environment } from 'src/environments/environment';
 import { TabViewModule } from 'primeng/tabview';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { HttpClientProvider } from './core/services/http/http-client.provider copy';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-
-export function httpProviderFactory(
-  http: HttpClient) {
+export function httpProviderFactory(http: HttpClient) {
   return new HttpClientWebProvider(http);
 }
-/*
-export function DataServiceFactory(
-  backend: string,
-  api: ApiService,
-  firebase: FirebaseService) {
-  switch (backend) {
-    case 'Strapi':
-      return new StrapiDataService(api);
-    case 'Firebase':
-      return new FirebaseAuthService(firebase);
-    default:
-      throw new Error("Not implemented");
-  }
-}
-*/
+
 export function AuthServiceFactory(
   backend: string,
   jwt: JwtService,
@@ -59,7 +46,8 @@ export function AuthServiceFactory(
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule,
+  imports: [
+    BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
@@ -68,10 +56,14 @@ export function AuthServiceFactory(
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
-        useFactory: (createTranslateLoader),
+        useFactory: createTranslateLoader,
         deps: [HttpClient]
       }
-    }), SharedModule],
+    }),
+    ToastModule,
+    BrowserAnimationsModule,
+    SharedModule
+  ],
   providers: [
     {
       provide: 'firebase-config',
@@ -104,11 +96,7 @@ export function AuthServiceFactory(
       deps: [HttpClient, Platform],
       useFactory: httpProviderFactory,
     },
-    /* {
-      provide: DataService,
-      deps: ['backend', ApiService],
-      useFactory: DataServiceFactory,
-    }*/
+    MessageService,
   ],
   bootstrap: [AppComponent],
 })

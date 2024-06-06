@@ -14,7 +14,8 @@
         "email":"Correo electrónico",
         "confirm":"Confirmar constraseña",
         "passwordError":"La contraseña debe tener al menos 8 caracteres, un número, una mayúsucla y una minúscula",
-        "confirmError":"Las contraseñas no coinciden"
+        "confirmError":"Las contraseñas no coinciden",
+        "ban":"No puedes acceder porque estás baneado"
     },
     "home": {
         "myLoans":"Mis deudas",
