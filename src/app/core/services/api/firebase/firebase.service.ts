@@ -53,14 +53,22 @@ export class FirebaseService {
     this._auth.onAuthStateChanged(async user => {
       this._user = user;
       if (user) {
-        if (user.uid && user.email) {
-          this._isLogged.next(true);
-          this.router.navigate(['/home']);
-        }
+          if (user.uid && user.email) {
+              this._isLogged.next(true);
+              const userData = await this.getDocument('users', user.uid);
+              if (userData && userData.data["role"] !== 'banned') {
+                  this.router.navigate(['/home']);
+              } else {
+                  this._isLogged.next(false);
+                  this.router.navigate(['/login']);
+              }
+          }
       } else {
-        this._isLogged.next(false);
+          this._isLogged.next(false);
+          this.router.navigate(['/login']);
       }
-    });
+  });
+  
   }
 
   public get user(): User | null {

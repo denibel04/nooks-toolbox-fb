@@ -7,7 +7,7 @@ import { DataService } from './api/strapi/data.service';
 import { IslandService } from './island.service';
 import { Island } from '../interfaces/island';
 import { FirebaseAuthService } from './api/firebase/firebase-auth.service';
-import { FirebaseService } from './firebase/firebase.service';
+import { FirebaseService } from './api/firebase/firebase.service';
 import { DocumentData } from 'firebase/firestore';
 
 @Injectable({

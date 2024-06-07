@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FirebaseService } from './firebase/firebase.service';
+import { FirebaseService } from './api/firebase/firebase.service';
 import { User } from '../interfaces/user';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { FirebaseAuthService } from './api/firebase/firebase-auth.service';

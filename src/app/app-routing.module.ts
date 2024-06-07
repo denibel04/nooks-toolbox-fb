@@ -3,13 +3,12 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth.guard';
 import { SharedModule } from './shared/shared.module';
 import { AdminGuard } from './core/guards/admin.guard';
-import { BannedGuard } from './core/guards/ban.guard';
 
 const routes: Routes = [
   {
     path: 'home',
     loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule),
-    canActivate:[AuthGuard, BannedGuard]
+    canActivate:[AuthGuard]
   },
   {
     path: '',
@@ -19,7 +18,7 @@ const routes: Routes = [
   {
     path: 'villagers',
     loadChildren: () => import('./pages/villagers/villagers.module').then( m => m.VillagersPageModule),
-    canActivate:[AuthGuard, BannedGuard]
+    canActivate:[AuthGuard]
   },
   {
     path: 'login',
@@ -32,17 +31,17 @@ const routes: Routes = [
   {
     path: 'loans',
     loadChildren: () => import('./pages/loans/loans.module').then( m => m.LoansPageModule),
-    canActivate:[AuthGuard, BannedGuard]
+    canActivate:[AuthGuard]
   },
   {
     path: 'about',
     loadChildren: () => import('./pages/about/about.module').then( m => m.AboutPageModule),
-    canActivate:[AuthGuard, BannedGuard]
+    canActivate:[AuthGuard]
   },
   {
     path: 'profile',
     loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule),
-    canActivate:[AuthGuard, BannedGuard]
+    canActivate:[AuthGuard]
   },
   {
     path: 'admin',

@@ -1,10 +1,12 @@
-import { Observable, from, map } from 'rxjs';
+import { Observable, from, lastValueFrom, map } from 'rxjs';
 import { UserCredentials } from '../../../interfaces/user-credentials';
 import { UserRegisterInfo } from '../../../interfaces/user-register-info';
 import { User } from '../../../interfaces/user';
 import { AuthService } from '../auth.service';
-import { FirebaseService, FirebaseUserCredential } from '../../firebase/firebase.service';
+import { FirebaseService, FirebaseUserCredential } from './firebase.service';
 import { Injectable } from '@angular/core';
+import { MessageService } from 'primeng/api';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +17,9 @@ export class FirebaseAuthService extends AuthService {
   }
 
   constructor(
-    private firebaseSvc: FirebaseService
+    private firebaseSvc: FirebaseService,
+    private messageService: MessageService,
+    private translate: TranslateService
   ) {
     super();
     this.firebaseSvc.isLogged$.subscribe(logged => {
@@ -36,24 +40,35 @@ export class FirebaseAuthService extends AuthService {
       }
     })
   }
-
+  
   public login(credentials: UserCredentials): Observable<any> {
     return new Observable<any>(subscr => {
       this.firebaseSvc.connectUserWithEmailAndPassword(credentials.username, credentials.password).then((credentials: FirebaseUserCredential | null) => {
         if (!credentials || !credentials.user || !credentials.user.user || !credentials.user.user.uid) {
           subscr.error('Cannot login');
+          return;
         }
         if (credentials) {
-          this.me().subscribe(data => {
-            this._user.next(data);
-            this._logged.next(true);
-            subscr.next(data);
-            subscr.complete();
+          this.me().subscribe(async data => {
+            console.log("login data", data);
+            if (data.role === 'banned') {
+              this.messageService.add({ severity: 'error', summary: 'Error', detail: await lastValueFrom(this.translate.get('login.ban')) });
+              this._logged.next(false);
+              this.logout().subscribe(() => {
+                subscr.error('User is banned');
+              });
+            } else {
+              this._user.next(data);
+              this._logged.next(true);
+              subscr.next(data);
+              subscr.complete();
+            }
           });
         }
-      })
+      });
     });
   }
+
 
   public register(info: UserRegisterInfo): Observable<any | null> {
     console.log("register")
@@ -99,7 +114,7 @@ export class FirebaseAuthService extends AuthService {
         return {
           profile_picture: data.data['profile_picture'],
           username: data.data['username'],
-          dream_code: data.data['dream_code'],   
+          dream_code: data.data['dream_code'],
           role: data.data['role'],
           uuid: data.id,
           followers: data.data['followers'],
@@ -109,8 +124,8 @@ export class FirebaseAuthService extends AuthService {
     else
       throw new Error('User is not connected');
   }
-  
-  
+
+
   public logout(): Observable<any> {
     return from(this.firebaseSvc.signOut(false));
   }

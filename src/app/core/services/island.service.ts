@@ -5,7 +5,7 @@ import { ApiService } from './api/api.service';
 import { DataService } from './api/strapi/data.service';
 import { AuthStrapiService } from './api/strapi/auth-strapi.service';
 import { FirebaseAuthService } from './api/firebase/firebase-auth.service';
-import { FirebaseService } from './firebase/firebase.service';
+import { FirebaseService } from './api/firebase/firebase.service';
 import { VillagerService } from './villager.service';
 import { Villager } from '../interfaces/villager';
 

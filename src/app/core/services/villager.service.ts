@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import { PaginatedVillagers, Villager } from '../interfaces/villager';
 import { DataService } from './api/strapi/data.service';
 import { ApiService } from './api/api.service';
-import { FirebaseService } from './firebase/firebase.service';
+import { FirebaseService } from './api/firebase/firebase.service';
 
 @Injectable({
   providedIn: 'root'

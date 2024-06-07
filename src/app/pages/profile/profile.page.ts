@@ -2,10 +2,10 @@ import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { User } from 'src/app/core/interfaces/user';
 import { BehaviorSubject, Observable, Subject, debounceTime, distinctUntilChanged } from 'rxjs';
 import { FirebaseAuthService } from 'src/app/core/services/api/firebase/firebase-auth.service';
-import { FirebaseService } from 'src/app/core/services/firebase/firebase.service';
 import { UserService } from 'src/app/core/services/user.service';
 import { TabViewModule } from 'primeng/tabview';
 import { IonInput } from '@ionic/angular';
+import { FirebaseService } from 'src/app/core/services/api/firebase/firebase.service';
 
 @Component({
   selector: 'app-profile',

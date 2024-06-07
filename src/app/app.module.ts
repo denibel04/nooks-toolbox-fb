@@ -13,9 +13,9 @@ import { StrapiDataService } from './core/services/api/strapi/strapi-data.servic
 import { SharedModule } from './shared/shared.module';
 import { AuthService } from './core/services/api/strapi/auth.service';
 import { AuthStrapiService } from './core/services/api/strapi/auth-strapi.service';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { createTranslateLoader } from './core/services/custom-translate.service';
-import { FirebaseService } from './core/services/firebase/firebase.service';
+import { FirebaseService } from './core/services/api/firebase/firebase.service';
 import { FirebaseAuthService } from './core/services/api/firebase/firebase-auth.service';
 import { environment } from 'src/environments/environment';
 import { TabViewModule } from 'primeng/tabview';
@@ -32,13 +32,15 @@ export function AuthServiceFactory(
   backend: string,
   jwt: JwtService,
   api: ApiService,
-  firebase: FirebaseService
+  firebase: FirebaseService,
+  messageService: MessageService,
+  translate: TranslateService
 ) {
   switch (backend) {
     case 'Strapi':
       return new AuthStrapiService(jwt, api);
     case 'Firebase':
-      return new FirebaseAuthService(firebase);
+      return new FirebaseAuthService(firebase, messageService, translate);
     default:
       throw new Error("Not implemented");
   }
