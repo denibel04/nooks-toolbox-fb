@@ -4,12 +4,27 @@
   </ion-toolbar>
 </ion-header>
 
+
 <ion-content [fullscreen]="true">
-  <div *ngFor="let user of (userSvc.users$ | async)">
-    <app-user-card 
-      *ngIf="user.role != 'admin'"
-      [user]="user"
-      [buttonType]="'ban'">
-    </app-user-card>
+  <div class="csv-container">
+    <ion-button color="secondary" shape="round" (click)="downloadCSV()">Descargar csv</ion-button>
   </div>
+  
+  <div class="users">
+    <ng-container  *ngFor="let user of (userSvc.users$ | async)" >
+      <app-user-card 
+        *ngIf="user.role != 'admin'"
+        [user]="user"
+        [buttonType]="'ban'">
+      </app-user-card>
+    </ng-container>
+  </div>
+
+  
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Cargando más usuarios...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

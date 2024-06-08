@@ -23,8 +23,8 @@ export class LoanService {
     private fbSvc: FirebaseService,
     private isSvc: IslandService
   ) { }
-  
-  public addLoan(loan:Loan):Observable<Loan> {
+
+  public addLoan(loan: Loan): Observable<Loan> {
     return new Observable(observer => {
       this.fbAuth.user$.subscribe(user => {
         this.isSvc.getUserIsland().subscribe(is => {
@@ -43,7 +43,7 @@ export class LoanService {
               const collectionName = `users/${user!.uuid}/island/${is.id}/loans`;
               this.fbSvc.subscribeToCollection(
                 collectionName,
-                  this._loans,
+                this._loans,
                 (doc: DocumentData) => ({
                   id: doc['id'],
                   attributes: {
@@ -60,14 +60,50 @@ export class LoanService {
               observer.complete();
               return;
             }
-            
+
           });
         }
       });
     });
   }
 
-  public deleteLoan(loan:Loan):Observable<Loan> {
+  public getUserLoanById(uuid: string): Observable<Loan[]> {
+    return new Observable(observer => {
+      this.isSvc.getUserIsland().subscribe(is => {
+        if (is) {
+          this.fbSvc.getDocuments(`users/${uuid}/island/${is.id}/loans`).then(loansDoc => {
+            if (loansDoc.length === 0) {
+              observer.next([]);
+              observer.complete();
+            } else {
+              const loans = loansDoc.map(doc => {
+                const data = doc.data;
+                const loan:Loan = {
+                  id: doc['id'],
+                  attributes: {
+                    type: data['type'],
+                    amountPaid: data['amountPaid'],
+                    amountTotal: data['amountTotal'],
+                    completed: data['completed'],
+                    title: data['title']
+                  }
+                };
+                return loan;
+              })
+              observer.next(loans);
+              observer.complete();
+            }
+          })
+        } else {
+          observer.next([]);
+          observer.complete();
+          return;
+        }
+      });
+    });
+  }
+
+  public deleteLoan(loan: Loan): Observable<Loan> {
     return new Observable(observer => {
       this.fbAuth.user$.subscribe(user => {
         this.isSvc.getUserIsland().subscribe(is => {
@@ -77,7 +113,7 @@ export class LoanService {
     })
   }
 
-  public updateLoan(loan:Loan):Observable<Loan> {
+  public updateLoan(loan: Loan): Observable<Loan> {
     return new Observable(observer => {
       this.fbAuth.user$.subscribe(user => {
         console.log("loan user", user)

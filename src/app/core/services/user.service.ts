@@ -19,10 +19,32 @@ export class UserService {
   private _users: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([])
   public users$: Observable<User[]> = this._users.asObservable();
 
+  public getAllUsers(): Observable<User[]> {
+    return new Observable(observer => {
+      this.fbSvc.getDocuments("users").then(documents => {
+        const users = documents.map(doc => {
+          const data = doc.data;
+          const user: User = {
+            uuid: doc['id'],
+            username: data['username'],
+            profile_picture: data['profile_picture'],
+            dream_code: data['dream_code'],
+            role: data['role'],
+            followers: data['followers'],
+            following: data['following']
+          };
+          return user;
+        })
+        observer.next(users);
+        observer.complete();
+      })
+    })
+  }
+
   public getPaginatedUsers(): Observable<User[]> {
     console.log("getpag", this._users.value.length);
     return new Observable(observer => {
-      this.fbSvc.getDocumentsPaginated("users", 25, "username", this.lastUser).then(usersPaginated => {
+      this.fbSvc.getDocumentsPaginated("users", 10, "username", this.lastUser).then(usersPaginated => {
         console.log("paginated users", usersPaginated);
         const newUsers = usersPaginated.map(doc => {
           const data = doc.data;

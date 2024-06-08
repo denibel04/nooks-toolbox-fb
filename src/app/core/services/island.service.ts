@@ -85,6 +85,37 @@ export class IslandService {
     });
   }
 
+  getUserIslandById(uuid: string): Observable<Island> {
+    return new Observable(observer => {
+      this.fbSvc.getDocuments(`users/${uuid}/island`).then(isDoc => {
+        console.log("GET DOCUMETS GETUSERISLAND", isDoc)
+        if (isDoc.length === 0) {
+          observer.next(undefined);
+          observer.complete();
+          return;
+        } else {
+          const villagerPromises = isDoc[0].data['villagers'].map((villagerId: { id: string }) => {
+            return this.villagerService.getVillagerByName(villagerId.id);
+          });
+          console.log("vp", villagerPromises)
+          Promise.all(villagerPromises).then(completeVillagers => {
+            const island: Island = {
+              id: isDoc[0]['id'],
+              attributes: {
+                islandName: isDoc[0].data['islandName'],
+                hemisphere: isDoc[0].data['hemisphere'],
+                villagers: completeVillagers,
+                loans: isDoc[0].data['loans']
+              }
+            };
+            observer.next(island);
+            observer.complete();
+          });
+        }
+      });
+    });
+  }
+
 
   public deleteIsland(is: Island): Observable<Island> {
     return new Observable(observer => {

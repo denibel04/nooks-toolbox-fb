@@ -11,6 +11,7 @@ import { LoanFormComponent } from 'src/app/shared/components/loan-form/loan-form
 import { Geolocation } from '@capacitor/geolocation';
 import { TranslateService } from '@ngx-translate/core';
 import { lastValueFrom } from 'rxjs';
+import { UserService } from 'src/app/core/services/user.service';
 
 
 @Component({
@@ -31,16 +32,21 @@ export class HomePage {
     public loanService: LoanService,
     private router: Router,
     private alertController: AlertController,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private usersvc:UserService,
+    private loanSvc:LoanService
   ) { }
 
   ngOnInit() { };
 
-  ngAfterViewInit() {
+  async ngAfterViewInit() {
     this.islandService.getUserIsland().subscribe(is => {
+      console.log("homeis", is)
       this.is = !!is;
     })
     this.loanService.getUserLoans().subscribe()
+    const loans = await this.loanSvc.getUserLoanById("SE6MeG10WqOWdxGYEyMWJ5Hvhww2").toPromise();
+          console.log ("home loans",loans)
   }
 
   public loans() {
