@@ -1,4 +1,4 @@
-<ion-button class="edit" color="primary" (click)="onEditClick($event)">
+<ion-button class="edit" color="primary" (click)="onEditClick($event)"  *ngIf="showEdit" >
   {{ "home.edit" | translate }}
   <ion-icon slot="end" name="pencil-sharp"></ion-icon>
 </ion-button>
@@ -6,7 +6,7 @@
 <ion-card>
   <ion-card-header>
     <div class="header">
-      <h1>{{ island?.attributes?.islandName | titlecase }}</h1>
+      <h1>{{ island?.attributes?.name | titlecase }}</h1>
       <p>{{ ('island.hemisphere.' + island?.attributes?.hemisphere) | translate | titlecase }}</p>
     </div>
   </ion-card-header>

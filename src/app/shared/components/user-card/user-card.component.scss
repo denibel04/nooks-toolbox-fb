@@ -3,10 +3,19 @@
     width: 20rem;
     align-self: center;
 }
+.banned {
+    background-color: #FFDFE9 !important; /* Puedes cambiar el color a tu preferencia */
+  }
 
 .button {
     display: flex;
     justify-content: flex-end;
+    align-items: center;
+
+    span {
+        color:red;
+        font-size: 1rem;
+    }
 }
 
 img, ion-icon {
@@ -18,7 +27,7 @@ img, ion-icon {
 ion-card {
     border-radius: 25px;
     width: 30rem;
-    height: 40rem;
+    height: 640px !important;
     color: var(--ion-color-primary-dark);    
     background-color: var(--ion-color-primary-tint);
 }

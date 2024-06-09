@@ -14,22 +14,51 @@ import { UserService } from 'src/app/core/services/user.service';
 export class AdminPage implements OnInit {
 
   users$: Observable<User[]> | undefined;
+  userIsland: { [key: string]: any } = {};
+
+  filteredUsers: User[] | undefined;
+  showAll:boolean = true;
+
 
   constructor(
     public userSvc: UserService,
     private islandSvc: IslandService,
     private loanSvc: LoanService,
   ) { }
-
   ngOnInit() {
-    this.userSvc.getPaginatedUsers().subscribe();
+    this.userSvc.getPaginatedUsers().subscribe(users => {
+      this.loadIslandsForUsers(users);
+    });
   }
 
   doInfinite(event: any) {
-    this.userSvc.getPaginatedUsers().subscribe(() => {
+    this.userSvc.getPaginatedUsers().subscribe(users => {
+      this.loadIslandsForUsers(users);
       event.target.complete();
     });
   }
+
+  private loadIslandsForUsers(users: any[]) {
+    users.forEach(user => {
+      if (user.role !== 'admin' && !this.userIsland[user.uuid]) {
+        this.islandSvc.getUserIslandById(user.uuid).subscribe(island => {
+          this.userIsland[user.uuid] = island;
+        });
+      }
+    });
+  }
+
+  
+  async onFilter(event: any) {
+    if (event.detail.value === '') {
+      this.filteredUsers = []
+      this.showAll = true;
+    } else {
+      this.filteredUsers = await this.userSvc.getFiltered(event.detail.value)
+      this.showAll = false;
+    }
+  }
+
 
   convertToCSV(data: any[]): string {
     const header = [
@@ -55,7 +84,7 @@ export class AdminPage implements OnInit {
       const row = [
         user.id,
         user.username,
-        user.islandName || "",
+        user.name || "",
         user.hemisphere || "",
         user.completedLoans,
         user.totalLoans
@@ -106,7 +135,7 @@ export class AdminPage implements OnInit {
       return {
         id: user.uuid,
         username: user.username,
-        islandName: island?.attributes?.islandName || "",
+        name: island?.attributes?.name || "",
         hemisphere: island?.attributes?.hemisphere || "",
         villagers: villagers,
         completedLoans: completedLoans,

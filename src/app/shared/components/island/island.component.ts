@@ -10,6 +10,8 @@ import { Villager } from 'src/app/core/interfaces/villager';
 export class IslandComponent implements OnInit {
 
   @Input() island: Island | null = null;
+  @Input() showEdit: boolean = false;
+
 
   @Output() onEditClicked: EventEmitter<void> = new EventEmitter<void>();
 

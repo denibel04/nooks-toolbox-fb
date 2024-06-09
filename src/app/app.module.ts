@@ -76,18 +76,6 @@ export function AuthServiceFactory(
       useValue: 'Firebase'
     },
     {
-      provide: 'home',
-      useValue: '/home'
-    },
-    {
-      provide: 'login',
-      useValue: '/login'
-    },
-    {
-      provide: 'afterLogin',
-      useValue: '/home'
-    },
-    {
       provide: AuthService,
       deps: ['backend', JwtService, ApiService, FirebaseService],
       useFactory: AuthServiceFactory,

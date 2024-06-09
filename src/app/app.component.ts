@@ -20,15 +20,25 @@ export class AppComponent {
     public translate:CustomTranslateService,
     public fbAuth: FirebaseAuthService,
   ) {
+
+    const returnUrl = localStorage.getItem('returnUrl');
+    console.log("url", returnUrl)
+    if (returnUrl && this.auth.isLogged$) {
+      localStorage.removeItem('returnUrl');
+      this.router.navigateByUrl(returnUrl);
+    }
     this.fbAuth.user$.subscribe(user => {
       this.user =user;
       console.log("app user", this.user)
+      
     })
     this.lang = this.translate.getBrowserLang();
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.showNavbar = !['/login', '/register'].includes(event.urlAfterRedirects);
       } });
+
+
   }
 
   onSignOut(){

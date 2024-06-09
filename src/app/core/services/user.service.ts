@@ -152,7 +152,6 @@ export class UserService {
         this.fbSvc.updateDocument('users', currentUser.uuid, { following: newFollowing }).then(() => {
           const newFollowers = userToUnfollow.followers.filter(uuid => uuid !== currentUser!.uuid);
           this.fbSvc.updateDocument('users', userToUnfollow.uuid, { followers: newFollowers }).then(() => {
-            // Update local state
             this.updateLocalUsers(currentUser.uuid!, userToUnfollow.uuid!, false);
             observer.complete();
           });
@@ -229,6 +228,19 @@ export class UserService {
       };
       users.push(user);
     });
-    return users;
+    return users; 
+  }
+
+  public banUser(user: User): Observable<User> {
+    return new Observable(observer => {
+      console.log("ban", user)
+      this.fbSvc.updateDocument('users', user.uuid, { role: 'banned' }).then(() => {
+        const updatedUser: User = { ...user, role: 'banned' };
+        observer.next(updatedUser);
+        observer.complete();
+      }).catch(error => {
+        observer.error(error);
+      });
+    });
   }
 }  

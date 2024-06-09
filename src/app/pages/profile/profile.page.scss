@@ -1,3 +1,14 @@
+.current-user-container {
+    display: flex;
+    justify-content: center;
+    padding: 0.5rem;
+    align-items: end;
+
+    app-islannd {
+        height: 100% !important;
+    }
+}
+
 .users {
     display: flex;
     flex-wrap: wrap;
@@ -26,17 +37,6 @@ span {
     border-color: var(--ion-color-secondary);
 }
 
-ion-searchbar {
-    --background: var(--ion-color-secondary-light) !important;
-    --color: var(--ion-color-secondary-shade) !important;
-    --placeholder-color: var(--ion-color-secondary-shade) !important;
-    --icon-color: var(--ion-color-secondary-shade) !important;
-    --clear-button-color: var(--ion-color-secondary-shade) !important;
-}
-
-ion-searchbar.ios.custom {
-    --cancel-button-color: var(--ion-color-secondary-shade) !important;
-}
 
 .da {
         font-size: 1.5rem;

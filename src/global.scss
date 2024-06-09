@@ -75,3 +75,16 @@ ion-alert button {
     filter: blur(5px);
     transition: filter 0.3s;
 }
+
+
+ion-searchbar {
+    --background: var(--ion-color-secondary-light) !important;
+    --color: var(--ion-color-secondary-shade) !important;
+    --placeholder-color: var(--ion-color-secondary-shade) !important;
+    --icon-color: var(--ion-color-secondary-shade) !important;
+    --clear-button-color: var(--ion-color-secondary-shade) !important;
+}
+
+ion-searchbar.ios.custom {
+    --cancel-button-color: var(--ion-color-secondary-shade) !important;
+}

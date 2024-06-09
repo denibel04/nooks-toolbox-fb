@@ -1,12 +1,10 @@
-import { Loan } from "./loan"
 import { Villager } from "./villager"
 
 export interface Island {
     id:string,
     attributes: {
-        islandName:string,
+        name:string,
         villagers:Villager[] | undefined,
-        loans: Loan[] | undefined,
         hemisphere: string
     }
 }

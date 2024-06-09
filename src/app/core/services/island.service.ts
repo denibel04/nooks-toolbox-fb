@@ -9,7 +9,6 @@ import { FirebaseService } from './api/firebase/firebase.service';
 import { VillagerService } from './villager.service';
 import { Villager } from '../interfaces/villager';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -27,26 +26,23 @@ export class IslandService {
 
   public addIsland(is: any): Observable<Island> {
     return new Observable(observer => {
-      let villagers = []
+      let villagers: string[] = [];
       for (let i = 1; i <= 10; i++) {
         if (is[`villager${i}`]) {
-          villagers.push({ id: is[`villager${i}`] });
+          villagers.push(is[`villager${i}`]);
         }
       }
       const postdata = {
-        islandName: is.islandName,
+        name: is.name,
         hemisphere: is.hemisphere,
-        villagers: villagers,
-        loans: []
+        villagers: villagers
       }
       this.fbAuth.user$.subscribe(user => {
         this.fbSvc.createDocument(`users/${user!.uuid}/island`, postdata).then(() => {
           observer.complete();
-        })
-
-      })
-
-    })
+        });
+      });
+    });
   }
 
   public getUserIsland(): Observable<Island> {
@@ -54,24 +50,21 @@ export class IslandService {
       this.fbAuth.user$.subscribe(user => {
         if (user) {
           this.fbSvc.getDocuments(`users/${user!.uuid}/island`).then(isDoc => {
-            console.log("GET DOCUMETS GETUSERISLAND", isDoc)
             if (isDoc.length === 0) {
               observer.next(undefined);
               observer.complete();
               return;
             } else {
-              const villagerPromises = isDoc[0].data['villagers'].map((villagerId: { id: string }) => {
-                return this.villagerService.getVillagerByName(villagerId.id);
+              const villagerPromises = isDoc[0].data['villagers'].map((villagerName: string) => {
+                return this.villagerService.getVillagerByName(villagerName);
               });
-              console.log("vp", villagerPromises)
               Promise.all(villagerPromises).then(completeVillagers => {
                 const island: Island = {
                   id: isDoc[0]['id'],
                   attributes: {
-                    islandName: isDoc[0].data['islandName'],
+                    name: isDoc[0].data['name'],
                     hemisphere: isDoc[0].data['hemisphere'],
-                    villagers: completeVillagers,
-                    loans: isDoc[0].data['loans']
+                    villagers: completeVillagers
                   }
                 };
                 observer.next(island);
@@ -88,24 +81,21 @@ export class IslandService {
   getUserIslandById(uuid: string): Observable<Island> {
     return new Observable(observer => {
       this.fbSvc.getDocuments(`users/${uuid}/island`).then(isDoc => {
-        console.log("GET DOCUMETS GETUSERISLAND", isDoc)
         if (isDoc.length === 0) {
           observer.next(undefined);
           observer.complete();
           return;
         } else {
-          const villagerPromises = isDoc[0].data['villagers'].map((villagerId: { id: string }) => {
-            return this.villagerService.getVillagerByName(villagerId.id);
+          const villagerPromises = isDoc[0].data['villagers'].map((villagerName: string) => {
+            return this.villagerService.getVillagerByName(villagerName);
           });
-          console.log("vp", villagerPromises)
           Promise.all(villagerPromises).then(completeVillagers => {
             const island: Island = {
               id: isDoc[0]['id'],
               attributes: {
-                islandName: isDoc[0].data['islandName'],
+                name: isDoc[0].data['name'],
                 hemisphere: isDoc[0].data['hemisphere'],
-                villagers: completeVillagers,
-                loans: isDoc[0].data['loans']
+                villagers: completeVillagers
               }
             };
             observer.next(island);
@@ -116,31 +106,29 @@ export class IslandService {
     });
   }
 
-
   public deleteIsland(is: Island): Observable<Island> {
     return new Observable(observer => {
-      console.log("AFSGDSDFDS", is.id);
       this.fbAuth.user$.subscribe(user => {
         this.fbSvc.deleteDocument(`users/${user!.uuid}/island`, is.id).then(() => {
           observer.complete();
           this._islands.next(null);
-        })
-      })
-    })
+        });
+      });
+    });
   }
 
   public updateIsland(is: Island, info: any): Observable<Island> {
-    let villagers = []
+    let villagers: string[] = [];
     for (let i = 1; i <= 10; i++) {
       if (info.data[`villager${i}`]) {
         if (typeof info.data[`villager${i}`] === 'object')
-          villagers.push({ id: info.data[`villager${i}`].attributes.name });
+          villagers.push(info.data[`villager${i}`].attributes.name);
         else
-          villagers.push({ id: info.data[`villager${i}`] });
+          villagers.push(info.data[`villager${i}`]);
       }
     }
     const postdata = {
-      islandName: info.data.islandName,
+      name: info.data.name,
       hemisphere: is.attributes.hemisphere,
       villagers: villagers
     }
@@ -148,8 +136,8 @@ export class IslandService {
       let user = this.fbSvc.user
       this.fbSvc.updateDocument(`users/${user!.uid}/island`, is.id, postdata).then(() => {
         observer.complete();
-      })
+      });
       this.getUserIsland();
-    })
+    });
   }
 }

@@ -20,8 +20,8 @@ export class AdminGuard implements CanActivate {
         map(user => {
           console.log("GUARDA ADMIN", user)
           if (!user || user.role !== 'admin') {
-            this.router.navigate(['/home']);
-            return false;
+            localStorage.setItem('returnUrl', state.url); 
+            return this.router.parseUrl('/login?returnUrl=' + state.url);
           }
           return true;
         })

@@ -1,13 +1,10 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>profile</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content class="ion-padding">
 
-  <div>
+  <div class="current-user-container">
     <app-user-card [user]="user$ | async" [buttonType]="'edit'"></app-user-card>
+    <div class="islands" *ngIf="islandService.islands$ | async as island">
+      <app-island [island]="island" [showEdit]="false"></app-island>
+    </div>
   </div>
 
   <div class="card">
@@ -18,10 +15,9 @@
           <span> {{ 'profile.mutuals' | translate }}</span>
         </ng-template>
         <div class="users">
-          <ng-container *ngFor="let user of (userSvc.users$ | async)">
-            <app-user-card *ngIf="(user$ | async)?.uuid !== user.uuid" [user]="user"
-              [buttonType]="isUserFollowed(user.uuid) ? 'unfollow' : 'follow'" (follow)="onFollowClicked(user)"
-              (unfollow)="onUnfollowClicked(user)">
+          <ng-container *ngFor="let user of mutualUsers">
+            <app-user-card [user]="user" [buttonType]="isUserFollowed(user.uuid) ? 'unfollow' : 'follow'"
+              (follow)="onFollowClicked(user)" (unfollow)="onUnfollowClicked(user)">
             </app-user-card>
           </ng-container>
         </div>
@@ -35,10 +31,13 @@
           placeholder="{{ 'island.form.search' | translate}}..." type="text" (ionInput)="onFilter($event)"
           debounce="300"></ion-searchbar>
         <div class="users">
-          <app-user-card *ngFor="let user of filteredUsers" [user]="user"
-            [buttonType]="isUserFollowed(user.uuid) ? 'unfollow' : 'follow'" (follow)="onFollowClicked(user)"
-            (unfollow)="onUnfollowClicked(user)">
-          </app-user-card>
+          <ng-container *ngFor="let user of filteredUsers">
+            <app-user-card [user]="user" *ngIf="(user$ | async)?.uuid !== user.uuid"
+              [buttonType]="isUserFollowed(user.uuid) ? 'unfollow' : 'follow'" (follow)="onFollowClicked(user)"
+              (unfollow)="onUnfollowClicked(user)">
+            </app-user-card>
+          </ng-container>
+
         </div>
 
       </p-tabPanel>

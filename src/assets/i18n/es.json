@@ -166,10 +166,16 @@
         "followers": "Seguidores",
         "follow": "Seguir",
         "unfollow":"Dejar de seguir",
-        "ban": "Banear",
         "edit": "Editar",
+        "ban": "Banear",
         "edit-profile":"Editar perfil",
         "mutuals":"Amigos",
-        "search":"Búsqueda"
+        "search":"Búsqueda",
+        "banned":"Este usuario está baneado"
+    },
+    "admin":{
+        "csv-span":"Descargar CSV con toda la información de la aplicación",
+        "csv-download":"Descargar CSV",
+        "search":"Buscar usuarios"
     }
 }

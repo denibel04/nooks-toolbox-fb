@@ -23,7 +23,7 @@ export class IslandFormComponent implements OnInit {
   @Input() set island(_island: Island | null) {
     if (_island) {
       this.mode = 'Edit';
-      this.form.controls['islandName'].setValue(_island.attributes.islandName);
+      this.form.controls['name'].setValue(_island.attributes.name);
       console.log("island", _island.attributes.villagers)
       if (_island.attributes.villagers) {
         _island.attributes.villagers.forEach((villager, index)=>{
@@ -46,7 +46,7 @@ export class IslandFormComponent implements OnInit {
     private translate:TranslateService
   ) {
     this.form = this.formBuilder.group({
-      islandName: ['', [Validators.required]],
+      name: ['', [Validators.required]],
       villager1: [undefined],
       villager2: [undefined],
       villager3: [undefined],

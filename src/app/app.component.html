@@ -44,29 +44,7 @@
   </ion-menu>
 
   <div class="ion-page" id="main-content">
-    <!--
-    <div class="navbar">
-      <ion-toolbar *ngIf="showNavbar">
-        <ion-buttons slot="end">
-          <a routerLink="/home" routerLinkActive="active-link" class="link-text">{{ 'menu.home' | translate}}</a>
-          <a routerLink="/loans" routerLinkActive="active-link" class="link-text">{{ 'menu.loans' | translate}}</a>
-          <a routerLink="/villagers" routerLinkActive="active-link" class="link-text">{{ 'menu.villagers' |
-            translate}}</a>
-
-          <ion-button *ngIf="lang=='en'" fill="clear" (click)="onLang('es')">
-            <ion-icon slot="icon-only" name="language-outline"></ion-icon>
-          </ion-button>
-          <ion-button *ngIf="lang=='es'" fill="clear" (click)="onLang('en')">
-            <ion-icon slot="icon-only" name="language-outline"></ion-icon>
-          </ion-button>
-
-          <ion-button fill="clear" (click)="onSignOut()">
-            <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
-          </ion-button>
-        </ion-buttons>
-      </ion-toolbar>
-    </div>-->
-    <div class="menu toolbar">
+    <ion-header>
       <ion-toolbar *ngIf="showNavbar">
         <ion-title>
           <img src="../assets/icon/favicon.png" alt="icon" class="toolbar-icon">
@@ -82,21 +60,14 @@
               <ion-icon *ngIf="!(fbAuth.user$ | async)?.profile_picture" size="large" name="person-circle"></ion-icon>
             </ion-avatar>
           </ion-button>
-          
-
-          <ion-menu-button>
-
-          </ion-menu-button>
+          <ion-menu-button></ion-menu-button>
         </ion-buttons>
       </ion-toolbar>
-    </div>
+    </ion-header>
 
-    <p-toast></p-toast>
-
-
-    <ion-router-outlet></ion-router-outlet>
+    <ion-content>
+      <p-toast></p-toast>
+      <ion-router-outlet></ion-router-outlet>
+    </ion-content>
   </div>
-
-
-
 </ion-app>

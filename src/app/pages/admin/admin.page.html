@@ -1,30 +1,44 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>admin</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-
 <ion-content [fullscreen]="true">
-  <div class="csv-container">
-    <ion-button color="secondary" shape="round" (click)="downloadCSV()">Descargar csv</ion-button>
-  </div>
-  
-  <div class="users">
-    <ng-container  *ngFor="let user of (userSvc.users$ | async)" >
+  <div class="body">
+    <div class="csv-container">
+      <span>{{'admin.csv-span' | translate }}</span>
+      <ion-button  shape="round" (click)="downloadCSV()" class="custom-button">{{'admin.csv-download' | translate }}</ion-button>
+    </div>
+
+    <ion-searchbar mode="ios" show-clear-button="focus" #search
+    placeholder="{{ 'island.form.search' | translate}}..." type="text" (ionInput)="onFilter($event)"
+    debounce="300"></ion-searchbar>
+
+    <div class="filtered-users">
       <app-user-card 
-        *ngIf="user.role != 'admin'"
+        *ngFor="let user of filteredUsers" 
         [user]="user"
-        [buttonType]="'ban'">
+        [buttonType]="'ban'" >
       </app-user-card>
-    </ng-container>
+    </div>
+
+    <div class="users" *ngIf="showAll">
+      <ng-container *ngFor="let user of (userSvc.users$ | async)">
+        <ng-container *ngIf="user.role != 'admin'">
+          <div class="user-row">
+            <app-user-card 
+              [user]="user" 
+              [buttonType]="'ban'">
+            </app-user-card>
+            <app-island 
+              *ngIf="userIsland[user.uuid!]" 
+              [island]="userIsland[user.uuid!]"
+              [showEdit]="false"></app-island>
+          </div>
+          <p-divider></p-divider>
+        </ng-container>
+      </ng-container>
+    </div>
+
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+      <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Cargando más usuarios...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
   </div>
 
-  
-  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
-    <ion-infinite-scroll-content
-      loadingSpinner="bubbles"
-      loadingText="Cargando más usuarios...">
-    </ion-infinite-scroll-content>
-  </ion-infinite-scroll>
 </ion-content>

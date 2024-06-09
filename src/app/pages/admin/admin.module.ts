@@ -8,6 +8,8 @@ import { AdminPageRoutingModule } from './admin-routing.module';
 
 import { AdminPage } from './admin.page';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { DividerModule } from 'primeng/divider';
+
 
 @NgModule({
   imports: [
@@ -15,7 +17,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     FormsModule,
     IonicModule,
     AdminPageRoutingModule,
-    SharedModule
+    SharedModule,
+    DividerModule,
   ],
   declarations: [AdminPage]
 })

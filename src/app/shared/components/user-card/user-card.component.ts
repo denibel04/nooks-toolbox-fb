@@ -85,7 +85,8 @@ export class UserCardComponent  implements OnInit {
         this.onEditClicked(this.user!)
         break;
       case 'ban':
-        //this.banUser();
+        console.log("ban button")
+        this.userSvc.banUser(this.user!).subscribe()
         break;
       default:
         console.warn('Acción no reconocida:', this.buttonConfig.action);

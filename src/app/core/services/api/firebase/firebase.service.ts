@@ -4,7 +4,7 @@ import { initializeApp, getApp, FirebaseApp } from "firebase/app";
 import { getFirestore, addDoc, collection, updateDoc, doc, onSnapshot, getDoc, setDoc, query, where, getDocs, Unsubscribe, DocumentData, deleteDoc, Firestore, orderBy, startAt, limit, startAfter } from "firebase/firestore";
 import { getStorage, ref, getDownloadURL, uploadBytes, FirebaseStorage, deleteObject } from "firebase/storage";
 import { createUserWithEmailAndPassword, deleteUser, signInAnonymously, signOut, signInWithEmailAndPassword, initializeAuth, indexedDBLocalPersistence, UserCredential, Auth, User } from "firebase/auth";
-import { Router } from "@angular/router";
+import { NavigationEnd, Router } from "@angular/router";
 import { fakeAsync } from "@angular/core/testing";
 
 export interface FirebaseStorageFile {
@@ -53,22 +53,24 @@ export class FirebaseService {
     this._auth.onAuthStateChanged(async user => {
       this._user = user;
       if (user) {
-          if (user.uid && user.email) {
-              this._isLogged.next(true);
-              const userData = await this.getDocument('users', user.uid);
-              if (userData && userData.data["role"] !== 'banned') {
-                  this.router.navigate(['/home']);
-              } else {
-                  this._isLogged.next(false);
-                  this.router.navigate(['/login']);
-              }
+        if (user.uid && user.email) {
+          this._isLogged.next(true);
+          const userData = await this.getDocument('users', user.uid);
+          if (userData && userData.data["role"] !== 'banned') {
+            const returnUrl = localStorage.getItem('returnUrl') || '/home';
+            localStorage.removeItem('returnUrl');
+            this.router.navigate([returnUrl]);
+          } else {
+            this._isLogged.next(false);
+            this.router.navigate(['/login']);
           }
+        }
       } else {
-          this._isLogged.next(false);
-          this.router.navigate(['/login']);
+        this._isLogged.next(false);
+        this.router.navigate(['/login']);
       }
-  });
-  
+    });
+
   }
 
   public get user(): User | null {
@@ -120,19 +122,19 @@ export class FirebaseService {
     return this.fileUpload(blob, 'image/jpeg', 'images', 'image', ".jpg");
   }
 
-  
-public deleteFile(path: string): Promise<void> {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const fileRef = ref(this._webStorage!, path);
 
-      await deleteObject(fileRef);
-      resolve();
-    } catch (error) {
-      reject(error);
-    }
-  });
-}
+  public deleteFile(path: string): Promise<void> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const fileRef = ref(this._webStorage!, path);
+
+        await deleteObject(fileRef);
+        resolve();
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
 
   public createDocument(collectionName: string, data: any): Promise<string> {
     return new Promise((resolve, reject) => {
@@ -189,7 +191,7 @@ public deleteFile(path: string): Promise<void> {
     });
   }
 
-  public getDocumentsPaginated(collectionName:string, pageSize: number, filterBy:string, lastDocument?: any):Promise<FirebaseDocument[]> {
+  public getDocumentsPaginated(collectionName: string, pageSize: number, filterBy: string, lastDocument?: any): Promise<FirebaseDocument[]> {
     return new Promise((resolve, reject) => {
       if (!this._db) {
         reject({
@@ -202,7 +204,7 @@ public deleteFile(path: string): Promise<void> {
       let paginatedQuery = query(q, limit(pageSize));
       if (lastDocument) {
         paginatedQuery = query(q, startAfter(lastDocument), limit(pageSize));
-      } 
+      }
 
       getDocs(paginatedQuery)
         .then(querySnapshot => {
@@ -250,25 +252,25 @@ public deleteFile(path: string): Promise<void> {
     });
   }
 
-  public getDocumentsFiltered(collectionName: string, field: string, value: any, capitalize:boolean = false): Promise<FirebaseDocument[]> {
+  public getDocumentsFiltered(collectionName: string, field: string, value: any, capitalize: boolean = false): Promise<FirebaseDocument[]> {
     return new Promise(async (resolve, reject) => {
       if (!this._db)
         reject({
           msg: "Database is not connected"
         });
-        let search = value
-        if (capitalize) {
-           search = value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
-        }
+      let search = value
+      if (capitalize) {
+        search = value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
+      }
       const q = query(collection(this._db!, collectionName), where(field, ">=", search), where(field, "<=", search + '\uf8ff'));
-  
-      const querySnapshot = await getDocs(q)  ;
+
+      const querySnapshot = await getDocs(q);
       resolve(querySnapshot.docs.map<FirebaseDocument>(doc => {
         return { id: doc.id, data: doc.data() }
       }));
     });
-  } 
-  
+  }
+
 
   public deleteDocument(collectionName: string, docId: string): Promise<void> {
     return new Promise(async (resolve, reject) => {
@@ -340,7 +342,7 @@ public deleteFile(path: string): Promise<void> {
   }
 
   public createUserWithEmailAndPassword(email: string, password: string): Promise<FirebaseUserCredential | null> {
-    console.log("create user",email, password)
+    console.log("create user", email, password)
     return new Promise(async (resolve, reject) => {
       if (!this._auth)
         resolve(null);

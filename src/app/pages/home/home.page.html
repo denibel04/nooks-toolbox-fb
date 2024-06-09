@@ -1,8 +1,4 @@
-<ion-header translucent="true">
-  <ion-toolbar>
-    <ion-title>home</ion-title>
-  </ion-toolbar>
-</ion-header>
+
 
 <ion-content [fullscreen]="true" [appBackgroundBlur]="isModalOpen">
 
@@ -23,7 +19,7 @@
       </app-loan-item>
     </div>
     <div class="islands" *ngIf="(islandService.islands$ | async) as island">
-      <app-island [island]="island" (onEditClicked)="onEditClicked(island)">
+      <app-island [island]="island" (onEditClicked)="onEditClicked(island)" [showEdit]="true">
       </app-island>
     </div>
   </div>
