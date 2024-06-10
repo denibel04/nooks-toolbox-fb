@@ -23,6 +23,9 @@ import { UserCardComponent } from './components/user-card/user-card.component';
 import { PictureSelectableComponent } from './components/picture-selectable/picture-selectable.component';
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { UserListComponent } from './components/user-list/user-list.component';
+import { VirtualScrollerModule } from 'primeng/virtualscroller';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+
 
 
 
@@ -58,6 +61,8 @@ import { UserListComponent } from './components/user-list/user-list.component';
     IonicModule,
     FormsModule,
     ReactiveFormsModule,
+    VirtualScrollerModule,
+    OverlayPanelModule,
     TranslateModule.forChild({
       loader: {
       provide: TranslateLoader,

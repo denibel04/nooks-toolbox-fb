@@ -15,7 +15,6 @@ import { VillagerService } from 'src/app/core/services/villager.service';
 export class IslandFormComponent implements OnInit {
 
   form: FormGroup;
-  villagers:Villager[] = [];
   _island: Island | null = null
   mode: 'New' | 'Edit' = 'New';
   numbers = [1,2,3,4,5,6,7,8,9,10];
@@ -61,9 +60,7 @@ export class IslandFormComponent implements OnInit {
     })
   }
 
-  async ngOnInit() { 
-    this.villagers = await this.villagerService.getFiltered("a");
-    console.log(this.villagers)
+  async ngOnInit() {
   }
 
   onCancel() {

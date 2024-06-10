@@ -7,6 +7,8 @@ import { TabViewModule } from 'primeng/tabview';
 import { IonInput } from '@ionic/angular';
 import { FirebaseService } from 'src/app/core/services/api/firebase/firebase.service';
 import { IslandService } from 'src/app/core/services/island.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Island } from 'src/app/core/interfaces/island';
 
 @Component({
   selector: 'app-profile',
@@ -23,26 +25,50 @@ export class ProfilePage {
   public mutualUsers: User[] | undefined;
 
   public is: boolean = false;
+  public currentIsland: Island | null = null;
+
+  public isMe: boolean = true;
 
   constructor(
     private fbSvc: FirebaseService,
     public fbAuth: FirebaseAuthService,
     public userSvc: UserService,
-    public islandService: IslandService
+    public islandService: IslandService,
+    private route: ActivatedRoute,
+    private router: Router,
   ) {
-    this.fbAuth.user$.subscribe(user => {
-      this._user.next(user);
-      console.log("app user", this._user.value);
-      if (user) {
-        this.loadMutualUsers()
+   
+
+    this.route.paramMap.subscribe(async params => {
+      const userId = params.get('uuid');
+      console.log("ppp init", userId)
+      if (userId) {
+        this.isMe = false;
+        const user = await this.userSvc.getUserById(userId);
+        if (user) {
+          this._user.next(user);
+          this.islandService.getUserIslandById(user.uuid!).subscribe(is =>{
+            this.is = !!is;
+            if (this.is) {
+              this.currentIsland = is;
+            }
+          })
+        }
+      } else {
+        this.fbAuth.user$.subscribe(user => {
+          this._user.next(user);
+          if (user) {
+            this.loadMutualUsers()
+            this.islandService.getUserIsland().subscribe(is => {
+              this.is = !!is;
+              if (this.is) {
+                this.currentIsland = is;
+              }
+            })
+          }
+        });
       }
     });
-
-    this.userSvc.getPaginatedUsers().subscribe();
-
-    this.islandService.getUserIsland().subscribe(is => {
-      this.is = !!is;
-    })
   }
 
   async onFilter(event: any) {
@@ -51,24 +77,10 @@ export class ProfilePage {
     } else {
       this.filteredUsers = await this.userSvc.getFiltered(event.detail.value)
     }
-    console.log("filtered", this.filteredUsers, event)
   }
 
   async ngOnInit() {
-    await this.loadUserDetails();
-  }
-
-  private async loadUserDetails() {
-    try {
-      if (this._user && this._user.value && this._user.value.uuid) {
-        const userId = this._user.value.uuid;
-        console.log("useruid", await this.userSvc.getUserById(userId));
-      } else {
-        console.error('User ID is not available');
-      }
-    } catch (error) {
-      console.error('Error fetching user details', error);
-    }
+    
   }
 
   isUserFollowed(userUuid: any): boolean {
@@ -100,6 +112,12 @@ export class ProfilePage {
     const users = await Promise.all(userPromises);
 
     this.mutualUsers = users.filter((user): user is User => user !== undefined);
+  }
+
+  goToUserPage(user:any) {
+    console.log("ppp", user)
+    this.router.navigate(['/profile/' + user.uuid])
+    
   }
 
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable, forkJoin } from 'rxjs';
 import { switchMap, map, catchError } from 'rxjs/operators';
 import { User } from 'src/app/core/interfaces/user';
@@ -24,6 +25,7 @@ export class AdminPage implements OnInit {
     public userSvc: UserService,
     private islandSvc: IslandService,
     private loanSvc: LoanService,
+    private router:Router
   ) { }
   ngOnInit() {
     this.userSvc.getPaginatedUsers().subscribe(users => {
@@ -58,6 +60,12 @@ export class AdminPage implements OnInit {
       this.showAll = false;
     }
   }
+
+  goToUserPage(user:any) {
+    console.log("ppp", user)
+    this.router.navigate(['/profile/' + user.uuid])
+  }
+
 
 
   convertToCSV(data: any[]): string {

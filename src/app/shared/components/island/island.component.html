@@ -7,7 +7,11 @@
   <ion-card-header>
     <div class="header">
       <h1>{{ island?.attributes?.name | titlecase }}</h1>
-      <p>{{ ('island.hemisphere.' + island?.attributes?.hemisphere) | translate | titlecase }}</p>
+      <p>
+        {{ island?.attributes?.hemisphere 
+          ? (('island.hemisphere.' + island?.attributes?.hemisphere) | translate | titlecase) 
+          : ('island.hemisphere.none' | translate)  }}
+      </p>
     </div>
   </ion-card-header>
 

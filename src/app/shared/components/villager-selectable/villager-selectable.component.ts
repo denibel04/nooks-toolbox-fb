@@ -29,7 +29,7 @@ export class VillagerSelectableComponent implements OnInit, ControlValueAccessor
 
   @Input() num: number =0;
 
-  @Input('villagers') villagers:Villager[] = [];
+  villagers:Villager[] = [];
 
 
   propagateChange = (obj: any) => { }
@@ -41,6 +41,7 @@ export class VillagerSelectableComponent implements OnInit, ControlValueAccessor
   ) { }
 
   async ngOnInit() {
+    this.villagers = await this.villagerService.getFiltered("a");
   }
 
 
@@ -52,7 +53,6 @@ export class VillagerSelectableComponent implements OnInit, ControlValueAccessor
   private async loadVillagers(filter: string) {
     console.log("filter", filter)
     this.villagers = await this.villagerService.getFiltered(filter);
-    //console.log("paginated villagers",this.num, villagers);
     
   }
 

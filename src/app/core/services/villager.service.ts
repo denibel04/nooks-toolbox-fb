@@ -20,8 +20,8 @@ export class VillagerService {
   private _villagers: BehaviorSubject<Villager[]> = new BehaviorSubject<Villager[]>([])
   public villagers$: Observable<Villager[]> = this._villagers.asObservable();
 
-  lastVillager: any = null;   
-  
+  lastVillager: any = null;
+
   public getPaginatedVillagers(): Observable<Villager[]> {
     console.log("getpag", this._villagers.value.length);
     return new Observable(observer => {
@@ -29,26 +29,33 @@ export class VillagerService {
         console.log("paginated villagers", villagersPaginated);
         const newVillagers = villagersPaginated.map(doc => {
           const data = doc.data;
-          const villager: Villager = {
-            id: doc['id'],
-            attributes: {
-              name: data['name'],
-              image_url: data['image_url'],
-              species: data['species'],
-              personality: data['personality'],
-              gender: data['gender'],
-              birthday_month: data['birthday_month'],
-              birthday_day: parseInt(data['birthday_day']),
-              sign: data['sign'],
-              quote: data['quote'],
-              phrase: data['phrase'],
-              islander: data['islander']
-            }
-          };
-          return villager;
-        });
+          if (data && data['name']) {
+            const villager: Villager = {
+              id: doc['id'],
+              attributes: {
+                name: data['name'],
+                image_url: data['image_url'],
+                species: data['species'],
+                personality: data['personality'],
+                gender: data['gender'],
+                birthday_month: data['birthday_month'],
+                birthday_day: parseInt(data['birthday_day']),
+                sign: data['sign'],
+                quote: data['quote'],
+                phrase: data['phrase'],
+                islander: data['islander']
+              }
+              
+            };
+            return villager;
+          } else {
+            return undefined;
+          }
 
-        this.lastVillager = newVillagers[newVillagers.length - 1].attributes.name;
+        }).filter((villager): villager is Villager => villager !== undefined);
+        if (newVillagers.length > 0) {
+          this.lastVillager = newVillagers[newVillagers.length - 1].attributes.name;
+        }
 
         const currentVillagers = this._villagers.value;
         const updatedVillagers = [...currentVillagers, ...newVillagers];
@@ -59,6 +66,7 @@ export class VillagerService {
       });
     });
   }
+  
   public async getFiltered(name: string): Promise<Villager[]> {
     const villagersFiltered = await this.fbSvc.getDocumentsFiltered("villagers", "name", name, true);
     const villagers: Villager[] = [];
@@ -83,10 +91,10 @@ export class VillagerService {
       };
       villagers.push(villager);
     });
-  
+
     return villagers;
   }
-  
+
 
   public async getVillagerByName(name: string): Promise<Villager | undefined> {
     const docs = await this.fbSvc.getDocumentsBy("villagers", "name", name);
@@ -113,7 +121,7 @@ export class VillagerService {
       return undefined;
     }
   }
-  
+
 }
 
 

@@ -230,17 +230,23 @@ export class UserService {
     });
     return users; 
   }
-
-  public banUser(user: User): Observable<User> {
+  public banUser(user: User): Observable<User[]> {
     return new Observable(observer => {
       console.log("ban", user)
       this.fbSvc.updateDocument('users', user.uuid, { role: 'banned' }).then(() => {
         const updatedUser: User = { ...user, role: 'banned' };
-        observer.next(updatedUser);
+  
+        const currentUsers = this._users.value;
+        const updatedUsers = currentUsers.map(u => u.uuid === updatedUser.uuid ? updatedUser : u);
+  
+        this._users.next(updatedUsers);
+  
+        observer.next(updatedUsers);
         observer.complete();
       }).catch(error => {
         observer.error(error);
       });
     });
   }
+  
 }  

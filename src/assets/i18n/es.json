@@ -53,7 +53,8 @@
             "north": "hemisferio norte",
             "south": "hemisferio sur",
             "yes": "Continuar",
-            "no": "No, continuar con el otro"
+            "no": "No, continuar con el otro",
+            "none":"Hemisferio sin especificar"
         }
     },
     "loans": {

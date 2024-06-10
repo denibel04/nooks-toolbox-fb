@@ -1,13 +1,13 @@
 <ion-content class="ion-padding">
 
   <div class="current-user-container">
-    <app-user-card [user]="user$ | async" [buttonType]="'edit'"></app-user-card>
-    <div class="islands" *ngIf="islandService.islands$ | async as island">
-      <app-island [island]="island" [showEdit]="false"></app-island>
+    <app-user-card [user]="user$ | async" [buttonType]="isMe ? 'edit' : 'none'"></app-user-card>
+    <div class="island" *ngIf="is">
+      <app-island  [island]="currentIsland" [showEdit]="false"></app-island>
     </div>
   </div>
 
-  <div class="card">
+  <div class="card" *ngIf="isMe">
     <p-tabView styleClass="tabview-custom">
       <p-tabPanel>
         <ng-template pTemplate="header">
@@ -16,7 +16,7 @@
         </ng-template>
         <div class="users">
           <ng-container *ngFor="let user of mutualUsers">
-            <app-user-card [user]="user" [buttonType]="isUserFollowed(user.uuid) ? 'unfollow' : 'follow'"
+            <app-user-card (click)="goToUserPage(user)" [user]="user" [buttonType]="isUserFollowed(user.uuid) ? 'unfollow' : 'follow'"
               (follow)="onFollowClicked(user)" (unfollow)="onUnfollowClicked(user)">
             </app-user-card>
           </ng-container>
@@ -32,7 +32,7 @@
           debounce="300"></ion-searchbar>
         <div class="users">
           <ng-container *ngFor="let user of filteredUsers">
-            <app-user-card [user]="user" *ngIf="(user$ | async)?.uuid !== user.uuid"
+            <app-user-card [user]="user"  (click)="goToUserPage(user)" *ngIf="(user$ | async)?.uuid !== user.uuid"
               [buttonType]="isUserFollowed(user.uuid) ? 'unfollow' : 'follow'" (follow)="onFollowClicked(user)"
               (unfollow)="onUnfollowClicked(user)">
             </app-user-card>

@@ -44,6 +44,11 @@ const routes: Routes = [
     canActivate:[AuthGuard]
   },
   {
+    path: 'profile/:uuid',
+    loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule),
+    canActivate:[AuthGuard]
+  },
+  {
     path: 'admin',
     loadChildren: () => import('./pages/admin/admin.module').then( m => m.AdminPageModule),
     canActivate:[AdminGuard]

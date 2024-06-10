@@ -11,6 +11,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    min-height: 40px;
 
     span {
         color:red;
@@ -51,6 +52,7 @@ ion-card-content {
     flex-direction: column;
     margin:2rem;
     gap: 1rem;
+    min-height: 102px;
     
     color: var(--ion-color-primary-dark) !important;    
 

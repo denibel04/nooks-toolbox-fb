@@ -20,17 +20,11 @@
     <div class="users" *ngIf="showAll">
       <ng-container *ngFor="let user of (userSvc.users$ | async)">
         <ng-container *ngIf="user.role != 'admin'">
-          <div class="user-row">
             <app-user-card 
               [user]="user" 
-              [buttonType]="'ban'">
+              [buttonType]="'ban'"
+              (click)="goToUserPage(user)">
             </app-user-card>
-            <app-island 
-              *ngIf="userIsland[user.uuid!]" 
-              [island]="userIsland[user.uuid!]"
-              [showEdit]="false"></app-island>
-          </div>
-          <p-divider></p-divider>
         </ng-container>
       </ng-container>
     </div>

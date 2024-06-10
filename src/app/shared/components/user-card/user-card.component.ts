@@ -27,14 +27,15 @@ export class UserCardComponent  implements OnInit {
   ) { }
   @Input() user: User | null  = null;
   @Input() buttonType: string = "";
+  @Input() isMe: boolean = false;
 
   @Output() follow = new EventEmitter<User>();
   @Output() unfollow = new EventEmitter<User>();
 
-
-  buttonConfig!: ButtonConfig;
+  buttonConfig!: ButtonConfig | null ;
   isModalOpen:Boolean = false;
   followersCount:number  = 0
+  followingCount:number = 0;
 
   private readonly BUTTON_CONFIGS: { [key: string]: ButtonConfig } = {
     follow: {
@@ -65,12 +66,19 @@ export class UserCardComponent  implements OnInit {
 
 
   ngOnInit() {
-    this.buttonConfig = this.BUTTON_CONFIGS[this.buttonType];
-    this.followersCount  = this.user!.followers.length
+    if (this.buttonType == 'none') {
+      this.buttonConfig = null
+    } else {
+      this.buttonConfig = this.BUTTON_CONFIGS[this.buttonType];
+    }
+    
+    this.followersCount  = this.user?.followers ?  this.user!.followers.length : 0
+    this.followingCount  = this.user?.following ?  this.user!.following.length : 0
+
   }
 
-  handleButtonClick() {
-    switch (this.buttonConfig.action) {
+  handleButtonClick(event:any) {
+    switch (this.buttonConfig?.action) {
       case 'follow':
         this.follow.emit(this.user!);
         this.buttonConfig =  this.BUTTON_CONFIGS['unfollow']
@@ -88,9 +96,8 @@ export class UserCardComponent  implements OnInit {
         console.log("ban button")
         this.userSvc.banUser(this.user!).subscribe()
         break;
-      default:
-        console.warn('Acción no reconocida:', this.buttonConfig.action);
     }
+    event.stopPropagation();
   }
 
   onEditClicked(user: User) {
