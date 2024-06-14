@@ -33,7 +33,7 @@ export class AdminGuard implements CanActivate {
         map(user => {
           if (!user || user.role !== 'admin') {
             localStorage.setItem('returnUrl', state.url); 
-            return this.router.parseUrl('/login?returnUrl=' + state.url);
+            return this.router.parseUrl('/home');
           }
           return true;
         })
