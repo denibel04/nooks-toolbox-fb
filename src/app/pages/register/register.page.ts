@@ -9,22 +9,23 @@ import { AuthService } from 'src/app/core/services/api/strapi/auth.service';
   templateUrl: './register.page.html',
   styleUrls: ['./register.page.scss'],
 })
-export class RegisterPage implements OnInit {
+export class RegisterPage {
 
   constructor(
-    private auth:FirebaseAuthService,
-    private router:Router,
+    private auth: FirebaseAuthService,
+    private router: Router,
   ) { }
 
-  ngOnInit() {
-  }
-
-  onRegister(info:UserRegisterInfo){
+  /**
+    * Handles user registration.
+    * @param info User registration information.
+    */
+  onRegister(info: UserRegisterInfo) {
     this.auth.register(info).subscribe({
-      next:data=>{
+      next: data => {
         this.router.navigate(['home']);
       },
-      error:err=>{
+      error: err => {
         console.log(err);
       }
     });

@@ -37,17 +37,23 @@ export class AppComponent {
       if (event instanceof NavigationEnd) {
         this.showNavbar = !['/login', '/register'].includes(event.urlAfterRedirects);
       } });
-
-
   }
-
+  
+  /**
+   * Handles the sign-out process.
+   * Calls the logout method from AuthService, navigates to the login page, and sets the user to null.
+   */
   onSignOut(){
     this.auth.logout().subscribe(_=>{
       this.router.navigate(['/login']);
       this.user = null;
     });
   }
-  
+    /**
+   * Changes the application language.
+   * Updates the language using CustomTranslateService and sets the new language.
+   * @param lang The new language to set.
+   */
   onLang(lang:string){
     this.lang = lang;
     this.translate.use(this.lang);

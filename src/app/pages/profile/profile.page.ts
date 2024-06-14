@@ -42,7 +42,6 @@ export class ProfilePage {
 
     this.route.paramMap.subscribe(async params => {
       const userId = params.get('uuid');
-      console.log("ppp init", userId)
       if (userId) {
         this.isMe = false;
         const user = await this.userSvc.getUserById(userId);
@@ -72,6 +71,10 @@ export class ProfilePage {
     });
   }
 
+  /**
+   * Filters users based on input value.
+   * @param event Event object containing search input value.
+   */
   async onFilter(event: any) {
     if (event.detail.value === '') {
       this.filteredUsers = []
@@ -80,15 +83,27 @@ export class ProfilePage {
     }
   }
 
+  /**
+  * Sets the modal open/close state.
+  * @param isOpen Boolean indicating if the modal is open.
+  */
   onModalEdit(isOpen: boolean) {
     this.isModalOpen = isOpen;
   }
 
+  /**
+  * Checks if the provided user UUID is followed by the current user.
+  * @param userUuid UUID of the user to check.
+  * @returns Boolean indicating if the user is followed.
+  */
   isUserFollowed(userUuid: any): boolean {
     return this._user.value!.following.includes(userUuid);
   }
 
-
+  /**
+     * Handles the action when the follow button is clicked.
+     * @param user User object to follow.
+     */
   onFollowClicked(user: User) {
     this.userSvc.followUser(user, this._user.value!).subscribe();
     this.fbAuth.me().subscribe(data => {
@@ -97,6 +112,10 @@ export class ProfilePage {
     });
   }
 
+  /**
+  * Handles the action when the unfollow button is clicked.
+  * @param user User object to unfollow.
+  */
   onUnfollowClicked(user: User) {
     this.userSvc.unfollowUser(user, this._user.value!).subscribe()
     this.fbAuth.me().subscribe(data => {
@@ -106,7 +125,9 @@ export class ProfilePage {
   }
 
 
-
+  /**
+   * Loads mutual users who are both followed by and follow the current user.
+   */
   async loadMutualUsers() {
     const mutualUserUuids = this._user.value!.following.filter(uuid => this._user.value!.followers.includes(uuid));
     const userPromises = mutualUserUuids.map(uuid => this.userSvc.getUserById(uuid));
@@ -115,8 +136,11 @@ export class ProfilePage {
     this.mutualUsers = users.filter((user): user is User => user !== undefined);
   }
 
+  /**
+  * Navigates to the profile page of the selected user.
+  * @param user User object to navigate to.
+  */
   goToUserPage(user: any) {
-    console.log("ppp", user)
     this.router.navigate(['/profile/' + user.uuid])
 
   }

@@ -12,12 +12,12 @@ import { VillagerService } from 'src/app/core/services/villager.service';
   templateUrl: './island-form.component.html',
   styleUrls: ['./island-form.component.scss'],
 })
-export class IslandFormComponent implements OnInit {
+export class IslandFormComponent {
 
   form: FormGroup;
   _island: Island | null = null
   mode: 'New' | 'Edit' = 'New';
-  numbers = [1,2,3,4,5,6,7,8,9,10];
+  numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   @Input() set island(_island: Island | null) {
     if (_island) {
@@ -25,14 +25,14 @@ export class IslandFormComponent implements OnInit {
       this.form.controls['name'].setValue(_island.attributes.name);
       console.log("island", _island.attributes.villagers)
       if (_island.attributes.villagers) {
-        _island.attributes.villagers.forEach((villager, index)=>{
-          this.form.controls['villager'+(index+1)].setValue(_island.attributes.villagers![index]);
+        _island.attributes.villagers.forEach((villager, index) => {
+          this.form.controls['villager' + (index + 1)].setValue(_island.attributes.villagers![index]);
         })
       }
     }
   }
 
-  
+
   get island(): Island | null {
     return this._island;
   }
@@ -40,9 +40,9 @@ export class IslandFormComponent implements OnInit {
   constructor(
     private formModal: ModalController,
     private formBuilder: FormBuilder,
-    private villagerService:VillagerService,
+    private villagerService: VillagerService,
     private alertController: AlertController,
-    private translate:TranslateService
+    private translate: TranslateService
   ) {
     this.form = this.formBuilder.group({
       name: ['', [Validators.required]],
@@ -60,18 +60,24 @@ export class IslandFormComponent implements OnInit {
     })
   }
 
-  async ngOnInit() {
-  }
-
+  /**
+ * Cancels the form operation and dismisses the modal with 'cancel' action.
+ */
   onCancel() {
     this.formModal.dismiss(null, 'cancel')
   }
 
+  /**
+  * Submits the form data and dismisses the modal with 'submit' action, passing the form value.
+  */
   onSubmit() {
-    console.log(this.form.value)
     this.formModal.dismiss(this.form.value, 'submit')
   }
 
+  /**
+   * Deletes the current island data, showing a confirmation alert before dismissal.
+   * Dismisses the modal with 'delete' action if confirmed.
+   */
   async onDelete() {
     const alert = await this.alertController.create({
       mode: 'ios',
@@ -88,11 +94,11 @@ export class IslandFormComponent implements OnInit {
         }, {
           text: 'Ok',
           handler: () => {
-            this.formModal.dismiss(this.form.value, 'delete'); 
+            this.formModal.dismiss(this.form.value, 'delete');
           }
         }
       ]
-  
+
     });
 
     await alert.present();

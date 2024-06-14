@@ -1,5 +1,8 @@
 import { PaginatedData } from "./data"
 
+/**
+ * Represents a villager in the application.
+ */
 export interface Villager {
     id: string,
     attributes: {

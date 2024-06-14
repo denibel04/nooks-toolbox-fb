@@ -40,7 +40,12 @@ export class FirebaseAuthService extends AuthService {
       }
     })
   }
-  
+
+  /**
+ * Logs in a user with provided credentials.
+ * @param credentials The user credentials containing username and password.
+ * @returns {Observable<any>}
+ */
   public login(credentials: UserCredentials): Observable<any> {
     return new Observable<any>(subscr => {
       this.firebaseSvc.connectUserWithEmailAndPassword(credentials.username, credentials.password).then((credentials: FirebaseUserCredential | null) => {
@@ -69,9 +74,12 @@ export class FirebaseAuthService extends AuthService {
     });
   }
 
-
+  /**
+     * Registers a new user with provided registration information.
+     * @param info The registration information containing email, password, and username.
+     * @returns {Observable<any | null>}
+     */
   public register(info: UserRegisterInfo): Observable<any | null> {
-    console.log("register")
     return new Observable<any>(subscr => {
       this.firebaseSvc.createUserWithEmailAndPassword(info.email, info.password).then((credentials: FirebaseUserCredential | null) => {
         if (!credentials || !credentials.user || !credentials.user.user || !credentials.user.user.uid)
@@ -95,8 +103,12 @@ export class FirebaseAuthService extends AuthService {
     });
   }
 
+  /**
+* Completes user registration after creating the user in Firebase.
+* @param info Additional user information to be stored in the database.
+* @returns  {Observable<any>}
+*/
   private postRegister(info: User): Observable<any> {
-    console.log("postreg")
     if (info.uuid)
       return from(this.firebaseSvc.createDocumentWithId('users', {
         username: info.username,
@@ -107,10 +119,14 @@ export class FirebaseAuthService extends AuthService {
     throw new Error('Error inesperado');
   }
 
+  /**
+   * Retrieves the current authenticated user's information.
+   * @returns  {Observable<User>}
+   * @throws Error if the user is not connected.
+   */
   public me(): Observable<User> {
     if (this.firebaseSvc.user?.uid)
       return from(this.firebaseSvc.getDocument('users', this.firebaseSvc.user.uid)).pipe(map(data => {
-        console.log("GET DOCUMETS ME", data)
         return {
           profile_picture: data.data['profile_picture'],
           username: data.data['username'],
@@ -125,11 +141,18 @@ export class FirebaseAuthService extends AuthService {
       throw new Error('User is not connected');
   }
 
-
+  /**
+   * Logs out the current user.
+   * @returns {Observable<any>}
+   */
   public logout(): Observable<any> {
     return from(this.firebaseSvc.signOut(false));
   }
 
+  /**
+* Updates the profile picture and user information.
+* @param updatedUser The updated user information.
+*/
   updateProfilePictureAndUser(updatedUser: User) {
     this._user.next(updatedUser);
   }

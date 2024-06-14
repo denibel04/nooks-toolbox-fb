@@ -17,29 +17,28 @@ export class LoanItemComponent  implements OnInit {
   
 
   constructor() { }
-
+  /**
+   * Initializes the component and calculates the percentage of the loan amount paid if loan attributes are available.
+   */
   ngOnInit() {
     if (this?.loan?.attributes && this.loan.attributes.amountTotal !== 0) {
       this.percentage = (this.loan.attributes.amountPaid / this.loan.attributes.amountTotal) * 100;
     }
   }
-
+ /**
+   * Handles click events on the loan item to emit the onLoanClicked event.
+   * @param event The click event object.
+   */
   onEditClick(event:any) {
     event.stopPropagation();
     this.onLoanClicked.emit();
   }
-
+ /**
+   * Handles click events on the delete button to emit the onDeleteClicked event.
+   * @param event The click event object.
+   */
   onDeleteClick(event:any) {
     event.stopPropagation();
     this.onDeleteClicked.emit();
   }
-
-  getProgressPercentage():number {
-    if (!this.loan) {
-      return 0; 
-    }
-    return (this.loan.attributes.amountPaid / this.loan.attributes.amountTotal) * 100;
-  }
-
-
 }

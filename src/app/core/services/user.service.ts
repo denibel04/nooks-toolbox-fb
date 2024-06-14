@@ -19,6 +19,10 @@ export class UserService {
   private _users: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([])
   public users$: Observable<User[]> = this._users.asObservable();
 
+  /**
+   * Retrieves all users from Firebase.
+   * @returns {Observable<User[]>}
+   */
   public getAllUsers(): Observable<User[]> {
     return new Observable(observer => {
       this.fbSvc.getDocuments("users").then(documents => {
@@ -41,14 +45,15 @@ export class UserService {
     })
   }
 
+   /**
+   * Retrieves paginated users from Firebase.
+   * @returns { Observable<User[]>}
+   */
   public getPaginatedUsers(): Observable<User[]> {
-    console.log("getpag", this._users.value.length);
     return new Observable(observer => {
       this.fbSvc.getDocumentsPaginated("users", 10, "username", this.lastUser).then(usersPaginated => {
-        console.log("paginated users", usersPaginated);
         const newUsers = usersPaginated.map(doc => {
           const data = doc.data;
-          console.log("user data", data);
           if (data && data['username']) {
             const user: User = {
               uuid: doc['id'],
@@ -84,9 +89,13 @@ export class UserService {
   }
 
 
-
+/**
+   * Updates user profile information.
+   * @param user User object to update.
+   * @param info Updated information for the user.
+   * @returns {Promise<Observable<User>>}
+   */
   public async updateUser(user: User, info: any): Promise<Observable<User>> {
-    console.log("update user", user, info);
     let postdata: any = {
       username: info.data.username || user.username,
       role: user.role
@@ -112,7 +121,6 @@ export class UserService {
         const file: File = info.data.profile_picture;
         try {
           const url = await this.fbSvc.imageUpload(file);
-          console.log("file", url);
           if (user.profile_picture) {
             await this.fbSvc.deleteFile(user.profile_picture);
           }
@@ -135,6 +143,12 @@ export class UserService {
     });
   }
 
+   /**
+   * Follows a user.
+   * @param userToFollow User to follow.
+   * @param currentUser Current user following.
+   * @returns {Observable<void> }
+   */
   followUser(userToFollow: User, currentUser: User): Observable<void> {
     return new Observable(observer => {
       if (currentUser) {
@@ -153,7 +167,12 @@ export class UserService {
     });
   }
 
-
+/**
+   * Unfollows a user.
+   * @param userToUnfollow User to unfollow.
+   * @param currentUser Current user unfollowing.
+   * @returns {Observable<void>}
+   */
   unfollowUser(userToUnfollow: User, currentUser: User): Observable<void> {
     return new Observable(observer => {
       if (currentUser) {
@@ -171,7 +190,12 @@ export class UserService {
     });
   }
 
-
+/**
+   * Helper function to update local users' followers and following lists.
+   * @param currentUserId Current user's UUID.
+   * @param targetUserId Target user's UUID.
+   * @param isFollowing Boolean indicating whether the current user is following the target user.
+   */
   private updateLocalUsers(currentUserId: string, targetUserId: string, isFollowing: boolean): void {
     const currentUsers = this._users.value;
 
@@ -197,6 +221,11 @@ export class UserService {
     this._users.next(updatedUsers);
   }
 
+   /**
+   * Retrieves a user by UUID.
+   * @param uid UUID of the user to retrieve.
+   * @returns { Promise<User | undefined>}
+   */
   public async getUserById(uid: string): Promise<User | undefined> {
     const doc = await this.fbSvc.getDocument("users", uid);
     if (doc) {
@@ -216,10 +245,14 @@ export class UserService {
     }
   }
 
+  /**
+   * Retrieves users filtered by username.
+   * @param username Username to filter users by.
+   * @returns {Promise<User[]>}
+   */
   public async getFiltered(username: string): Promise<User[]> {
 
     const usersFiltered = await this.fbSvc.getDocumentsFiltered("users", "username", username);
-    console.log("gf", usersFiltered)
 
     const users: User[] = [];
 
@@ -240,10 +273,13 @@ export class UserService {
     return users;
   }
 
-
+ /**
+   * Bans a user.
+   * @param user User to ban.
+   * @returns {Observable<User[]>}
+   */
   public banUser(user: User): Observable<User[]> {
     return new Observable(observer => {
-      console.log("ban", user)
       this.fbSvc.updateDocument('users', user.uuid, { role: 'banned' }).then(() => {
         const updatedUser: User = { ...user, role: 'banned' };
 

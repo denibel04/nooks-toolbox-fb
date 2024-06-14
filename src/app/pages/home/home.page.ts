@@ -33,26 +33,35 @@ export class HomePage {
     private router: Router,
     private alertController: AlertController,
     private translate: TranslateService,
-    private usersvc:UserService,
-    private loanSvc:LoanService
+    private usersvc: UserService,
+    private loanSvc: LoanService
   ) { }
 
   ngOnInit() { };
 
+  /**
+   * Lifecycle hook called after Angular initializes the component's views and child views.
+   * Subscribes to user's island status and loan data on view initialization.
+   */
   async ngAfterViewInit() {
     this.islandService.getUserIsland().subscribe(is => {
-      console.log("homeis", is)
       this.is = !!is;
     })
     this.loanService.getUserLoans().subscribe()
-    const loans = await this.loanSvc.getUserLoanById("SE6MeG10WqOWdxGYEyMWJ5Hvhww2").toPromise();
-          console.log ("home loans",loans)
   }
 
+  /**
+  * Navigates to the loans page.
+  */
   public loans() {
     this.router.navigate(['/loans'])
   }
 
+  /**
+   * Presents the island form modal for adding a new island or updating an existing one.
+   * @param data Optional data object containing island information for editing.
+   * @param onDismiss Callback function called when the modal is dismissed.
+   */
   async presentForm(data: Island | null, onDismiss: (result: any) => void) {
     const modal = await this.modal.create({
       component: IslandFormComponent,
@@ -69,7 +78,9 @@ export class HomePage {
     })
   }
 
-
+  /**
+    * Initiates the process of adding a new island.
+    */
   async onNewIsland() {
     this.isModalOpen = true;
     var onDismiss = async (info: any) => {
@@ -77,7 +88,6 @@ export class HomePage {
         case 'submit': {
           this.hemisphereAlert(info.data);
           this.isModalOpen = false;
-          console.log("data", info.data)
         }
           break;
         default: {
@@ -88,7 +98,11 @@ export class HomePage {
     }
     this.presentForm(null, onDismiss);
   }
-  
+
+  /**
+   * Displays an alert confirming the hemisphere choice for the island.
+   * @param data Data object containing island information.
+   */
   async hemisphereAlert(data: any) {
     let hemisphere = await this.getHemisphere();
     const alert = await this.alertController.create({
@@ -114,7 +128,6 @@ export class HomePage {
             else
               hemisphere = 'north';
             const isData = { ...data, hemisphere };
-            console.log("is", isData);
             this.islandService.getUserIsland().subscribe(updatedIsland => {
               this.is = !!updatedIsland
             });
@@ -126,6 +139,10 @@ export class HomePage {
     await alert.present();
   }
 
+  /**
+  * Retrieves the user's hemisphere based on current geolocation.
+  * @returns A promise resolving to the user's hemisphere ('north' or 'south').
+  */
   async getHemisphere(): Promise<string> {
     try {
       const coordinates = await Geolocation.getCurrentPosition();
@@ -136,7 +153,10 @@ export class HomePage {
     }
   }
 
-
+  /**
+     * Initiates editing of an existing island.
+     * @param island The island object to be edited.
+     */
   onEditClicked(is: Island) {
     this.isModalOpen = true;
     var onDismiss = (info: any) => {
@@ -152,7 +172,6 @@ export class HomePage {
         case 'delete': {
           this.is = false;
           this.isModalOpen = false;
-          console.log("delete")
           this.loanService.getUserLoans().subscribe();
           this.islandService.deleteIsland(is).subscribe()
         }
@@ -167,6 +186,11 @@ export class HomePage {
   }
 
 
+  /**
+   * Presents the loan form modal for adding a new loan or updating an existing one.
+   * @param data Optional data object containing loan information for editing.
+   * @param onDismiss Callback function called when the modal is dismissed.
+   */
   async presentLoanForm(data: Loan | null, onDismiss: (result: any) => void) {
     const modal = await this.modal.create({
       component: LoanFormComponent,
@@ -182,6 +206,11 @@ export class HomePage {
       }
     })
   }
+
+  /**
+  * Initiates editing of an existing loan.
+  * @param loan The loan object to be edited.
+  */
   onLoanClicked(loan: Loan) {
     this.isModalOpen = true;
     var onDismiss = (info: any) => {
@@ -199,6 +228,10 @@ export class HomePage {
     this.presentLoanForm(loan, onDismiss);
   }
 
+  /**
+    * Deletes the specified loan.
+    * @param loan The loan object to be deleted.
+    */
   onDeleteClicked(loan: Loan) {
     this.loanService.deleteLoan(loan).subscribe(deleted => { });
   }

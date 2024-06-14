@@ -24,6 +24,11 @@ export class LoanService {
     private isSvc: IslandService
   ) { }
 
+  /**
+   * Adds a loan to the user's island.
+   * @param loan Loan object containing loan details.
+   * @returns { Observable<Loan>}
+   */
   public addLoan(loan: Loan): Observable<Loan> {
     return new Observable(observer => {
       this.fbAuth.user$.subscribe(user => {
@@ -34,8 +39,11 @@ export class LoanService {
     })
   }
 
+  /**
+   * Retrieves loans associated with the current user's island.
+   * @returns { Observable<Loan[]>}
+   */
   public getUserLoans(): Observable<Loan[]> {
-    console.log("userloans")
     return new Observable(observer => {
       this.fbAuth.user$.subscribe(user => {
         if (user) {
@@ -68,6 +76,11 @@ export class LoanService {
     });
   }
 
+  /**
+   * Retrieves loans associated with a specific user's island by user UUID.
+   * @param uuid UUID of the user whose loans are to be retrieved.
+   * @returns {Observable<Loan[]>}
+   */
   public getUserLoanById(uuid: string): Observable<Loan[]> {
     return new Observable(observer => {
       this.isSvc.getUserIsland().subscribe(is => {
@@ -104,6 +117,11 @@ export class LoanService {
     });
   }
 
+  /**
+   * Deletes a loan associated with the current user's island.
+   * @param loan Loan object representing the loan to be deleted.
+   * @returns {Observable<Loan>}
+   */
   public deleteLoan(loan: Loan): Observable<Loan> {
     return new Observable(observer => {
       this.fbAuth.user$.subscribe(user => {
@@ -114,10 +132,14 @@ export class LoanService {
     })
   }
 
+   /**
+   * Updates a loan associated with the current user's island.
+   * @param loan Loan object representing the loan to be updated.
+   * @returns {Observable<Loan>}
+   */
   public updateLoan(loan: Loan): Observable<Loan> {
     return new Observable(observer => {
       this.fbAuth.user$.subscribe(user => {
-        console.log("loan user", user)
         this.isSvc.getUserIsland().subscribe(is => {
           this.fbSvc.updateDocument(`users/${user!.uuid}/island/${is.id}/loans`, loan.id, loan.attributes)
         })

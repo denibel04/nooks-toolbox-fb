@@ -22,10 +22,13 @@ export class LoansPage implements OnInit {
   constructor(
     public loanService: LoanService,
     private modal: ModalController,
-    private authService:AuthStrapiService,
-    private islandService:IslandService
+    private authService: AuthStrapiService,
+    private islandService: IslandService
   ) { }
 
+  /**
+   * Retrieves current user's island and their loans
+   */
   ngOnInit() {
     const user = this.authService.me();
     this.islandService.getUserIsland().subscribe(island => {
@@ -34,7 +37,11 @@ export class LoansPage implements OnInit {
     this.loanService.getUserLoans().subscribe()
   };
 
-
+  /**
+     * Presents the loan form modal for adding a new loan or updating an existing one.
+     * @param data Optional data object containing loan information for editing.
+     * @param onDismiss Callback function called when the modal is dismissed.
+     */
   async presentForm(data: Loan | null, onDismiss: (result: any) => void) {
     const modal = await this.modal.create({
       component: LoanFormComponent,
@@ -51,7 +58,9 @@ export class LoansPage implements OnInit {
     })
   }
 
-  
+  /**
+   * Initiates the process of adding a new loan.
+   */
   onNewLoan() {
     this.isModalOpen = true;
 
@@ -68,13 +77,16 @@ export class LoansPage implements OnInit {
     }
     this.presentForm(null, onDismiss);
   }
-
+  /**
+    * Initiates editing of an existing loan.
+    * @param loan The loan object to be edited.
+    */
   onEditClicked(loan: Loan) {
     this.isModalOpen = true;
     var onDismiss = (info: any) => {
       switch (info.role) {
         case 'submit': {
-          loan.attributes= info.data
+          loan.attributes = info.data
           this.loanService.updateLoan(loan).subscribe();
         }
           break;
@@ -85,8 +97,11 @@ export class LoansPage implements OnInit {
     }
     this.presentForm(loan, onDismiss);
   }
-
-  onDeleteClicked(loan:Loan) {
+  /**
+    * Deletes the specified loan.
+    * @param loan The loan object to be deleted.
+    */
+  onDeleteClicked(loan: Loan) {
     this.loanService.deleteLoan(loan).subscribe()
   }
 

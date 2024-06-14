@@ -11,7 +11,7 @@ import { LoanService } from 'src/app/core/services/loan.service';
   templateUrl: './loan-form.component.html',
   styleUrls: ['./loan-form.component.scss'],
 })
-export class LoanFormComponent implements OnInit {
+export class LoanFormComponent {
   form: FormGroup;
   mode: 'New' | 'Edit' = 'New';
 
@@ -31,7 +31,7 @@ export class LoanFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private loanService: LoanService,
     private alertController: AlertController,
-    private translate:TranslateService
+    private translate: TranslateService
   ) {
     this.form = this.formBuilder.group({
       type: ['', Validators.required],
@@ -42,25 +42,32 @@ export class LoanFormComponent implements OnInit {
     });
   }
 
-  ngOnInit(
-
-  ) { }
-
+  /**
+     * Cancels the form operation and dismisses the modal with 'cancel' action.
+     */
   onCancel() {
     this.formModal.dismiss(null, 'cancel')
   }
 
+  /**
+   * Submits the form data.
+   * Checks if the loan amount paid exceeds the total amount and shows a confirmation popup if needed.
+   * Dismisses the modal with 'submit' action if confirmed, otherwise updates form values.
+   */
   onSubmit() {
     const amountPaid = this.form.get('amountPaid')?.value;
     const amountTotal = this.form.get('amountTotal')?.value;
     const completed = this.form.get('completed')?.value;
-    if ((amountPaid >= amountTotal && !completed) ||( completed && amountPaid < amountTotal)) {
+    if ((amountPaid >= amountTotal && !completed) || (completed && amountPaid < amountTotal)) {
       this.showConfirmPopup();
     } else {
       this.formModal.dismiss(this.form.value, 'submit');
     }
   }
-
+  /**
+    * Displays a confirmation popup for completing the loan.
+    * Updates form values based on user response and dismisses the modal with 'submit' action.
+    */
   async showConfirmPopup() {
     const alert = await this.alertController.create({
       mode: 'ios',
@@ -85,9 +92,9 @@ export class LoanFormComponent implements OnInit {
         }
       ]
     });
-  
+
     await alert.present();
   }
-  
+
 
 }

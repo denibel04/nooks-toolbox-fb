@@ -19,14 +19,23 @@ export class UserListComponent  implements OnInit {
     private userSvc: UserService
   ) { }
 
+   /**
+   * Initializes the user list by loading user data.
+   */
   ngOnInit() {
     this.loadUsers();
   }
-
+ /**
+   * Method to handle the cancel action.
+   * Dismisses the modal without returning any data.
+   */
   onCancel() {
     this.modalController.dismiss();
   }
-
+  /**
+   * Asynchronous method to load user data based on the provided user UUIDs.
+   * Fetches user data from the user service and stores it in the `users` array.
+   */
   async loadUsers() {
     if (!this.userUuids || this.userUuids.length === 0) {
       this.users = [];

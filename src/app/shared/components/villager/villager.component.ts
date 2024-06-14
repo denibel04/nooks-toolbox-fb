@@ -6,13 +6,10 @@ import { Villager } from 'src/app/core/interfaces/villager';
   templateUrl: './villager.component.html',
   styleUrls: ['./villager.component.scss'],
 })
-export class VillagerComponent  implements OnInit {
+export class VillagerComponent  {
 
   @Input() villager:any;
 
   constructor() { }
-
-  ngOnInit():void {
-  }
 
 }

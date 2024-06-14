@@ -7,7 +7,7 @@ import { UserCredentials } from 'src/app/core/interfaces/user-credentials';
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.scss'],
 })
-export class LoginFormComponent  implements OnInit {
+export class LoginFormComponent  {
 
   @Input('username') set username(value:string){
     this.form?.controls['username'].setValue(value);
@@ -25,8 +25,10 @@ export class LoginFormComponent  implements OnInit {
     });
   }
 
-  ngOnInit() {}
-
+   /**
+   * Handles form submission.
+   * Emits the onsubmit event with the form value (UserCredentials) and resets the password field.
+   */
   onSubmit(){
     this.onsubmit.emit(this.form?.value);
     this.form?.controls['password'].setValue('');

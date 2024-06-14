@@ -1,6 +1,11 @@
 import { AbstractControl, FormControl, ValidationErrors, ValidatorFn } from "@angular/forms";
 export class PasswordValidation {
 
+    /**
+     * Validator function to enforce strong password criteria.
+     * @param controlName Optional name of the form control if control is not instance of FormControl.
+     * @returns Validator function for password validation.
+     */
     public static passwordProto(controlName: string = ''): ValidatorFn {
         return (control: AbstractControl): ValidationErrors | null => {
             let password = '';
@@ -16,6 +21,13 @@ export class PasswordValidation {
             }
         }
     }
+
+    /**
+     * Validator function to confirm password match with a specified control.
+     * @param passwordControlName Name of the password form control.
+     * @param confirmControlName Name of the confirmation form control.
+     * @returns Validator function for password confirmation.
+     */
     public static passwordMatch(passwordControlName: string, confirmControlName: string): ValidatorFn {
         return (control: AbstractControl): ValidationErrors | null => {
             const password = control.get(passwordControlName)?.value;

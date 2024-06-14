@@ -27,12 +27,19 @@ export class AdminPage implements OnInit {
     private loanSvc: LoanService,
     private router:Router
   ) { }
+
+   /**
+     * Fetches paginated users from UserService and initializes the component.
+     */
   ngOnInit() {
-    this.userSvc.getPaginatedUsers().subscribe(users => {
-      this.loadIslandsForUsers(users);
-    });
+    this.userSvc.getPaginatedUsers().subscribe();
   }
 
+   /**
+   * Handles the infinite scroll event to fetch more users.
+   * Loads islands for each additional user fetched.
+   * @param event The event triggered when scrolling reaches the bottom.
+   */
   doInfinite(event: any) {
     this.userSvc.getPaginatedUsers().subscribe(users => {
       this.loadIslandsForUsers(users);
@@ -40,6 +47,10 @@ export class AdminPage implements OnInit {
     });
   }
 
+  /**
+   * Loads island information for each user in the provided array.
+   * @param users The array of users for whom islands are to be loaded.
+   */
   private loadIslandsForUsers(users: any[]) {
     users.forEach(user => {
       if (user.role !== 'admin' && !this.userIsland[user.uuid]) {
@@ -50,7 +61,10 @@ export class AdminPage implements OnInit {
     });
   }
 
-  
+  /**
+   * Handles the user filtering based on the search input value.
+   * @param event The event containing the search input value.
+   */
   async onFilter(event: any) {
     if (event.detail.value === '') {
       this.filteredUsers = []
@@ -61,13 +75,20 @@ export class AdminPage implements OnInit {
     }
   }
 
+   /**
+   * Navigates to the user profile page for the specified user.
+   * @param user The user object containing the UUID for navigation.
+   */
   goToUserPage(user:any) {
-    console.log("ppp", user)
     this.router.navigate(['/profile/' + user.uuid])
   }
 
 
-
+/**
+   * Converts the user data into CSV format for download.
+   * @param data The array of user data objects to be converted into CSV.
+   * @returns A string containing CSV formatted data.
+   */
   convertToCSV(data: any[]): string {
     const header = [
       "id",
@@ -115,6 +136,11 @@ export class AdminPage implements OnInit {
     return csvContent;
   }
 
+    /**
+   * Downloads the CSV file with userS data.
+   * @param csvContent The CSV content to be downloaded.
+   * @param filename The name of the CSV file to be downloaded.
+   */
   downloadCSVFile(csvContent: string, filename: string) {
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
     const link = document.createElement("a");
@@ -129,6 +155,9 @@ export class AdminPage implements OnInit {
     }
   }
 
+  /**
+   * Initiates the CSV download process by fetching user and island data.
+   */
   async downloadCSV() {
     const users = await this.userSvc.getAllUsers().toPromise();
     const userPromises = users!.map(async user => {

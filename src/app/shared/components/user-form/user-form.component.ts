@@ -37,10 +37,18 @@ export class UserFormComponent {
     });
   }
 
+   /**
+   * Method to handle the cancel action.
+   * Dismisses the modal without returning any data.
+   */
   onCancel() {
     this.formModal.dismiss(null, 'cancel');
   }
-
+ /**
+   * Method to retrieve the dirty (modified) values from the form.
+   * @param form The form group to extract dirty values from.
+   * @returns An object containing the dirty values from the form.
+   */
   getDirtyValues(form: FormGroup) {
     let dirtyValues: any = {};
 
@@ -52,7 +60,10 @@ export class UserFormComponent {
     });
     return dirtyValues;
   }
-
+ /**
+   * Method to handle the submit action.
+   * Logs the dirty values from the form and dismisses the modal with the dirty values.
+   */
   onSubmit() {
     console.log("añaña", this.getDirtyValues(this.userForm))
     this.formModal.dismiss(this.getDirtyValues(this.userForm), 'submit');

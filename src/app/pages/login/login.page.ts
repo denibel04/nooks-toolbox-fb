@@ -12,7 +12,7 @@ import { RegisterFormComponent } from 'src/app/shared/components/register-form/r
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-export class LoginPage implements OnInit {
+export class LoginPage {
 
   constructor(
     private auth: FirebaseAuthService,
@@ -20,18 +20,19 @@ export class LoginPage implements OnInit {
     private modal:ModalController
   ) { }
 
-  ngOnInit() {
-  }
-
-  onLogin(credentials:UserCredentials){
-    this.auth.login(credentials).subscribe({
-      next:data=>{
-        console.log("login page data", data)
-      },
-      error:err=>{
-        console.log(err);
-      }
-    });
-  }
+/**
+   * Handles the login process using provided user credentials.
+   * @param credentials UserCredentials object containing username and password.
+   */
+    onLogin(credentials:UserCredentials){
+      this.auth.login(credentials).subscribe({
+        next:data=>{
+          console.log("login page data", data)
+        },
+        error:err=>{
+          console.log(err);
+        }
+      });
+    }
 
 }

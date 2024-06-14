@@ -9,7 +9,7 @@ import { PasswordValidation } from 'src/app/core/validators/password';
   templateUrl: './register-form.component.html',
   styleUrls: ['./register-form.component.scss'],
 })
-export class RegisterFormComponent  implements OnInit {
+export class RegisterFormComponent {
 
   form:FormGroup;
 
@@ -26,12 +26,20 @@ export class RegisterFormComponent  implements OnInit {
     );
   }
 
-  ngOnInit() {}
-
+ /**
+   * Handles form submission.
+   * Emits the onsubmit event with the form value (UserRegisterInfo).
+   */
   onSubmit(){
     this.onsubmit.emit(this.form.value);
   } 
-
+ /**
+   * Checks if a specific form control or the entire form has a specific error.
+   * @param control The name of the form control to check.
+   * @param error The error name to check.
+   * @param isFormError Boolean flag indicating if the error is a form-level error (not tied to a specific control).
+   * @returns True if the control (or form) has the specified error, false otherwise.
+   */
   hasError(control: string, error: string, isFormError: boolean = false): boolean {
     if (isFormError) {
       return this.form.hasError(error);

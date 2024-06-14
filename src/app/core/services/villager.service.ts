@@ -22,11 +22,13 @@ export class VillagerService {
 
   lastVillager: any = null;
 
+  /**
+   *  Retrieves a paginated list of villagers. Adds 25 villagers to the list each time its called.
+   * @returns {Observable<Villager[]>} 
+   */
   public getPaginatedVillagers(): Observable<Villager[]> {
-    console.log("getpag", this._villagers.value.length);
     return new Observable(observer => {
       this.fbSvc.getDocumentsPaginated("villagers", 25, "name", this.lastVillager).then(villagersPaginated => {
-        console.log("paginated villagers", villagersPaginated);
         const newVillagers = villagersPaginated.map(doc => {
           const data = doc.data;
           if (data && data['name']) {
@@ -66,7 +68,12 @@ export class VillagerService {
       });
     });
   }
-  
+
+  /**
+   * Retrieves a list of villagers filtered by name.
+   * @param name The name of the villager to filter.
+   * @returns {Promise<Villager[]>}
+   */
   public async getFiltered(name: string): Promise<Villager[]> {
     const villagersFiltered = await this.fbSvc.getDocumentsFiltered("villagers", "name", name, true);
     const villagers: Villager[] = [];
@@ -95,12 +102,15 @@ export class VillagerService {
     return villagers;
   }
 
-
+  /**
+   * Retrieves a villager by name.
+   * @param name The name of the villager to retrieve.
+   * @returns {Promise<Villager | undefined>} 
+   */
   public async getVillagerByName(name: string): Promise<Villager | undefined> {
     const docs = await this.fbSvc.getDocumentsBy("villagers", "name", name);
     if (docs.length > 0) {
       const data = docs[0].data;
-      console.log(data)
       return {
         id: docs[0].id,
         attributes: {

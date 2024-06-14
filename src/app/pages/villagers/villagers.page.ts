@@ -23,25 +23,20 @@ export class VillagersPage implements OnInit {
     public villagerService: VillagerService,
     public modal: ModalController
   ) { }
-
-
- 
+  /**
+   * Initialize component by fetching initial list of villagers.
+   */
   ngOnInit(): void {
-    for (let i = 0; i < 100; i++) {
-        this.items.push({ label: 'Item #' + i, index: i });
-    }
     this.villagerService.getPaginatedVillagers().subscribe()
 }
+  /**
+   * Load more villagers on infinite scroll event.
+   * @param event Event object from the infinite scroll.
+   */
   doInfinite(event: any) {
     this.villagerService.getPaginatedVillagers().subscribe(() => {
       event.target.complete();
     });
   }
 
-  @ViewChild('overlayPanel') overlayPanel!: OverlayPanel;
-
-  showOverlayPanel(event: Event) {
-    // Mostrar el panel superpuesto
-    this.overlayPanel.toggle(event);
-  }
 }

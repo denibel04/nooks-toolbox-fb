@@ -1,5 +1,7 @@
 import { Island } from "./island";
-
+/**
+ * Represents a user in the application.
+ */
 export interface User {
     id?: number,
     uuid?:string,

@@ -6,7 +6,7 @@ import { Villager } from 'src/app/core/interfaces/villager';
   templateUrl: './villager-item.component.html',
   styleUrls: ['./villager-item.component.scss'],
 })
-export class VillagerItemComponent  implements OnInit {
+export class VillagerItemComponent {
 
   private _villager:Villager|undefined;
 
@@ -24,9 +24,10 @@ export class VillagerItemComponent  implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {}
-
-
+ /**
+   * Method to handle the click event on the villager item.
+   * Emits the clicked event with the villager object.
+   */
   onVillagerClicked(){
     this.clicked.emit(this._villager);
   }

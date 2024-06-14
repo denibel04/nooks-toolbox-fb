@@ -24,6 +24,11 @@ export class IslandService {
     private villagerService: VillagerService
   ) { }
 
+   /**
+   * Adds a new island for the current authenticated user.
+   * @param is Island object containing island details.
+   * @returns {Observable<Island>}
+   */
   public addIsland(is: any): Observable<Island> {
     return new Observable(observer => {
       let villagers: string[] = [];
@@ -45,6 +50,10 @@ export class IslandService {
     });
   }
 
+   /**
+   * Retrieves the island of the current authenticated user.
+   * @returns {Observable<Island>}
+   */
   public getUserIsland(): Observable<Island> {
     return new Observable(observer => {
       this.fbAuth.user$.subscribe(user => {
@@ -78,6 +87,11 @@ export class IslandService {
     });
   }
 
+  /**
+   * Retrieves the island of a specific user by their UUID.
+   * @param uuid UUID of the user whose island is to be retrieved.
+   * @returns {Observable<Island>}
+   */
   getUserIslandById(uuid: string): Observable<Island> {
     return new Observable(observer => {
       this.fbSvc.getDocuments(`users/${uuid}/island`).then(isDoc => {
@@ -106,6 +120,11 @@ export class IslandService {
     });
   }
 
+  /**
+   * Deletes the island of the current authenticated user.
+   * @param is Island object representing the island to be deleted.
+   * @returns { Observable<Island> }
+   */
   public deleteIsland(is: Island): Observable<Island> {
     return new Observable(observer => {
       this.fbAuth.user$.subscribe(user => {
@@ -117,6 +136,12 @@ export class IslandService {
     });
   }
 
+  /**
+   * Updates the details of an existing island.
+   * @param is Island object representing the island to be updated.
+   * @param info Updated information for the island.
+   * @returns {Observable<Island>}
+   */
   public updateIsland(is: Island, info: any): Observable<Island> {
     let villagers: string[] = [];
     for (let i = 1; i <= 10; i++) {
