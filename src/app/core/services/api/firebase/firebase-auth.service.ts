@@ -55,7 +55,6 @@ export class FirebaseAuthService extends AuthService {
         }
         if (credentials) {
           this.me().subscribe(async data => {
-            console.log("login data", data);
             if (data.role === 'banned') {
               this.messageService.add({ severity: 'error', summary: 'Error', detail: await lastValueFrom(this.translate.get('login.ban')) });
               this._logged.next(false);

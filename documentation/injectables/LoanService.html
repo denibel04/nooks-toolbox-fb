@@ -286,14 +286,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="27"
-                                    class="link-to-prism">src/app/core/services/loan.service.ts:27</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="32"
+                                    class="link-to-prism">src/app/core/services/loan.service.ts:32</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Adds a loan to the user&#39;s island.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -304,6 +306,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -318,6 +321,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>Loan object containing loan details.</p>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -355,14 +362,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="107"
-                                    class="link-to-prism">src/app/core/services/loan.service.ts:107</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="125"
+                                    class="link-to-prism">src/app/core/services/loan.service.ts:125</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Deletes a loan associated with the current user&#39;s island.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -373,6 +382,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -387,6 +397,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>Loan object representing the loan to be deleted.</p>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -424,14 +438,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="71"
-                                    class="link-to-prism">src/app/core/services/loan.service.ts:71</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="84"
+                                    class="link-to-prism">src/app/core/services/loan.service.ts:84</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Retrieves loans associated with a specific user&#39;s island by user UUID.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -442,6 +458,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -456,6 +473,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>UUID of the user whose loans are to be retrieved.</p>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -493,19 +514,24 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="37"
-                                    class="link-to-prism">src/app/core/services/loan.service.ts:37</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="46"
+                                    class="link-to-prism">src/app/core/services/loan.service.ts:46</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Retrieves loans associated with the current user&#39;s island.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="../interfaces/Loan.html" target="_self" >Observable&lt;Loan[]&gt;</a></code>
 
                         </div>
+                            <div class="io-description">
+                                
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -532,14 +558,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="117"
-                                    class="link-to-prism">src/app/core/services/loan.service.ts:117</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="140"
+                                    class="link-to-prism">src/app/core/services/loan.service.ts:140</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Updates a loan associated with the current user&#39;s island.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -550,6 +578,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -564,6 +593,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>Loan object representing the loan to be updated.</p>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -681,6 +714,11 @@ export class LoanService {
     private isSvc: IslandService
   ) { }
 
+  /**
+   * Adds a loan to the user&#x27;s island.
+   * @param loan Loan object containing loan details.
+   * @returns { Observable&lt;Loan&gt;}
+   */
   public addLoan(loan: Loan): Observable&lt;Loan&gt; {
     return new Observable(observer &#x3D;&gt; {
       this.fbAuth.user$.subscribe(user &#x3D;&gt; {
@@ -691,8 +729,11 @@ export class LoanService {
     })
   }
 
+  /**
+   * Retrieves loans associated with the current user&#x27;s island.
+   * @returns { Observable&lt;Loan[]&gt;}
+   */
   public getUserLoans(): Observable&lt;Loan[]&gt; {
-    console.log(&quot;userloans&quot;)
     return new Observable(observer &#x3D;&gt; {
       this.fbAuth.user$.subscribe(user &#x3D;&gt; {
         if (user) {
@@ -725,9 +766,14 @@ export class LoanService {
     });
   }
 
+  /**
+   * Retrieves loans associated with a specific user&#x27;s island by user UUID.
+   * @param uuid UUID of the user whose loans are to be retrieved.
+   * @returns {Observable&lt;Loan[]&gt;}
+   */
   public getUserLoanById(uuid: string): Observable&lt;Loan[]&gt; {
     return new Observable(observer &#x3D;&gt; {
-      this.isSvc.getUserIsland().subscribe(is &#x3D;&gt; {
+      this.isSvc.getUserIslandById(uuid).subscribe(is &#x3D;&gt; {
         if (is) {
           this.fbSvc.getDocuments(&#x60;users/${uuid}/island/${is.id}/loans&#x60;).then(loansDoc &#x3D;&gt; {
             if (loansDoc.length &#x3D;&#x3D;&#x3D; 0) {
@@ -761,6 +807,11 @@ export class LoanService {
     });
   }
 
+  /**
+   * Deletes a loan associated with the current user&#x27;s island.
+   * @param loan Loan object representing the loan to be deleted.
+   * @returns {Observable&lt;Loan&gt;}
+   */
   public deleteLoan(loan: Loan): Observable&lt;Loan&gt; {
     return new Observable(observer &#x3D;&gt; {
       this.fbAuth.user$.subscribe(user &#x3D;&gt; {
@@ -771,10 +822,14 @@ export class LoanService {
     })
   }
 
+   /**
+   * Updates a loan associated with the current user&#x27;s island.
+   * @param loan Loan object representing the loan to be updated.
+   * @returns {Observable&lt;Loan&gt;}
+   */
   public updateLoan(loan: Loan): Observable&lt;Loan&gt; {
     return new Observable(observer &#x3D;&gt; {
       this.fbAuth.user$.subscribe(user &#x3D;&gt; {
-        console.log(&quot;loan user&quot;, user)
         this.isSvc.getUserIsland().subscribe(is &#x3D;&gt; {
           this.fbSvc.updateDocument(&#x60;users/${user!.uuid}/island/${is.id}/loans&#x60;, loan.id, loan.attributes)
         })

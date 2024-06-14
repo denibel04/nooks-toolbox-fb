@@ -209,6 +209,10 @@
                         <ul class="index-list">
                             <li>
                                     <span class="modifier">Async</span>
+                                <a href="#goToUserProfile" >goToUserProfile</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
                                 <a href="#loadUsers" >loadUsers</a>
                             </li>
                             <li>
@@ -252,12 +256,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(modalController: ModalController, userSvc: <a href="../injectables/UserService.html" target="_self">UserService</a>)</code>
+<code>constructor(modalController: ModalController, userSvc: <a href="../injectables/UserService.html" target="_self">UserService</a>, router: Router)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/shared/components/user-list/user-list.component.ts:15</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/shared/components/user-list/user-list.component.ts:16</a></div>
                             </td>
                         </tr>
 
@@ -298,6 +302,18 @@
                                                     </td>
                                                     
                                                 </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                    <code>Router</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
                                         </tbody>
                                     </table>
                             </div>
@@ -330,7 +346,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/shared/components/user-list/user-list.component.ts:14</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/shared/components/user-list/user-list.component.ts:15</a></div>
                             </td>
                         </tr>
             </tbody>
@@ -356,7 +372,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/shared/components/user-list/user-list.component.ts:13</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/shared/components/user-list/user-list.component.ts:14</a></div>
                             </td>
                         </tr>
             </tbody>
@@ -370,6 +386,83 @@
     <h3 id="methods">
         Methods
     </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="goToUserProfile"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>goToUserProfile</b></span>
+                        <a href="#goToUserProfile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>goToUserProfile(uuid: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="58"
+                                    class="link-to-prism">src/app/shared/components/user-list/user-list.component.ts:58</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Navigates to the profile page of a user with the specified UUID.
+Dismisses any open modal before navigating.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>uuid</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>The UUID of the user whose profile page to navigate to.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
     <table class="table table-sm table-bordered">
         <tbody>
             <tr>
@@ -392,14 +485,17 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="30"
-                                    class="link-to-prism">src/app/shared/components/user-list/user-list.component.ts:30</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="41"
+                                    class="link-to-prism">src/app/shared/components/user-list/user-list.component.ts:41</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Asynchronous method to load user data based on the provided user UUIDs.
+Fetches user data from the user service and stores it in the <code>users</code> array.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
@@ -429,14 +525,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="22"
-                                    class="link-to-prism">src/app/shared/components/user-list/user-list.component.ts:22</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="27"
+                                    class="link-to-prism">src/app/shared/components/user-list/user-list.component.ts:27</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Initializes the user list by loading user data.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -466,14 +564,17 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="26"
-                                    class="link-to-prism">src/app/shared/components/user-list/user-list.component.ts:26</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="34"
+                                    class="link-to-prism">src/app/shared/components/user-list/user-list.component.ts:34</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Method to handle the cancel action.
+Dismisses the modal without returning any data.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -513,7 +614,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/shared/components/user-list/user-list.component.ts:15</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/shared/components/user-list/user-list.component.ts:16</a></div>
                         </td>
                     </tr>
 
@@ -527,6 +628,7 @@
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Input, OnInit } from &#x27;@angular/core&#x27;;
+import { Route, Router } from &#x27;@angular/router&#x27;;
 import { ModalController } from &#x27;@ionic/angular&#x27;;
 import { User } from &#x27;src/app/core/interfaces/user&#x27;;
 import { UserService } from &#x27;src/app/core/services/user.service&#x27;;
@@ -544,17 +646,27 @@ export class UserListComponent  implements OnInit {
 
   constructor(
     private modalController: ModalController,
-    private userSvc: UserService
+    private userSvc: UserService,
+    private router:Router
   ) { }
 
+   /**
+   * Initializes the user list by loading user data.
+   */
   ngOnInit() {
     this.loadUsers();
   }
-
+ /**
+   * Method to handle the cancel action.
+   * Dismisses the modal without returning any data.
+   */
   onCancel() {
     this.modalController.dismiss();
   }
-
+  /**
+   * Asynchronous method to load user data based on the provided user UUIDs.
+   * Fetches user data from the user service and stores it in the &#x60;users&#x60; array.
+   */
   async loadUsers() {
     if (!this.userUuids || this.userUuids.length &#x3D;&#x3D;&#x3D; 0) {
       this.users &#x3D; [];
@@ -565,7 +677,17 @@ export class UserListComponent  implements OnInit {
     }
     
   }
-
+  
+  /**
+ * Navigates to the profile page of a user with the specified UUID.
+ * Dismisses any open modal before navigating.
+ * 
+ * @param uuid The UUID of the user whose profile page to navigate to.
+ */
+  async goToUserProfile(uuid: string) {
+    await this.modalController.dismiss();
+    await this.router.navigate([&#x27;/profile&#x27;, uuid]);
+  }
 }
 </code></pre>
     </div>
@@ -586,7 +708,7 @@ export class UserListComponent  implements OnInit {
 &lt;ion-content &gt;
   &lt;div class&#x3D;&quot;user-list&quot;&gt;
     &lt;ion-list mode&#x3D;&quot;ios&quot;&gt;
-      &lt;ion-item  mode&#x3D;&quot;ios&quot; *ngFor&#x3D;&quot;let user of users&quot; [button]&#x3D;&quot;true&quot;&gt;
+      &lt;ion-item  mode&#x3D;&quot;ios&quot; *ngFor&#x3D;&quot;let user of users&quot; [button]&#x3D;&quot;true&quot;(click)&#x3D;&quot;goToUserProfile(user.uuid)&quot;&gt; 
         &lt;ion-avatar class&#x3D;&quot;custom-avatar&quot; aria-hidden&#x3D;&quot;true&quot; slot&#x3D;&quot;start&quot;&gt;
           &lt;img *ngIf&#x3D;&quot;user?.profile_picture&quot; [src]&#x3D;&quot;user?.profile_picture&quot; /&gt;
           &lt;ion-icon *ngIf&#x3D;&quot;!user?.profile_picture&quot; size&#x3D;&quot;large&quot; name&#x3D;&quot;person-circle&quot;&gt;&lt;/ion-icon&gt;
@@ -666,7 +788,7 @@ ion-item {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><ion-header>  <ion-toolbar>  <ion-buttons slot="start">    <ion-button fill="clear" (click)="onCancel()">      <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>    </ion-button>  </ion-buttons>  <ion-title style="text-align: center;">   {{ \'profile.\' + listType | translate}}  </ion-title></ion-toolbar></ion-header><ion-content >  <div class="user-list">    <ion-list mode="ios">      <ion-item  mode="ios" *ngFor="let user of users" [button]="true">        <ion-avatar class="custom-avatar" aria-hidden="true" slot="start">          <img *ngIf="user?.profile_picture" [src]="user?.profile_picture" />          <ion-icon *ngIf="!user?.profile_picture" size="large" name="person-circle"></ion-icon>        </ion-avatar>        <ion-label>          <h2>@{{ user.username }}</h2>        </ion-label>      </ion-item>          </ion-list>  </div></ion-content></div>'
+        var COMPONENT_TEMPLATE = '<div><ion-header>  <ion-toolbar>  <ion-buttons slot="start">    <ion-button fill="clear" (click)="onCancel()">      <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>    </ion-button>  </ion-buttons>  <ion-title style="text-align: center;">   {{ \'profile.\' + listType | translate}}  </ion-title></ion-toolbar></ion-header><ion-content >  <div class="user-list">    <ion-list mode="ios">      <ion-item  mode="ios" *ngFor="let user of users" [button]="true"(click)="goToUserProfile(user.uuid)">         <ion-avatar class="custom-avatar" aria-hidden="true" slot="start">          <img *ngIf="user?.profile_picture" [src]="user?.profile_picture" />          <ion-icon *ngIf="!user?.profile_picture" size="large" name="person-circle"></ion-icon>        </ion-avatar>        <ion-label>          <h2>@{{ user.username }}</h2>        </ion-label>      </ion-item>          </ion-list>  </div></ion-content></div>'
     var COMPONENTS = [{'name': 'AboutPage', 'selector': 'app-about'},{'name': 'AdminPage', 'selector': 'app-admin'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'HomePage', 'selector': 'app-home'},{'name': 'IslandComponent', 'selector': 'app-island'},{'name': 'IslandFormComponent', 'selector': 'app-island-form'},{'name': 'LoanComponent', 'selector': 'app-loan'},{'name': 'LoanFormComponent', 'selector': 'app-loan-form'},{'name': 'LoanItemComponent', 'selector': 'app-loan-item'},{'name': 'LoansPage', 'selector': 'app-loans'},{'name': 'LoginFormComponent', 'selector': 'app-login-form'},{'name': 'LoginPage', 'selector': 'app-login'},{'name': 'PictureSelectableComponent', 'selector': 'app-picture-selectable'},{'name': 'ProfilePage', 'selector': 'app-profile'},{'name': 'RegisterFormComponent', 'selector': 'app-register-form'},{'name': 'RegisterPage', 'selector': 'app-register'},{'name': 'UserCardComponent', 'selector': 'app-user-card'},{'name': 'UserFormComponent', 'selector': 'app-user-form'},{'name': 'UserListComponent', 'selector': 'app-user-list'},{'name': 'VillagerComponent', 'selector': 'app-villager'},{'name': 'VillagerItemComponent', 'selector': 'app-villager-item'},{'name': 'VillagerSelectableComponent', 'selector': 'app-villager-selectable'},{'name': 'VillagersPage', 'selector': 'app-villagers'}];
     var DIRECTIVES = [{'name': 'BackgroundBlurDirective', 'selector': '[appBackgroundBlur]'},{'name': 'ProgressDirective', 'selector': '[appProgress]'}];
     var ACTUAL_COMPONENT = {'name': 'UserListComponent'};

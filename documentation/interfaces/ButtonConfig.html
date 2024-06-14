@@ -126,6 +126,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Interface for button configuration used in UserCardComponent.</p>
+
+            </p>
 
 
         <section data-compodoc="block-index">
@@ -398,6 +405,9 @@ import { UserService } from &#x27;src/app/core/services/user.service&#x27;;
 import { FirebaseAuthService } from &#x27;src/app/core/services/api/firebase/firebase-auth.service&#x27;;
 import { UserListComponent } from &#x27;../user-list/user-list.component&#x27;;
 
+/**
+ * Interface for button configuration used in UserCardComponent.
+ */
 interface ButtonConfig {
   text: string;
   action: string;
@@ -428,9 +438,11 @@ export class UserCardComponent  implements OnInit {
   @Output() editModal &#x3D; new EventEmitter&lt;boolean&gt;();
 
   buttonConfig!: ButtonConfig | null ;
-  followersCount:number  &#x3D; 0
-  followingCount:number &#x3D; 0;
 
+  /**
+   * Defines the button configurations available for the card.
+   * Each key corresponds to a button type with its respective configuration.
+   */
   private readonly BUTTON_CONFIGS: { [key: string]: ButtonConfig } &#x3D; {
     follow: {
       text: &#x27;follow&#x27;,
@@ -467,7 +479,9 @@ export class UserCardComponent  implements OnInit {
   };
   
 
-
+/**
+   * Initializes the component and sets the configuration of the button
+   */
   ngOnInit() {
     if (this.buttonType &#x3D;&#x3D; &#x27;none&#x27;) {
       this.buttonConfig &#x3D; null
@@ -475,34 +489,38 @@ export class UserCardComponent  implements OnInit {
       this.buttonConfig &#x3D; this.BUTTON_CONFIGS[this.buttonType];
     }
     
-    this.followersCount  &#x3D; this.user?.followers ?  this.user!.followers.length : 0
-    this.followingCount  &#x3D; this.user?.following ?  this.user!.following.length : 0
 
   }
-
+/**
+   * Handles button click events on the card.
+   * Emits follow, unfollow, edit, or ban actions based on the buttonConfig.
+   * @param event The click event object.
+   */
   handleButtonClick(event:any) {
     switch (this.buttonConfig?.action) {
       case &#x27;follow&#x27;:
         this.follow.emit(this.user!);
         this.buttonConfig &#x3D;  this.BUTTON_CONFIGS[&#x27;unfollow&#x27;]
-        this.followersCount! +&#x3D;1
         break;
       case &#x27;unfollow&#x27;:
         this.unfollow.emit(this.user!)
         this.buttonConfig &#x3D;  this.BUTTON_CONFIGS[&#x27;follow&#x27;]
-        this.followersCount! -&#x3D;1
       break;
       case &#x27;edit&#x27;:
         this.onEditClicked(this.user!)
         break;
       case &#x27;ban&#x27;:
-        console.log(&quot;ban button&quot;)
         this.userSvc.banUser(this.user!).subscribe()
         break;
     }
     event.stopPropagation();
   }
 
+    /**
+   * Handles the edit button click event.
+   * Emits editModal event to open the user edit modal.
+   * @param user The user object to edit.
+   */
   onEditClicked(user: User) {
     this.editModal.emit(true);
     var onDismiss &#x3D; (info: any) &#x3D;&gt; {
@@ -517,6 +535,11 @@ export class UserCardComponent  implements OnInit {
     this.presentUserForm(user, onDismiss);
   }
 
+   /**
+   * Presents the user form modal for editing user details.
+   * @param data The initial user data to populate the form.
+   * @param onDismiss Callback function when the modal is dismissed.
+   */
   async presentUserForm(data: User | null, onDismiss: (result: any) &#x3D;&gt; void) {
     const modal &#x3D; await this.modal.create({
       component: UserFormComponent,
@@ -533,6 +556,11 @@ export class UserCardComponent  implements OnInit {
     })
   }
 
+  /**
+   * Opens a modal to display the list of followers or following users.
+   * @param listType The type of list to open (&#x27;followers&#x27; or &#x27;following&#x27;).
+   * @param event The click event object.
+   */
   async openUserListModal(listType: string,event:any) {
     event.stopPropagation();
     let userUuids: string[] | undefined;

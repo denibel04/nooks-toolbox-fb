@@ -200,10 +200,6 @@
                                 <a href="#modal" >modal</a>
                             </li>
                             <li>
-                                    <span class="modifier"></span>
-                                <a href="#overlayPanel" >overlayPanel</a>
-                            </li>
-                            <li>
                                 <a href="#villagers" >villagers</a>
                             </li>
                             <li>
@@ -227,9 +223,6 @@
                             </li>
                             <li>
                                 <a href="#ngOnInit" >ngOnInit</a>
-                            </li>
-                            <li>
-                                <a href="#showOverlayPanel" >showOverlayPanel</a>
                             </li>
                         </ul>
                     </td>
@@ -333,14 +326,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="35"
-                                    class="link-to-prism">src/app/pages/villagers/villagers.page.ts:35</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="36"
+                                    class="link-to-prism">src/app/pages/villagers/villagers.page.ts:36</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Load more villagers on infinite scroll event.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -351,6 +346,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -365,6 +361,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>Event object from the infinite scroll.</p>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -408,78 +408,13 @@
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Initialize component by fetching initial list of villagers.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
                         </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="showOverlayPanel"></a>
-                    <span class="name">
-                        <span ><b>showOverlayPanel</b></span>
-                        <a href="#showOverlayPanel"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>showOverlayPanel(event: Event)</code>
-                </td>
-            </tr>
-
-
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="43"
-                                    class="link-to-prism">src/app/pages/villagers/villagers.page.ts:43</a></div>
-                        </td>
-                    </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                            <div class="io-description">
-                                <b>Parameters :</b>
-                                
-                                <table class="params">
-                                    <thead>
-                                        <tr>
-                                            <td>Name</td>
-                                                <td>Type</td>
-                                            <td>Optional</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                                <td>event</td>
-                                            <td>
-                                                        <code>Event</code>
-                                            </td>
-
-                                            <td>
-                                                    No
-                                            </td>
-
-
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        <div class="io-description">
-                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
-
-                        </div>
-                            <div class="io-description">
-                                
-                            </div>
                 </td>
             </tr>
         </tbody>
@@ -542,42 +477,6 @@
                     <tr>
                         <td class="col-md-4">
                                 <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/pages/villagers/villagers.page.ts:24</a></div>
-                        </td>
-                    </tr>
-
-
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="overlayPanel"></a>
-                    <span class="name">
-                            <span class="modifier"></span>
-                        <span ><b>overlayPanel</b></span>
-                        <a href="#overlayPanel"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Type : </i>    <code>OverlayPanel</code>
-
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <b>Decorators : </b>
-                        <br />
-                        <code>
-                            @ViewChild(&#x27;overlayPanel&#x27;)<br />
-                        </code>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/pages/villagers/villagers.page.ts:41</a></div>
                         </td>
                     </tr>
 
@@ -668,27 +567,22 @@ export class VillagersPage implements OnInit {
     public villagerService: VillagerService,
     public modal: ModalController
   ) { }
-
-
- 
+  /**
+   * Initialize component by fetching initial list of villagers.
+   */
   ngOnInit(): void {
-    for (let i &#x3D; 0; i &lt; 100; i++) {
-        this.items.push({ label: &#x27;Item #&#x27; + i, index: i });
-    }
     this.villagerService.getPaginatedVillagers().subscribe()
 }
+  /**
+   * Load more villagers on infinite scroll event.
+   * @param event Event object from the infinite scroll.
+   */
   doInfinite(event: any) {
     this.villagerService.getPaginatedVillagers().subscribe(() &#x3D;&gt; {
       event.target.complete();
     });
   }
 
-  @ViewChild(&#x27;overlayPanel&#x27;) overlayPanel!: OverlayPanel;
-
-  showOverlayPanel(event: Event) {
-    // Mostrar el panel superpuesto
-    this.overlayPanel.toggle(event);
-  }
 }
 </code></pre>
     </div>

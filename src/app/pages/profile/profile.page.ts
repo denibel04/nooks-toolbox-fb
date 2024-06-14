@@ -109,6 +109,7 @@ export class ProfilePage {
     this.fbAuth.me().subscribe(data => {
       this._user.next(data);
       this.loadMutualUsers()
+      this.updateFilteredUsers();
     });
   }
 
@@ -121,10 +122,27 @@ export class ProfilePage {
     this.fbAuth.me().subscribe(data => {
       this._user.next(data);
       this.loadMutualUsers()
+      this.updateFilteredUsers();
     });
   }
 
-
+  /**
+ * Updates the filtered list of users based on their current data.
+ * This method reloads each user's data from the server and updates the `filteredUsers` array.
+ * It ensures that changes in user following status reflect immediately in the filtered list.
+ */
+  async updateFilteredUsers() {
+    if (this.filteredUsers && this.filteredUsers.length > 0) {
+      const updatedFilteredUsers = await Promise.all(
+        this.filteredUsers.map(async user => {
+          const updatedUser = await this.userSvc.getUserById(user.uuid!);
+          return updatedUser;
+        })
+      );
+      this.filteredUsers = updatedFilteredUsers.filter(user => user !== undefined) as User[];
+    }
+  }
+  
   /**
    * Loads mutual users who are both followed by and follow the current user.
    */

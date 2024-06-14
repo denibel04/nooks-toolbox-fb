@@ -192,12 +192,14 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/shared/directives/background-blur.directive.ts:14</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/shared/directives/background-blur.directive.ts:16</a></div>
                             </td>
                         </tr>
 
                 <tr>
                     <td class="col-md-4">
+                            <div class="io-description"><p>Constructor to inject dependencies.</p>
+</div>
                             <div>
                                     <b>Parameters :</b>
                                     <table class="params">
@@ -206,6 +208,7 @@
                                                 <td>Name</td>
                                                     <td>Type</td>
                                                 <td>Optional</td>
+                                                    <td>Description</td>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -220,6 +223,10 @@
                                                             No
                                                     </td>
                                                     
+                                                        <td>
+                                                                <p>Reference to the host element.</p>
+
+                                                        </td>
                                                 </tr>
                                                 <tr>
                                                         <td>renderer</td>
@@ -232,6 +239,10 @@
                                                             No
                                                     </td>
                                                     
+                                                        <td>
+                                                                <p>Renderer to manipulate the host element.</p>
+
+                                                        </td>
                                                 </tr>
                                         </tbody>
                                     </table>
@@ -260,9 +271,15 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/app/shared/directives/background-blur.directive.ts:8</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/app/shared/directives/background-blur.directive.ts:10</a></div>
                             </td>
                         </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Condition to apply or remove the blur class.</p>
+</div>
+                    </td>
+                </tr>
             </tbody>
         </table>
 </section>
@@ -292,11 +309,13 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/app/shared/directives/background-blur.directive.ts:8</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/app/shared/directives/background-blur.directive.ts:10</a></div>
                                 </td>
                             </tr>
                     <tr>
                         <td class="col-md-4">
+                                <div class="io-description"><p>Condition to apply or remove the blur class.</p>
+</div>
 
                                 <div class="io-description">
                                         <b>Parameters :</b>
@@ -346,7 +365,9 @@
   selector: &#x27;[appBackgroundBlur]&#x27;
 })
 export class BackgroundBlurDirective {
-
+ /**
+   * Condition to apply or remove the blur class.
+   */
   @Input() set appBackgroundBlur(condition: boolean) {
     if (condition) {
       this.renderer.addClass(this.el.nativeElement, &#x27;blur-background&#x27;);
@@ -354,7 +375,11 @@ export class BackgroundBlurDirective {
       this.renderer.removeClass(this.el.nativeElement, &#x27;blur-background&#x27;);
     }
   }
-
+/**
+   * Constructor to inject dependencies.
+   * @param el Reference to the host element.
+   * @param renderer Renderer to manipulate the host element.
+   */
   constructor(private el: ElementRef, private renderer: Renderer2) {}
 
 }

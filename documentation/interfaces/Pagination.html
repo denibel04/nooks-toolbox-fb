@@ -126,6 +126,14 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Represents pagination details including current page, page size,
+total number of pages, and total number of items.</p>
+
+            </p>
 
 
         <section data-compodoc="block-index">
@@ -318,6 +326,10 @@
     pageCount:number,
     total:number
 }
+/**
+ * Represents data that is paginated, containing an array of type &#x60;T&#x60;
+ * and pagination details.
+ */
 export interface PaginatedData&lt;T&gt;{
     data:T[],
     pagination:Pagination

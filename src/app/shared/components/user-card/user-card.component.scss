@@ -3,9 +3,11 @@
     width: 20rem;
     align-self: center;
 }
+
 .banned {
-    background-color: #FFDFE9 !important; /* Puedes cambiar el color a tu preferencia */
-  }
+    background-color: #FFDFE9 !important;
+    /* Puedes cambiar el color a tu preferencia */
+}
 
 .button {
     display: flex;
@@ -25,17 +27,19 @@
     }
 }
 
-.img img, .img ion-icon {
+.img img,
+.img ion-icon {
     height: 100%;
     width: 100%;
     border-radius: 50%;
-    object-fit: cover; 
+    object-fit: cover;
 }
+
 ion-card {
     border-radius: 25px;
     width: 30rem;
     height: 640px !important;
-    color: var(--ion-color-primary-dark);    
+    color: var(--ion-color-primary-dark);
     background-color: var(--ion-color-primary-tint);
 }
 
@@ -47,7 +51,7 @@ ion-card-content {
 
     h1 {
         font-weight: bold;
-        color: var(--ion-color-primary-dark) !important;    
+        color: var(--ion-color-primary-dark) !important;
     }
 }
 
@@ -56,11 +60,11 @@ ion-card-content {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    margin:2rem;
+    margin: 2rem;
     gap: 1rem;
     min-height: 102px;
-    
-    color: var(--ion-color-primary-dark) !important;    
+
+    color: var(--ion-color-primary-dark) !important;
 
     h1 {
         font-size: 2.3rem;
@@ -75,13 +79,15 @@ ion-card-content {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 100%; /* Asegura que el ion-card ocupe toda la altura disponible */
-  }
-  
-  .follow-table {
-    margin-top: auto; /* Empuja el div follow-table hacia la parte inferior */
-  }
-  
+    height: 100%;
+    /* Asegura que el ion-card ocupe toda la altura disponible */
+}
+
+.follow-table {
+    margin-top: auto;
+    /* Empuja el div follow-table hacia la parte inferior */
+}
+
 
 
 table {
@@ -92,12 +98,13 @@ table {
     height: 75%;
 }
 
-th, td {
+th,
+td {
     text-align: center;
     padding: 10px;
     height: 6rem;
 
-    
+
     h1 {
         font-size: 1.8rem;
     }
@@ -109,11 +116,11 @@ th, td {
 
 
 tr:first-child td {
-    border-top: 3px solid  var(--ion-color-secondary); 
-  }
+    border-top: 3px solid var(--ion-color-secondary);
+}
 
 td:first-child {
-    border-right: 3px solid  var(--ion-color-secondary); 
+    border-right: 3px solid var(--ion-color-secondary);
 }
 
 .follow-cell {
@@ -126,5 +133,27 @@ td:first-child {
 .user-info span,
 .follow-cell p,
 .follow-cell h1 {
-    color:  var(--ion-color-secondary) !important;    
+    color: var(--ion-color-secondary) !important;
+}
+
+@media only screen and (width<=550px) {
+    ion-card {
+        width: 100%;
+        height: 590px !important;
+    }
+
+    .user-info {
+        height: 130px;
+    }
+
+    .img {
+        height: 15rem;
+        width: 15rem;
+        align-self: center;
+    }
+
+    table {
+        margin: 0rem -1rem;
+    }
+
 }

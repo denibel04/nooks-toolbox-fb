@@ -464,12 +464,10 @@ export class FirebaseService {
    * @returns {Promise<FirebaseUserCredential | null>}
    */
   public createUserWithEmailAndPassword(email: string, password: string): Promise<FirebaseUserCredential | null> {
-    console.log("create user", email, password)
     return new Promise(async (resolve, reject) => {
       if (!this._auth)
         resolve(null);
       try {
-        console.log("AUTH:", this._auth, email, password)
         resolve({ user: await createUserWithEmailAndPassword(this._auth!, email, password) });
       } catch (error: any) {
         switch (error.code) {

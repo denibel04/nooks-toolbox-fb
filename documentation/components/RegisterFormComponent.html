@@ -126,12 +126,6 @@
 
 
 
-    <p class="comment">
-        <h3>Implements</h3>
-    </p>
-    <p class="comment">
-                <code>OnInit</code>
-    </p>
 
 
 <section data-compodoc="block-metadata">
@@ -209,9 +203,6 @@
                         <ul class="index-list">
                             <li>
                                 <a href="#hasError" >hasError</a>
-                            </li>
-                            <li>
-                                <a href="#ngOnInit" >ngOnInit</a>
                             </li>
                             <li>
                                 <a href="#onSubmit" >onSubmit</a>
@@ -343,14 +334,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="35"
-                                    class="link-to-prism">src/app/shared/components/register-form/register-form.component.ts:35</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="43"
+                                    class="link-to-prism">src/app/shared/components/register-form/register-form.component.ts:43</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Checks if a specific form control or the entire form has a specific error.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -362,6 +355,7 @@
                                                 <td>Type</td>
                                             <td>Optional</td>
                                                 <td>Default value</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -378,6 +372,10 @@
                                             <td>
                                             </td>
 
+                                            <td>
+                                                    <p>The name of the form control to check.</p>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>error</td>
@@ -392,6 +390,10 @@
                                             <td>
                                             </td>
 
+                                            <td>
+                                                    <p>The error name to check.</p>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>isFormError</td>
@@ -407,6 +409,10 @@
                                                     <code>false</code>
                                             </td>
 
+                                            <td>
+                                                    <p>Boolean flag indicating if the error is a form-level error (not tied to a specific control).</p>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -416,45 +422,9 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>True if the control (or form) has the specified error, false otherwise.</p>
+
                             </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="ngOnInit"></a>
-                    <span class="name">
-                        <span ><b>ngOnInit</b></span>
-                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>ngOnInit()</code>
-                </td>
-            </tr>
-
-
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="29"
-                                    class="link-to-prism">src/app/shared/components/register-form/register-form.component.ts:29</a></div>
-                        </td>
-                    </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                        <div class="io-description">
-                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
-
-                        </div>
                 </td>
             </tr>
         </tbody>
@@ -479,14 +449,17 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="31"
-                                    class="link-to-prism">src/app/shared/components/register-form/register-form.component.ts:31</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="33"
+                                    class="link-to-prism">src/app/shared/components/register-form/register-form.component.ts:33</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Handles form submission.
+Emits the onsubmit event with the form value (UserRegisterInfo).</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -545,7 +518,7 @@ import { PasswordValidation } from &#x27;src/app/core/validators/password&#x27;;
   templateUrl: &#x27;./register-form.component.html&#x27;,
   styleUrls: [&#x27;./register-form.component.scss&#x27;],
 })
-export class RegisterFormComponent  implements OnInit {
+export class RegisterFormComponent {
 
   form:FormGroup;
 
@@ -562,12 +535,20 @@ export class RegisterFormComponent  implements OnInit {
     );
   }
 
-  ngOnInit() {}
-
+ /**
+   * Handles form submission.
+   * Emits the onsubmit event with the form value (UserRegisterInfo).
+   */
   onSubmit(){
     this.onsubmit.emit(this.form.value);
   } 
-
+ /**
+   * Checks if a specific form control or the entire form has a specific error.
+   * @param control The name of the form control to check.
+   * @param error The error name to check.
+   * @param isFormError Boolean flag indicating if the error is a form-level error (not tied to a specific control).
+   * @returns True if the control (or form) has the specified error, false otherwise.
+   */
   hasError(control: string, error: string, isFormError: boolean &#x3D; false): boolean {
     if (isFormError) {
       return this.form.hasError(error);

@@ -170,6 +170,8 @@
 
                 <tr>
                     <td class="col-md-4">
+                            <div class="io-description"><p>Constructor of AdminGuard.</p>
+</div>
                             <div>
                                     <b>Parameters :</b>
                                     <table class="params">
@@ -178,6 +180,7 @@
                                                 <td>Name</td>
                                                     <td>Type</td>
                                                 <td>Optional</td>
+                                                    <td>Description</td>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -192,6 +195,10 @@
                                                             No
                                                     </td>
                                                     
+                                                        <td>
+                                                                <p>Firebase authentication service.</p>
+
+                                                        </td>
                                                 </tr>
                                                 <tr>
                                                         <td>router</td>
@@ -204,6 +211,10 @@
                                                             No
                                                     </td>
                                                     
+                                                        <td>
+                                                                <p>Angular router service.</p>
+
+                                                        </td>
                                                 </tr>
                                         </tbody>
                                     </table>
@@ -239,14 +250,17 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="15"
-                                    class="link-to-prism">src/app/core/guards/admin.guard.ts:15</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="28"
+                                    class="link-to-prism">src/app/core/guards/admin.guard.ts:28</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Determines whether a route can be activated.
+Admin users are allowed access; non-admin users are redirected to login.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -257,6 +271,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -271,6 +286,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>The route snapshot that is being activated.</p>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>state</td>
@@ -283,6 +302,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>The router state snapshot.</p>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -313,17 +336,29 @@ import { FirebaseAuthService } from &#x27;../services/api/firebase/firebase-auth
 })
 export class AdminGuard implements CanActivate {
 
+/**
+   * Constructor of AdminGuard.
+   * @param auth  Firebase authentication service.
+   * @param router  Angular router service.
+   */
   constructor(
     private auth:FirebaseAuthService,
     private router:Router
   ) {}
+
+  /**
+   * Determines whether a route can be activated.
+   * Admin users are allowed access; non-admin users are redirected to login.
+   * @param route The route snapshot that is being activated.
+   * @param state The router state snapshot.
+   * @returns {Observable&lt;boolean | UrlTree&gt; | Promise&lt;boolean | UrlTree&gt; | boolean | UrlTree} 
+   */
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable&lt;boolean | UrlTree&gt; | Promise&lt;boolean | UrlTree&gt; | boolean | UrlTree {
       
       return this.auth.user$.pipe(
         map(user &#x3D;&gt; {
-          console.log(&quot;GUARDA ADMIN&quot;, user)
           if (!user || user.role !&#x3D;&#x3D; &#x27;admin&#x27;) {
             localStorage.setItem(&#x27;returnUrl&#x27;, state.url); 
             return this.router.parseUrl(&#x27;/login?returnUrl&#x3D;&#x27; + state.url);

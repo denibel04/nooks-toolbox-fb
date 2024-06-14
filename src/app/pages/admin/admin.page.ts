@@ -167,6 +167,7 @@ export class AdminPage implements OnInit {
         species: villager.attributes.species
       })) || [];
       const loans = await this.loanSvc.getUserLoanById(user.uuid!).toPromise();
+      console.log(user, loans)
       const completedLoans = loans!.filter(loan => loan.attributes.completed).length;
       const totalLoans = loans!.length;
       return {

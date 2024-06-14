@@ -13,7 +13,7 @@
 <ion-content >
   <div class="user-list">
     <ion-list mode="ios">
-      <ion-item  mode="ios" *ngFor="let user of users" [button]="true">
+      <ion-item  mode="ios" *ngFor="let user of users" [button]="true"(click)="goToUserProfile(user.uuid)"> 
         <ion-avatar class="custom-avatar" aria-hidden="true" slot="start">
           <img *ngIf="user?.profile_picture" [src]="user?.profile_picture" />
           <ion-icon *ngIf="!user?.profile_picture" size="large" name="person-circle"></ion-icon>

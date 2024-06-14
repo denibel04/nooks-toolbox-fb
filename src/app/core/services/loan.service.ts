@@ -83,7 +83,7 @@ export class LoanService {
    */
   public getUserLoanById(uuid: string): Observable<Loan[]> {
     return new Observable(observer => {
-      this.isSvc.getUserIsland().subscribe(is => {
+      this.isSvc.getUserIslandById(uuid).subscribe(is => {
         if (is) {
           this.fbSvc.getDocuments(`users/${uuid}/island/${is.id}/loans`).then(loansDoc => {
             if (loansDoc.length === 0) {

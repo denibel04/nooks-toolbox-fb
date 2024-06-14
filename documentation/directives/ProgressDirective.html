@@ -207,12 +207,14 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/shared/directives/progress.directive.ts:17</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/app/shared/directives/progress.directive.ts:21</a></div>
                             </td>
                         </tr>
 
                 <tr>
                     <td class="col-md-4">
+                            <div class="io-description"><p>Constructor to inject dependencies.</p>
+</div>
                             <div>
                                     <b>Parameters :</b>
                                     <table class="params">
@@ -221,6 +223,7 @@
                                                 <td>Name</td>
                                                     <td>Type</td>
                                                 <td>Optional</td>
+                                                    <td>Description</td>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -235,6 +238,10 @@
                                                             No
                                                     </td>
                                                     
+                                                        <td>
+                                                                <p>Renderer to manipulate the host element.</p>
+
+                                                        </td>
                                                 </tr>
                                                 <tr>
                                                         <td>el</td>
@@ -247,6 +254,10 @@
                                                             No
                                                     </td>
                                                     
+                                                        <td>
+                                                                <p>Reference to the host element.</p>
+
+                                                        </td>
                                                 </tr>
                                         </tbody>
                                     </table>
@@ -275,9 +286,16 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/app/shared/directives/progress.directive.ts:10</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/shared/directives/progress.directive.ts:14</a></div>
                             </td>
                         </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Sets the width of the element based on the provided progress value.
+Ensures the width is at least <code>min_width</code>.</p>
+</div>
+                    </td>
+                </tr>
             </tbody>
         </table>
 </section>
@@ -345,11 +363,14 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/app/shared/directives/progress.directive.ts:10</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/shared/directives/progress.directive.ts:14</a></div>
                                 </td>
                             </tr>
                     <tr>
                         <td class="col-md-4">
+                                <div class="io-description"><p>Sets the width of the element based on the provided progress value.
+Ensures the width is at least <code>min_width</code>.</p>
+</div>
 
                                 <div class="io-description">
                                         <b>Parameters :</b>
@@ -359,6 +380,7 @@
                                                     <td>Name</td>
                                                         <td>Type</td>
                                                     <td>Optional</td>
+                                                        <td>Description</td>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -373,6 +395,10 @@
                                                                 No
                                                         </td>
                                                         
+                                                            <td>
+                                                                    <p>The progress value used to set the width.</p>
+
+                                                            </td>
                                                     </tr>
                                             </tbody>
                                         </table>
@@ -401,7 +427,11 @@
 export class ProgressDirective {
   
   private min_width &#x3D;15
-
+/**
+   * Sets the width of the element based on the provided progress value.
+   * Ensures the width is at least &#x60;min_width&#x60;.
+   * @param value The progress value used to set the width.
+   */
   @Input(&#x27;appProgress&#x27;) set progress(value: number) {
     const width&#x3D; Math.max(value, this.min_width);
     this.renderer.setStyle(
@@ -410,7 +440,11 @@ export class ProgressDirective {
       &#x60;${width}%&#x60; 
     );
   }
-
+ /**
+   * Constructor to inject dependencies.
+   * @param renderer Renderer to manipulate the host element.
+   * @param el Reference to the host element.
+   */
   constructor(
     private renderer:Renderer2,
     private el:ElementRef

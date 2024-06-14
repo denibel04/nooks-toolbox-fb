@@ -170,6 +170,8 @@
 
                 <tr>
                     <td class="col-md-4">
+                            <div class="io-description"><p>Constructor of AuthGuard.</p>
+</div>
                             <div>
                                     <b>Parameters :</b>
                                     <table class="params">
@@ -178,6 +180,7 @@
                                                 <td>Name</td>
                                                     <td>Type</td>
                                                 <td>Optional</td>
+                                                    <td>Description</td>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -192,6 +195,10 @@
                                                             No
                                                     </td>
                                                     
+                                                        <td>
+                                                                <p>Firebase authentication service.</p>
+
+                                                        </td>
                                                 </tr>
                                                 <tr>
                                                         <td>router</td>
@@ -204,6 +211,10 @@
                                                             No
                                                     </td>
                                                     
+                                                        <td>
+                                                                <p>Angular router service.</p>
+
+                                                        </td>
                                                 </tr>
                                                 <tr>
                                                         <td>activatedRoute</td>
@@ -216,6 +227,10 @@
                                                             No
                                                     </td>
                                                     
+                                                        <td>
+                                                                <p>The current activated route.</p>
+
+                                                        </td>
                                                 </tr>
                                         </tbody>
                                     </table>
@@ -251,14 +266,18 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="17"
-                                    class="link-to-prism">src/app/core/guards/auth.guard.ts:17</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="30"
+                                    class="link-to-prism">src/app/core/guards/auth.guard.ts:30</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Determines whether a route can be activated for authenticated users.
+Authenticated users are allowed access and are redirected to their current activated route;
+non-authenticated users are redirected to the login page.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -269,6 +288,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -283,6 +303,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>The route snapshot that is being activated.</p>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>state</td>
@@ -295,6 +319,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>The router state snapshot.</p>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -325,19 +353,32 @@ import { FirebaseService } from &#x27;../services/api/firebase/firebase.service&
   providedIn: &#x27;root&#x27;
 })
 export class AuthGuard implements CanActivate {
- 
+  /**
+    * Constructor of AuthGuard.
+    * @param auth Firebase authentication service.
+    * @param router Angular router service.
+    * @param activatedRoute The current activated route.
+    */
   constructor(
-    private auth:FirebaseService,
-    private router:Router,
+    private auth: FirebaseService,
+    private router: Router,
     private activatedRoute: ActivatedRoute
-  ) {}
+  ) { }
+  /**
+  * Determines whether a route can be activated for authenticated users.
+  * Authenticated users are allowed access and are redirected to their current activated route;
+  * non-authenticated users are redirected to the login page.
+  * @param route The route snapshot that is being activated.
+  * @param state The router state snapshot.
+  * @returns {Observable&lt;boolean | UrlTree&gt; | Promise&lt;boolean | UrlTree&gt; | boolean | UrlTree} 
+  */
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable&lt;boolean | UrlTree&gt; | Promise&lt;boolean | UrlTree&gt; | boolean | UrlTree {
     return this.auth.isLogged$.pipe(tap(logged &#x3D;&gt; {
       console.log(&quot;GUARDA&quot;, logged)
-      if(!logged) {
-        localStorage.setItem(&#x27;returnUrl&#x27;, state.url); 
+      if (!logged) {
+        localStorage.setItem(&#x27;returnUrl&#x27;, state.url);
         return this.router.parseUrl(&#x27;/login?returnUrl&#x3D;&#x27; + state.url);
       }
       return true;

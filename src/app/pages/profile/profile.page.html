@@ -17,7 +17,7 @@
         <div class="users">
           <ng-container *ngFor="let user of mutualUsers">
             <app-user-card (click)="goToUserPage(user)" [user]="user" [buttonType]="isUserFollowed(user.uuid) ? 'unfollow' : 'follow'"
-              (follow)="onFollowClicked(user)" (unfollow)="onUnfollowClicked(user)">
+              (follow)="onFollowClicked(user)" (unfollow)="onUnfollowClicked(user)" (editModal)="onModalEdit($event)">
             </app-user-card>
           </ng-container>
         </div>
@@ -34,7 +34,7 @@
           <ng-container *ngFor="let user of filteredUsers">
             <app-user-card [user]="user"  (click)="goToUserPage(user)" *ngIf="(user$ | async)?.uuid !== user.uuid"
               [buttonType]="isUserFollowed(user.uuid) ? 'unfollow' : 'follow'" (follow)="onFollowClicked(user)"
-              (unfollow)="onUnfollowClicked(user)">
+              (unfollow)="onUnfollowClicked(user)" (editModal)="onModalEdit($event)">
             </app-user-card>
           </ng-container>
 

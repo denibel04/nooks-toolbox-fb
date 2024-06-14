@@ -55,7 +55,7 @@
         </ion-title>
         <ion-buttons slot="end">
           <ion-button routerLink="/profile" *ngIf="(fbAuth.user$ | async)">
-            <ion-avatar class="user-icon" slot="start">
+            <ion-avatar class="custom-avatar" slot="start" >
               <ion-img *ngIf="(fbAuth.user$ | async)?.profile_picture" [src]="(fbAuth.user$ | async)?.profile_picture"></ion-img>
               <ion-icon *ngIf="!(fbAuth.user$ | async)?.profile_picture" size="large" name="person-circle"></ion-icon>
             </ion-avatar>

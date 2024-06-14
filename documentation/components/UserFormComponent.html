@@ -363,14 +363,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="44"
-                                    class="link-to-prism">src/app/shared/components/user-form/user-form.component.ts:44</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="52"
+                                    class="link-to-prism">src/app/shared/components/user-form/user-form.component.ts:52</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Method to retrieve the dirty (modified) values from the form.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -381,6 +383,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -395,6 +398,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>The form group to extract dirty values from.</p>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -404,7 +411,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>An object containing the dirty values from the form.</p>
+
                             </div>
                 </td>
             </tr>
@@ -430,14 +438,17 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="40"
-                                    class="link-to-prism">src/app/shared/components/user-form/user-form.component.ts:40</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="44"
+                                    class="link-to-prism">src/app/shared/components/user-form/user-form.component.ts:44</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Method to handle the cancel action.
+Dismisses the modal without returning any data.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -467,14 +478,17 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="56"
-                                    class="link-to-prism">src/app/shared/components/user-form/user-form.component.ts:56</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="67"
+                                    class="link-to-prism">src/app/shared/components/user-form/user-form.component.ts:67</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Method to handle the submit action.
+Logs the dirty values from the form and dismisses the modal with the dirty values.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -623,10 +637,18 @@ export class UserFormComponent {
     });
   }
 
+   /**
+   * Method to handle the cancel action.
+   * Dismisses the modal without returning any data.
+   */
   onCancel() {
     this.formModal.dismiss(null, &#x27;cancel&#x27;);
   }
-
+ /**
+   * Method to retrieve the dirty (modified) values from the form.
+   * @param form The form group to extract dirty values from.
+   * @returns An object containing the dirty values from the form.
+   */
   getDirtyValues(form: FormGroup) {
     let dirtyValues: any &#x3D; {};
 
@@ -638,7 +660,10 @@ export class UserFormComponent {
     });
     return dirtyValues;
   }
-
+ /**
+   * Method to handle the submit action.
+   * Logs the dirty values from the form and dismisses the modal with the dirty values.
+   */
   onSubmit() {
     console.log(&quot;añaña&quot;, this.getDirtyValues(this.userForm))
     this.formModal.dismiss(this.getDirtyValues(this.userForm), &#x27;submit&#x27;);

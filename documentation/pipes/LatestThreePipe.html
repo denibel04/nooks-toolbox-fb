@@ -162,14 +162,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="8"
-                                    class="link-to-prism">src/app/shared/pipes/latest-three.pipe.ts:8</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="12"
+                                    class="link-to-prism">src/app/shared/pipes/latest-three.pipe.ts:12</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Transforms an array of items to return the latest three based on their <code>createdAt</code> property.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -180,6 +182,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -194,6 +197,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>The array of items to be transformed.</p>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -203,7 +210,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>The sorted array containing the latest three items.</p>
+
                             </div>
                 </td>
             </tr>
@@ -221,7 +229,11 @@
   name: &#x27;latestThree&#x27;
 })
 export class LatestThreePipe implements PipeTransform {
-
+  /**
+   * Transforms an array of items to return the latest three based on their &#x60;createdAt&#x60; property.
+   * @param items The array of items to be transformed.
+   * @returns The sorted array containing the latest three items.
+   */
   transform(items: any[]): any[] {
     if (!items) {
       return [];

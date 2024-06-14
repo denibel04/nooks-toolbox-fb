@@ -162,14 +162,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="9"
-                                    class="link-to-prism">src/app/shared/pipes/loan-completed.pipe.ts:9</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="15"
+                                    class="link-to-prism">src/app/shared/pipes/loan-completed.pipe.ts:15</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Transforms an array of loans to return only those that match the completed status.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -180,6 +182,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -194,6 +197,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>The array of loans to be filtered.</p>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>completed</td>
@@ -206,6 +213,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>The completion status to filter by.</p>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -215,7 +226,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>The filtered array of loans.</p>
+
                             </div>
                 </td>
             </tr>
@@ -235,6 +247,12 @@ import { Loan } from &#x27;src/app/core/interfaces/loan&#x27;;
 })
 export class LoanCompletedPipe implements PipeTransform {
 
+ /**
+   * Transforms an array of loans to return only those that match the completed status.
+   * @param loans The array of loans to be filtered.
+   * @param completed The completion status to filter by.
+   * @returns The filtered array of loans.
+   */
   transform(loans: Loan[], completed: boolean): Loan[] {
     if (!loans) {
       return [];

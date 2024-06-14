@@ -126,12 +126,6 @@
 
 
 
-    <p class="comment">
-        <h3>Implements</h3>
-    </p>
-    <p class="comment">
-                <code>OnInit</code>
-    </p>
 
 
 <section data-compodoc="block-metadata">
@@ -193,9 +187,6 @@
                 <tr>
                     <td class="col-md-4">
                         <ul class="index-list">
-                            <li>
-                                <a href="#ngOnInit" >ngOnInit</a>
-                            </li>
                             <li>
                                 <a href="#onRegister" >onRegister</a>
                             </li>
@@ -285,43 +276,6 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="ngOnInit"></a>
-                    <span class="name">
-                        <span ><b>ngOnInit</b></span>
-                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>ngOnInit()</code>
-                </td>
-            </tr>
-
-
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="19"
-                                    class="link-to-prism">src/app/pages/register/register.page.ts:19</a></div>
-                        </td>
-                    </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                        <div class="io-description">
-                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
-
-                        </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
                     <a name="onRegister"></a>
                     <span class="name">
                         <span ><b>onRegister</b></span>
@@ -338,14 +292,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="22"
-                                    class="link-to-prism">src/app/pages/register/register.page.ts:22</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="23"
+                                    class="link-to-prism">src/app/pages/register/register.page.ts:23</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Handles user registration.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -356,6 +312,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -370,6 +327,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>User registration information.</p>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -402,22 +363,23 @@ import { AuthService } from &#x27;src/app/core/services/api/strapi/auth.service&
   templateUrl: &#x27;./register.page.html&#x27;,
   styleUrls: [&#x27;./register.page.scss&#x27;],
 })
-export class RegisterPage implements OnInit {
+export class RegisterPage {
 
   constructor(
-    private auth:FirebaseAuthService,
-    private router:Router,
+    private auth: FirebaseAuthService,
+    private router: Router,
   ) { }
 
-  ngOnInit() {
-  }
-
-  onRegister(info:UserRegisterInfo){
+  /**
+    * Handles user registration.
+    * @param info User registration information.
+    */
+  onRegister(info: UserRegisterInfo) {
     this.auth.register(info).subscribe({
-      next:data&#x3D;&gt;{
+      next: data &#x3D;&gt; {
         this.router.navigate([&#x27;home&#x27;]);
       },
-      error:err&#x3D;&gt;{
+      error: err &#x3D;&gt; {
         console.log(err);
       }
     });

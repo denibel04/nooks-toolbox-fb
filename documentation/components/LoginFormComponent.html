@@ -126,12 +126,6 @@
 
 
 
-    <p class="comment">
-        <h3>Implements</h3>
-    </p>
-    <p class="comment">
-                <code>OnInit</code>
-    </p>
 
 
 <section data-compodoc="block-metadata">
@@ -207,9 +201,6 @@
                 <tr>
                     <td class="col-md-4">
                         <ul class="index-list">
-                            <li>
-                                <a href="#ngOnInit" >ngOnInit</a>
-                            </li>
                             <li>
                                 <a href="#onSubmit" >onSubmit</a>
                             </li>
@@ -375,43 +366,6 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="ngOnInit"></a>
-                    <span class="name">
-                        <span ><b>ngOnInit</b></span>
-                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>ngOnInit()</code>
-                </td>
-            </tr>
-
-
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="28"
-                                    class="link-to-prism">src/app/shared/components/login-form/login-form.component.ts:28</a></div>
-                        </td>
-                    </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                        <div class="io-description">
-                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
-
-                        </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
                     <a name="onSubmit"></a>
                     <span class="name">
                         <span ><b>onSubmit</b></span>
@@ -428,14 +382,17 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="30"
-                                    class="link-to-prism">src/app/shared/components/login-form/login-form.component.ts:30</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="32"
+                                    class="link-to-prism">src/app/shared/components/login-form/login-form.component.ts:32</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Handles form submission.
+Emits the onsubmit event with the form value (UserCredentials) and resets the password field.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -561,7 +518,7 @@ import { UserCredentials } from &#x27;src/app/core/interfaces/user-credentials&#
   templateUrl: &#x27;./login-form.component.html&#x27;,
   styleUrls: [&#x27;./login-form.component.scss&#x27;],
 })
-export class LoginFormComponent  implements OnInit {
+export class LoginFormComponent  {
 
   @Input(&#x27;username&#x27;) set username(value:string){
     this.form?.controls[&#x27;username&#x27;].setValue(value);
@@ -579,8 +536,10 @@ export class LoginFormComponent  implements OnInit {
     });
   }
 
-  ngOnInit() {}
-
+   /**
+   * Handles form submission.
+   * Emits the onsubmit event with the form value (UserCredentials) and resets the password field.
+   */
   onSubmit(){
     this.onsubmit.emit(this.form?.value);
     this.form?.controls[&#x27;password&#x27;].setValue(&#x27;&#x27;);

@@ -351,14 +351,17 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="51"
-                                    class="link-to-prism">src/app/app.component.ts:51</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="60"
+                                    class="link-to-prism">src/app/app.component.ts:60</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Changes the application language.
+Updates the language using CustomTranslateService and sets the new language.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -369,6 +372,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -383,6 +387,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>The new language to set.</p>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -418,14 +426,17 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="44"
-                                    class="link-to-prism">src/app/app.component.ts:44</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="49"
+                                    class="link-to-prism">src/app/app.component.ts:49</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Handles the sign-out process.
+Calls the logout method from AuthService, navigates to the login page, and sets the user to null.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -652,6 +663,9 @@ export class AppComponent {
     }
     this.fbAuth.user$.subscribe(user &#x3D;&gt; {
       this.user &#x3D;user;
+      if(user?.role &#x3D;&#x3D; &#x27;banned&#x27;) {
+        this.onSignOut();
+      }
       console.log(&quot;app user&quot;, this.user)
       
     })
@@ -660,17 +674,23 @@ export class AppComponent {
       if (event instanceof NavigationEnd) {
         this.showNavbar &#x3D; ![&#x27;/login&#x27;, &#x27;/register&#x27;].includes(event.urlAfterRedirects);
       } });
-
-
   }
 
+  /**
+   * Handles the sign-out process.
+   * Calls the logout method from AuthService, navigates to the login page, and sets the user to null.
+   */
   onSignOut(){
     this.auth.logout().subscribe(_&#x3D;&gt;{
       this.router.navigate([&#x27;/login&#x27;]);
       this.user &#x3D; null;
     });
   }
-  
+    /**
+   * Changes the application language.
+   * Updates the language using CustomTranslateService and sets the new language.
+   * @param lang The new language to set.
+   */
   onLang(lang:string){
     this.lang &#x3D; lang;
     this.translate.use(this.lang);
@@ -738,7 +758,7 @@ export class AppComponent {
         &lt;/ion-title&gt;
         &lt;ion-buttons slot&#x3D;&quot;end&quot;&gt;
           &lt;ion-button routerLink&#x3D;&quot;/profile&quot; *ngIf&#x3D;&quot;(fbAuth.user$ | async)&quot;&gt;
-            &lt;ion-avatar class&#x3D;&quot;user-icon&quot; slot&#x3D;&quot;start&quot;&gt;
+            &lt;ion-avatar class&#x3D;&quot;custom-avatar&quot; slot&#x3D;&quot;start&quot; &gt;
               &lt;ion-img *ngIf&#x3D;&quot;(fbAuth.user$ | async)?.profile_picture&quot; [src]&#x3D;&quot;(fbAuth.user$ | async)?.profile_picture&quot;&gt;&lt;/ion-img&gt;
               &lt;ion-icon *ngIf&#x3D;&quot;!(fbAuth.user$ | async)?.profile_picture&quot; size&#x3D;&quot;large&quot; name&#x3D;&quot;person-circle&quot;&gt;&lt;/ion-icon&gt;
             &lt;/ion-avatar&gt;
@@ -816,6 +836,19 @@ ion-title {
 }
 
 
+.custom-avatar {
+    width: 35px;
+    height: 35px;
+    color: white;
+
+    ion-icon,
+    img {
+        color: white;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
 </code></pre>
     </div>
 
@@ -844,7 +877,7 @@ ion-title {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><ion-app>  <ion-router-outlet></ion-router-outlet>  <ion-menu #menu contentId="main-content" side="end">    <ion-header>      <ion-toolbar class="page-header">        <ion-title>{{ \'menu.menu\' | translate }}</ion-title>      </ion-toolbar>    </ion-header>    <ion-content>      <ion-list>        <ion-menu-toggle auto-hide="false">          <ion-item lines="none" routerLink="/home" routerDirection="root" routerLinkActive="active-link" class="menu-link">            {{ \'menu.home\' | translate }}          </ion-item>          <ion-item lines="none" routerLink="/loans" routerDirection="root" routerLinkActive="active-link" class="menu-link">            {{ \'menu.loans\' | translate }}          </ion-item>          <ion-item lines="none" routerLink="/villagers" routerDirection="root" routerLinkActive="active-link" class="menu-link">            {{ \'menu.villagers\' | translate }}          </ion-item>          <ion-item lines="none" routerLink="/about" routerDirection="root" routerLinkActive="active-link" class="menu-link">            {{ \'menu.about\' | translate }}          </ion-item>          <ion-item *ngIf="this.user?.role == \'admin\'"lines="none" routerLink="/admin" routerDirection="root" routerLinkActive="active-link" class="menu-link">            {{ \'menu.admin\' | translate }}           </ion-item>          <ion-item lines="none" button (click)="onLang(\'es\')" class="menu-link">            <ion-icon slot="start" name="language-outline"></ion-icon>            Cambiar Idioma a ES          </ion-item>          <ion-item lines="none" button (click)="onLang(\'en\')" class="menu-link">            <ion-icon slot="start" name="language-outline"></ion-icon>            Change Language to EN          </ion-item>          <ion-item lines="none" button (click)="onLang(\'rom\')" class="menu-link">            <ion-icon slot="start" name="language-outline"></ion-icon>            Schimbă limba la ROM          </ion-item>          <ion-item lines="none" button (click)="onSignOut()" class="menu-link">            <ion-icon slot="start" name="log-out-outline"></ion-icon>            {{ \'menu.logout\' | translate }}          </ion-item>        </ion-menu-toggle>      </ion-list>    </ion-content>  </ion-menu>  <div class="ion-page" id="main-content">    <ion-header>      <ion-toolbar class="page-header" *ngIf="showNavbar">        <ion-title>          <img src="../assets/icon/favicon.png" alt="icon" class="toolbar-icon">          Nook\'s toolbox        </ion-title>        <ion-buttons slot="end">          <ion-button routerLink="/profile" *ngIf="(fbAuth.user$ | async)">            <ion-avatar class="user-icon" slot="start">              <ion-img *ngIf="(fbAuth.user$ | async)?.profile_picture" [src]="(fbAuth.user$ | async)?.profile_picture"></ion-img>              <ion-icon *ngIf="!(fbAuth.user$ | async)?.profile_picture" size="large" name="person-circle"></ion-icon>            </ion-avatar>          </ion-button>          <ion-menu-button></ion-menu-button>        </ion-buttons>      </ion-toolbar>    </ion-header>    <ion-content>      <p-toast></p-toast>      <ion-router-outlet></ion-router-outlet>    </ion-content>  </div></ion-app></div>'
+        var COMPONENT_TEMPLATE = '<div><ion-app>  <ion-router-outlet></ion-router-outlet>  <ion-menu #menu contentId="main-content" side="end">    <ion-header>      <ion-toolbar class="page-header">        <ion-title>{{ \'menu.menu\' | translate }}</ion-title>      </ion-toolbar>    </ion-header>    <ion-content>      <ion-list>        <ion-menu-toggle auto-hide="false">          <ion-item lines="none" routerLink="/home" routerDirection="root" routerLinkActive="active-link" class="menu-link">            {{ \'menu.home\' | translate }}          </ion-item>          <ion-item lines="none" routerLink="/loans" routerDirection="root" routerLinkActive="active-link" class="menu-link">            {{ \'menu.loans\' | translate }}          </ion-item>          <ion-item lines="none" routerLink="/villagers" routerDirection="root" routerLinkActive="active-link" class="menu-link">            {{ \'menu.villagers\' | translate }}          </ion-item>          <ion-item lines="none" routerLink="/about" routerDirection="root" routerLinkActive="active-link" class="menu-link">            {{ \'menu.about\' | translate }}          </ion-item>          <ion-item *ngIf="this.user?.role == \'admin\'"lines="none" routerLink="/admin" routerDirection="root" routerLinkActive="active-link" class="menu-link">            {{ \'menu.admin\' | translate }}           </ion-item>          <ion-item lines="none" button (click)="onLang(\'es\')" class="menu-link">            <ion-icon slot="start" name="language-outline"></ion-icon>            Cambiar Idioma a ES          </ion-item>          <ion-item lines="none" button (click)="onLang(\'en\')" class="menu-link">            <ion-icon slot="start" name="language-outline"></ion-icon>            Change Language to EN          </ion-item>          <ion-item lines="none" button (click)="onLang(\'rom\')" class="menu-link">            <ion-icon slot="start" name="language-outline"></ion-icon>            Schimbă limba la ROM          </ion-item>          <ion-item lines="none" button (click)="onSignOut()" class="menu-link">            <ion-icon slot="start" name="log-out-outline"></ion-icon>            {{ \'menu.logout\' | translate }}          </ion-item>        </ion-menu-toggle>      </ion-list>    </ion-content>  </ion-menu>  <div class="ion-page" id="main-content">    <ion-header>      <ion-toolbar class="page-header" *ngIf="showNavbar">        <ion-title>          <img src="../assets/icon/favicon.png" alt="icon" class="toolbar-icon">          Nook\'s toolbox        </ion-title>        <ion-buttons slot="end">          <ion-button routerLink="/profile" *ngIf="(fbAuth.user$ | async)">            <ion-avatar class="custom-avatar" slot="start" >              <ion-img *ngIf="(fbAuth.user$ | async)?.profile_picture" [src]="(fbAuth.user$ | async)?.profile_picture"></ion-img>              <ion-icon *ngIf="!(fbAuth.user$ | async)?.profile_picture" size="large" name="person-circle"></ion-icon>            </ion-avatar>          </ion-button>          <ion-menu-button></ion-menu-button>        </ion-buttons>      </ion-toolbar>    </ion-header>    <ion-content>      <p-toast></p-toast>      <ion-router-outlet></ion-router-outlet>    </ion-content>  </div></ion-app></div>'
     var COMPONENTS = [{'name': 'AboutPage', 'selector': 'app-about'},{'name': 'AdminPage', 'selector': 'app-admin'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'HomePage', 'selector': 'app-home'},{'name': 'IslandComponent', 'selector': 'app-island'},{'name': 'IslandFormComponent', 'selector': 'app-island-form'},{'name': 'LoanComponent', 'selector': 'app-loan'},{'name': 'LoanFormComponent', 'selector': 'app-loan-form'},{'name': 'LoanItemComponent', 'selector': 'app-loan-item'},{'name': 'LoansPage', 'selector': 'app-loans'},{'name': 'LoginFormComponent', 'selector': 'app-login-form'},{'name': 'LoginPage', 'selector': 'app-login'},{'name': 'PictureSelectableComponent', 'selector': 'app-picture-selectable'},{'name': 'ProfilePage', 'selector': 'app-profile'},{'name': 'RegisterFormComponent', 'selector': 'app-register-form'},{'name': 'RegisterPage', 'selector': 'app-register'},{'name': 'UserCardComponent', 'selector': 'app-user-card'},{'name': 'UserFormComponent', 'selector': 'app-user-form'},{'name': 'UserListComponent', 'selector': 'app-user-list'},{'name': 'VillagerComponent', 'selector': 'app-villager'},{'name': 'VillagerItemComponent', 'selector': 'app-villager-item'},{'name': 'VillagerSelectableComponent', 'selector': 'app-villager-selectable'},{'name': 'VillagersPage', 'selector': 'app-villagers'}];
     var DIRECTIVES = [{'name': 'BackgroundBlurDirective', 'selector': '[appBackgroundBlur]'},{'name': 'ProgressDirective', 'selector': '[appProgress]'}];
     var ACTUAL_COMPONENT = {'name': 'AppComponent'};

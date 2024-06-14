@@ -22,14 +22,15 @@ export class AppComponent {
   ) {
 
     const returnUrl = localStorage.getItem('returnUrl');
-    console.log("url", returnUrl)
     if (returnUrl && this.auth.isLogged$) {
       localStorage.removeItem('returnUrl');
       this.router.navigateByUrl(returnUrl);
     }
     this.fbAuth.user$.subscribe(user => {
       this.user =user;
-      console.log("app user", this.user)
+      if(user?.role == 'banned') {
+        this.onSignOut();
+      }
       
     })
     this.lang = this.translate.getBrowserLang();
@@ -38,7 +39,7 @@ export class AppComponent {
         this.showNavbar = !['/login', '/register'].includes(event.urlAfterRedirects);
       } });
   }
-  
+
   /**
    * Handles the sign-out process.
    * Calls the logout method from AuthService, navigates to the login page, and sets the user to null.

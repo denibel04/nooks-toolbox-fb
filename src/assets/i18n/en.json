@@ -1,34 +1,38 @@
 {
     "main": {
-        "home": "Home"
+        "home": "Home",
+        "save": "Save",
+        "create": "Create"
     },
     "login": {
         "username": "Username",
         "password": "Password",
-        "login": "Log in",
+        "login": "Log In",
         "welcome": "Welcome back!",
         "register": "Don't have an account?",
-        "create": "Create",
+        "create": "Create Account",
         "account": "Create an account",
         "display": "Display Name",
         "email": "Email",
         "confirm": "Confirm Password",
-        "passwordError": "Password must be at least 8 characters, have a number, an uppercase, and a lowercase letter",
-        "confirmError": "Passwords do not match"
+        "passwordError": "Password must be at least 8 characters long, contain a number, an uppercase letter, and a lowercase letter",
+        "confirmError": "Passwords do not match",
+        "ban": "You are banned and cannot access"
     },
     "home": {
-        "myLoans": "My Loans",
-        "message": "Create an island to get started",
+        "myLoans": "My Debts",
+        "message": "Create an island to start",
         "edit": "Edit",
         "seeAll": "See All"
     },
     "menu": {
         "menu": "Menu",
         "home": "Home",
-        "loans": "My Loans",
+        "loans": "My Debts",
         "villagers": "Villagers",
-        "about": "About Me",
-        "logout": "Logout"
+        "about": "About",
+        "logout": "Logout",
+        "admin": "Administration"
     },
     "island": {
         "name": "Island Name",
@@ -48,16 +52,17 @@
         "hemisphere": {
             "confirm": "Confirm Hemisphere",
             "youarein": "You are in the ",
-            "continue": "Do you want to continue?",
-            "north": "North Hemisphere",
-            "south": "South Hemisphere",
-            "yes": "Continue",
-            "no": "No, continue with the other"
+            "continue": "Continue?",
+            "north": "Northern Hemisphere",
+            "south": "Southern Hemisphere",
+            "yes": "Yes",
+            "no": "No, switch to the other",
+            "none": "Unspecified Hemisphere"
         }
     },
     "loans": {
-        "noCompleted": "Unpaid",
-        "completed": "Paid",
+        "noCompleted": "To Pay",
+        "completed": "Paid Off",
         "title": "Title",
         "amountPaid": "Amount Paid",
         "amountTotal": "Total Amount",
@@ -73,12 +78,12 @@
         },
         "confirm": {
             "header": "Confirm Payment",
-            "message": "Do you want to pay the total debt?",
+            "message": "Do you want to pay off the entire debt?",
             "cancel": "Cancel",
             "yes": "Yes"
         },
         "placeHolder": "Click here to select",
-        "bells": "bells paid",
+        "bells": "Bells Paid",
         "form": {
             "new": "New Debt",
             "edit": "Edit Debt"
@@ -151,12 +156,29 @@
     },
     "about": {
         "projectTitle": "About the Page",
-        "projectText": "Page for the Data Access subject of the second year in Multiplatform Application Development. It consists of a progress tracker for the game 'Animal Crossing New Horizons'",
+        "projectText": "Page for the subject 'Data Access' of the second year of Multiplatform Application Development course. It is a progress tracker for the game 'Animal Crossing New Horizons'.",
         "functionalities": "Key Functionalities",
         "characters": "Character Information",
         "island": "Island Management",
         "loans": "Debt Management",
-        "trans": "Translation Service, Directives, Pipes",
-        "technologies": "Used Technologies"
+        "trans": "Translation service, directives, pipes",
+        "technologies": "Technologies Used"
+    },
+    "profile": {
+        "dreamCode": "Dream Code",
+        "following": "Following",
+        "followers": "Followers",
+        "follow": "Follow",
+        "unfollow": "Unfollow",
+        "edit": "Edit Profile",
+        "ban": "Ban",
+        "mutuals": "Mutuals",
+        "search": "Search",
+        "banned": "This user is banned"
+    },
+    "admin": {
+        "csv-span": "Download CSV with all application information",
+        "csv-download": "Download CSV",
+        "search": "Search Users"
     }
 }

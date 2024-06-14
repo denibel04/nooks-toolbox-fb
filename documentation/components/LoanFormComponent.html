@@ -126,12 +126,6 @@
 
 
 
-    <p class="comment">
-        <h3>Implements</h3>
-    </p>
-    <p class="comment">
-                <code>OnInit</code>
-    </p>
 
 
 <section data-compodoc="block-metadata">
@@ -210,9 +204,6 @@
                 <tr>
                     <td class="col-md-4">
                         <ul class="index-list">
-                            <li>
-                                <a href="#ngOnInit" >ngOnInit</a>
-                            </li>
                             <li>
                                 <a href="#onCancel" >onCancel</a>
                             </li>
@@ -396,43 +387,6 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="ngOnInit"></a>
-                    <span class="name">
-                        <span ><b>ngOnInit</b></span>
-                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>ngOnInit()</code>
-                </td>
-            </tr>
-
-
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="45"
-                                    class="link-to-prism">src/app/shared/components/loan-form/loan-form.component.ts:45</a></div>
-                        </td>
-                    </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                        <div class="io-description">
-                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
-
-                        </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
                     <a name="onCancel"></a>
                     <span class="name">
                         <span ><b>onCancel</b></span>
@@ -449,14 +403,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="49"
-                                    class="link-to-prism">src/app/shared/components/loan-form/loan-form.component.ts:49</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="48"
+                                    class="link-to-prism">src/app/shared/components/loan-form/loan-form.component.ts:48</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Cancels the form operation and dismisses the modal with &#39;cancel&#39; action.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -486,14 +442,18 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="53"
-                                    class="link-to-prism">src/app/shared/components/loan-form/loan-form.component.ts:53</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="57"
+                                    class="link-to-prism">src/app/shared/components/loan-form/loan-form.component.ts:57</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Submits the form data.
+Checks if the loan amount paid exceeds the total amount and shows a confirmation popup if needed.
+Dismisses the modal with &#39;submit&#39; action if confirmed, otherwise updates form values.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -525,14 +485,17 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="64"
-                                    class="link-to-prism">src/app/shared/components/loan-form/loan-form.component.ts:64</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="71"
+                                    class="link-to-prism">src/app/shared/components/loan-form/loan-form.component.ts:71</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Displays a confirmation popup for completing the loan.
+Updates form values based on user response and dismisses the modal with &#39;submit&#39; action.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
@@ -688,7 +651,7 @@ import { LoanService } from &#x27;src/app/core/services/loan.service&#x27;;
   templateUrl: &#x27;./loan-form.component.html&#x27;,
   styleUrls: [&#x27;./loan-form.component.scss&#x27;],
 })
-export class LoanFormComponent implements OnInit {
+export class LoanFormComponent {
   form: FormGroup;
   mode: &#x27;New&#x27; | &#x27;Edit&#x27; &#x3D; &#x27;New&#x27;;
 
@@ -708,7 +671,7 @@ export class LoanFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private loanService: LoanService,
     private alertController: AlertController,
-    private translate:TranslateService
+    private translate: TranslateService
   ) {
     this.form &#x3D; this.formBuilder.group({
       type: [&#x27;&#x27;, Validators.required],
@@ -719,25 +682,32 @@ export class LoanFormComponent implements OnInit {
     });
   }
 
-  ngOnInit(
-
-  ) { }
-
+  /**
+     * Cancels the form operation and dismisses the modal with &#x27;cancel&#x27; action.
+     */
   onCancel() {
     this.formModal.dismiss(null, &#x27;cancel&#x27;)
   }
 
+  /**
+   * Submits the form data.
+   * Checks if the loan amount paid exceeds the total amount and shows a confirmation popup if needed.
+   * Dismisses the modal with &#x27;submit&#x27; action if confirmed, otherwise updates form values.
+   */
   onSubmit() {
     const amountPaid &#x3D; this.form.get(&#x27;amountPaid&#x27;)?.value;
     const amountTotal &#x3D; this.form.get(&#x27;amountTotal&#x27;)?.value;
     const completed &#x3D; this.form.get(&#x27;completed&#x27;)?.value;
-    if ((amountPaid &gt;&#x3D; amountTotal &amp;&amp; !completed) ||( completed &amp;&amp; amountPaid &lt; amountTotal)) {
+    if ((amountPaid &gt;&#x3D; amountTotal &amp;&amp; !completed) || (completed &amp;&amp; amountPaid &lt; amountTotal)) {
       this.showConfirmPopup();
     } else {
       this.formModal.dismiss(this.form.value, &#x27;submit&#x27;);
     }
   }
-
+  /**
+    * Displays a confirmation popup for completing the loan.
+    * Updates form values based on user response and dismisses the modal with &#x27;submit&#x27; action.
+    */
   async showConfirmPopup() {
     const alert &#x3D; await this.alertController.create({
       mode: &#x27;ios&#x27;,
@@ -762,10 +732,10 @@ export class LoanFormComponent implements OnInit {
         }
       ]
     });
-  
+
     await alert.present();
   }
-  
+
 
 }
 </code></pre>

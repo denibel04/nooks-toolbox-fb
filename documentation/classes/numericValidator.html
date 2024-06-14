@@ -123,6 +123,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Returns a validator function that validates numeric input.</p>
+
+            </p>
 
 
 
@@ -185,8 +192,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="5"
-                                    class="link-to-prism">src/app/core/validators/numeric.ts:5</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="9"
+                                    class="link-to-prism">src/app/core/validators/numeric.ts:9</a></div>
                         </td>
                     </tr>
 
@@ -248,7 +255,11 @@
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { AbstractControl, FormControl, ValidationErrors, ValidatorFn } from &#x27;@angular/forms&#x27;;
 
-
+/**
+   * Returns a validator function that validates numeric input.
+   * @param formControlName Optional name of the form control if control is not instance of FormControl.
+   * @returns Validator function for numeric validation.
+   */
 export class numericValidator{
     public static numericProto(formControlName:string&#x3D;&#x27;&#x27;): ValidatorFn{
         return (control: AbstractControl): ValidationErrors | null &#x3D;&gt; {

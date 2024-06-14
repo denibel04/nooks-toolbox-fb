@@ -126,12 +126,6 @@
 
 
 
-    <p class="comment">
-        <h3>Implements</h3>
-    </p>
-    <p class="comment">
-                <code>OnInit</code>
-    </p>
 
 
 <section data-compodoc="block-metadata">
@@ -193,9 +187,6 @@
                 <tr>
                     <td class="col-md-4">
                         <ul class="index-list">
-                            <li>
-                                <a href="#ngOnInit" >ngOnInit</a>
-                            </li>
                             <li>
                                 <a href="#onLogin" >onLogin</a>
                             </li>
@@ -297,43 +288,6 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="ngOnInit"></a>
-                    <span class="name">
-                        <span ><b>ngOnInit</b></span>
-                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>ngOnInit()</code>
-                </td>
-            </tr>
-
-
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="23"
-                                    class="link-to-prism">src/app/pages/login/login.page.ts:23</a></div>
-                        </td>
-                    </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                        <div class="io-description">
-                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
-
-                        </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
                     <a name="onLogin"></a>
                     <span class="name">
                         <span ><b>onLogin</b></span>
@@ -350,14 +304,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="26"
-                                    class="link-to-prism">src/app/pages/login/login.page.ts:26</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="27"
+                                    class="link-to-prism">src/app/pages/login/login.page.ts:27</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Handles the login process using provided user credentials.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -368,6 +324,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -382,6 +339,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>UserCredentials object containing username and password.</p>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -417,7 +378,7 @@ import { RegisterFormComponent } from &#x27;src/app/shared/components/register-f
   templateUrl: &#x27;./login.page.html&#x27;,
   styleUrls: [&#x27;./login.page.scss&#x27;],
 })
-export class LoginPage implements OnInit {
+export class LoginPage {
 
   constructor(
     private auth: FirebaseAuthService,
@@ -425,19 +386,20 @@ export class LoginPage implements OnInit {
     private modal:ModalController
   ) { }
 
-  ngOnInit() {
-  }
-
-  onLogin(credentials:UserCredentials){
-    this.auth.login(credentials).subscribe({
-      next:data&#x3D;&gt;{
-        console.log(&quot;login page data&quot;, data)
-      },
-      error:err&#x3D;&gt;{
-        console.log(err);
-      }
-    });
-  }
+/**
+   * Handles the login process using provided user credentials.
+   * @param credentials UserCredentials object containing username and password.
+   */
+    onLogin(credentials:UserCredentials){
+      this.auth.login(credentials).subscribe({
+        next:data&#x3D;&gt;{
+          console.log(&quot;login page data&quot;, data)
+        },
+        error:err&#x3D;&gt;{
+          console.log(err);
+        }
+      });
+    }
 
 }
 </code></pre>

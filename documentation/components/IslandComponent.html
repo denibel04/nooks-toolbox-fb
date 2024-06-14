@@ -126,12 +126,6 @@
 
 
 
-    <p class="comment">
-        <h3>Implements</h3>
-    </p>
-    <p class="comment">
-                <code>OnInit</code>
-    </p>
 
 
 <section data-compodoc="block-metadata">
@@ -195,9 +189,6 @@
                         <ul class="index-list">
                             <li>
                                 <a href="#getVillagersSlots" >getVillagersSlots</a>
-                            </li>
-                            <li>
-                                <a href="#ngOnInit" >ngOnInit</a>
                             </li>
                             <li>
                                 <a href="#onEditClick" >onEditClick</a>
@@ -370,56 +361,26 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="31"
-                                    class="link-to-prism">src/app/shared/components/island/island.component.ts:31</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="34"
+                                    class="link-to-prism">src/app/shared/components/island/island.component.ts:34</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Generates an array representing slots for villagers on the island.
+If island has villagers, fills the slots with villagers; otherwise, fills with null.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>    <code>[]</code>
 
                         </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="ngOnInit"></a>
-                    <span class="name">
-                        <span ><b>ngOnInit</b></span>
-                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>ngOnInit()</code>
-                </td>
-            </tr>
+                            <div class="io-description">
+                                <p>An array of Villager | null representing villagers slots.</p>
 
-
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="22"
-                                    class="link-to-prism">src/app/shared/components/island/island.component.ts:22</a></div>
-                        </td>
-                    </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                        <div class="io-description">
-                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
-
-                        </div>
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -452,6 +413,9 @@
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Handler for edit button click.
+Emits <code>onEditClicked</code> event to notify parent component.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -462,6 +426,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -476,6 +441,10 @@
                                             </td>
 
 
+                                            <td>
+                                                    <p>Click event object</p>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -506,7 +475,7 @@ import { Villager } from &#x27;src/app/core/interfaces/villager&#x27;;
   templateUrl: &#x27;./island.component.html&#x27;,
   styleUrls: [&#x27;./island.component.scss&#x27;],
 })
-export class IslandComponent implements OnInit {
+export class IslandComponent {
 
   @Input() island: Island | null &#x3D; null;
   @Input() showEdit: boolean &#x3D; false;
@@ -514,23 +483,26 @@ export class IslandComponent implements OnInit {
 
   @Output() onEditClicked: EventEmitter&lt;void&gt; &#x3D; new EventEmitter&lt;void&gt;();
 
-  constructor() {
+  constructor() { }
 
-  }
-
-  ngOnInit() {
-  }
-
+  /**
+    * Handler for edit button click.
+    * Emits &#x60;onEditClicked&#x60; event to notify parent component.
+    * @param event Click event object
+    */
   onEditClick(event: any) {
     this.onEditClicked.emit();
-    console.log(&quot;click en editar&quot;)
   }
 
-
-  getVillagersSlots():(Villager | null)[] {
+  /**
+    * Generates an array representing slots for villagers on the island.
+    * If island has villagers, fills the slots with villagers; otherwise, fills with null.
+    * @returns An array of Villager | null representing villagers slots.
+    */
+  getVillagersSlots(): (Villager | null)[] {
     const placeholders &#x3D; [];
     for (let i &#x3D; 0; i &lt; 10; i++) {
-      if (this.island?.attributes.villagers &amp;&amp; this.island?.attributes?.villagers[i]) 
+      if (this.island?.attributes.villagers &amp;&amp; this.island?.attributes?.villagers[i])
         placeholders.push(this.island?.attributes.villagers[i])
       else
         placeholders.push(null);

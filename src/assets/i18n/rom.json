@@ -1,23 +1,26 @@
 {
     "main": {
-        "home": "Acasă"
+        "home": "Acasă",
+        "save": "Salvează",
+        "create": "Creează"
     },
     "login": {
         "username": "Nume de utilizator",
         "password": "Parolă",
         "login": "Autentificare",
-        "welcome": "Bine ai venit înapoi!",
-        "register": "Nu ai un cont?",
-        "create": "Creează",
+        "welcome": "Bine ai revenit!",
+        "register": "Nu ai cont?",
+        "create": "Înregistrează-te",
         "account": "Creează un cont",
         "display": "Nume vizibil",
-        "email": "Adresă de email",
-        "confirm": "Confirmare parolă",
-        "passwordError": "Parola trebuie să aibă cel puțin 8 caractere, un număr, o majusculă și o minusculă",
-        "confirmError": "Parolele nu se potrivesc"
+        "email": "Email",
+        "confirm": "Confirmă parola",
+        "passwordError": "Parola trebuie să aibă cel puțin 8 caractere, un număr, o literă mare și o literă mică",
+        "confirmError": "Parolele nu se potrivesc",
+        "ban": "Nu poți accesa pentru că ești banat"
     },
     "home": {
-        "myLoans": "Împrumuturile mele",
+        "myLoans": "Datoriile mele",
         "message": "Creează o insulă pentru a începe",
         "edit": "Editează",
         "seeAll": "Vezi toate"
@@ -25,88 +28,90 @@
     "menu": {
         "menu": "Meniu",
         "home": "Acasă",
-        "loans": "Împrumuturile mele",
-        "villagers": "Personaje",
-        "about": "Despre mine",
-        "logout": "Deconectare"
+        "loans": "Datoriile mele",
+        "villagers": "Vecini",
+        "about": "Despre",
+        "logout": "Deconectare",
+        "admin": "Administrație"
     },
     "island": {
         "name": "Numele insulei",
-        "villagers": "Personaje",
+        "villagers": "Vecini",
         "form": {
             "none": "Niciunul",
             "select": "Selectează",
             "new": "Insulă nouă",
-            "edit": "Editează insulă",
+            "edit": "Editează insula",
             "search": "Caută"
         },
         "alert": {
             "header": "Ești sigur?",
-            "message": "Ștergerea acestei insule va șterge și toate datoriile asociate.",
+            "message": "Ștergerea acestei insule va șterge toate datoriile asociate.",
             "cancel": "Anulează"
-        }, 
+        },
         "hemisphere": {
-            "confirm": "Confirmă Hemisphere",
+            "confirm": "Confirmă emisfera",
             "youarein": "Ești în ",
-            "continue": "Doriți să continuați?",
-            "north": "Hemisfera de Nord",
-            "south": "Hemisfera de Sud",
-            "yes": "Continuați",
-            "no": "Nu, continuați cu celălalt"
+            "continue": "Dorești să continui?",
+            "north": "emisfera nordică",
+            "south": "emisfera sudică",
+            "yes": "Continuă",
+            "no": "Nu, continuă cu cealaltă",
+            "none": "Emisfera nespecificată"
         }
     },
     "loans": {
-        "noCompleted": "Neachitat",
-        "completed": "Achitat",
+        "noCompleted": "De plătit",
+        "completed": "Plătite",
         "title": "Titlu",
-        "amountPaid": "Suma achitată",
-        "amountTotal": "Suma totală",
-        "complete": "Achitare completă",
-        "edit": "Editează datorie",
+        "amountPaid": "Sumă plătită",
+        "amountTotal": "Sumă totală",
+        "complete": "Finalizează plata",
+        "edit": "Editează datoria",
         "create": "Datorie nouă",
         "submit": "Trimite",
         "typeTitle": "Selectează tipul",
         "type": {
-            "house": "Casa",
-            "incline": "Inclinare",
+            "house": "Casă",
+            "incline": "Pantă",
             "bridge": "Pod"
         },
         "confirm": {
-            "header": "Confirmare plată",
-            "message": "Vrei să plătești întreaga datorie?",
+            "header": "Confirmă plata",
+            "message": "Dorești să plătești întreaga datorie?",
             "cancel": "Anulează",
             "yes": "Da"
         },
-        "placeHolder": "Apasă aici pentru a selecta",
-        "bells": "clopotei plătiți",
+        "placeHolder": "Click aici pentru a selecta",
+        "bells": "clopote plătite",
         "form": {
             "new": "Datorie nouă",
-            "edit": "Editează datorie"
+            "edit": "Editează datoria"
         }
     },
     "villagers": {
         "personality": "Personalitate",
         "personalities": {
             "Lazy": "Leneș",
-            "Jock": "Atlet",
-            "Cranky": "Morf",
-            "Smug": "Îngâmfat",
+            "Jock": "Atletic",
+            "Cranky": "Morocănos",
+            "Smug": "Arogant",
             "Normal": "Normal",
             "Peppy": "Vioi",
-            "Snooty": "Înfumurat",
-            "Big sister": "Soră mai mare"
+            "Snooty": "Afectat",
+            "Big sister": "Sora mare"
         },
         "species": {
             "Alligator": "Aligator",
-            "Anteater": "Urșel cu furnici",
+            "Anteater": "Furnicar",
             "Bear": "Urs",
             "Bird": "Pasăre",
             "Bull": "Taur",
-            "Cat": "Cățel",
-            "Chicken": "Pui",
-            "Cow": "Vaca",
-            "Bear cub": "Ursuleț",
-            "Deer": "Cerbuț",
+            "Cat": "Pisică",
+            "Chicken": "Găină",
+            "Cow": "Vacă",
+            "Bear cub": "Pui de urs",
+            "Deer": "Cerb",
             "Dog": "Câine",
             "Duck": "Rață",
             "Eagle": "Vultur",
@@ -133,7 +138,7 @@
             "Tiger": "Tigru",
             "Wolf": "Lup"
         },
-        "birthday": "Ziua de naștere",
+        "birthday": "Zi de naștere",
         "months": {
             "January": "Ianuarie",
             "February": "Februarie",
@@ -150,13 +155,30 @@
         }
     },
     "about": {
-        "projectTitle": "Despre Pagină",
-        "projectText": "Pagină pentru subiectul Acces la Date din al doilea an al Dezvoltării de Aplicații Multiplatformă. Consta într-un urmăritor de progres pentru jocul 'Animal Crossing New Horizons'",
-        "functionalities": "Funcționalități Chei",
-        "characters": "Informații despre Personaje",
-        "island": "Gestionarea Insulei",
-        "loans": "Gestionarea de datorii",
-        "trans": "Serviciu de Traducere, Directive, Pipes",
-        "technologies": "Tehnologii Folosite"
+        "projectTitle": "Despre pagină",
+        "projectText": "Pagină pentru cursul de Acces la date din al doilea an de Dezvoltare a aplicațiilor multiplatformă. Este un urmăritor de progres pentru jocul 'Animal Crossing New Horizons'.",
+        "functionalities": "Funcționalități cheie",
+        "characters": "Informații despre personaje",
+        "island": "Managementul insulei",
+        "loans": "Managementul datoriilor",
+        "trans": "Serviciu de traducere, directive, pipes",
+        "technologies": "Tehnologii utilizate"
+    },
+    "profile": {
+        "dreamCode": "Cod de vis",
+        "following": "Urmărești",
+        "followers": "Urmăritori",
+        "follow": "Urmărește",
+        "unfollow": "Nu mai urmări",
+        "edit": "Editează profilul",
+        "ban": "Banează",
+        "mutuals": "Prieteni",
+        "search": "Căutare",
+        "banned": "Acest utilizator este banat"
+    },
+    "admin": {
+        "csv-span": "Descarcă CSV cu toate informațiile aplicației",
+        "csv-download": "Descarcă CSV",
+        "search": "Caută utilizatori"
     }
 }

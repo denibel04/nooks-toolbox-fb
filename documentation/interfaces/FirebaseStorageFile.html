@@ -126,6 +126,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Interface representing a file in Firebase Storage.</p>
+
+            </p>
 
 
         <section data-compodoc="block-index">
@@ -243,17 +250,25 @@ import { createUserWithEmailAndPassword, deleteUser, signInAnonymously, signOut,
 import { NavigationEnd, Router } from &quot;@angular/router&quot;;
 import { fakeAsync } from &quot;@angular/core/testing&quot;;
 
+/**
+ * Interface representing a file in Firebase Storage.
+ */
 export interface FirebaseStorageFile {
   path: string,
   file: string
 };
 
+/**
+ * Interface representing a document in Firestore.
+ */
 export interface FirebaseDocument {
   id: string;
   data: DocumentData;
 }
 
-
+/**
+ * Interface representing a user credential in Firebase Authentication.
+ */
 export interface FirebaseUserCredential {
   user: UserCredential
 }
@@ -280,6 +295,10 @@ export class FirebaseService {
     this.init(config);
   }
 
+  /**
+  * Initializes Firebase services and sets up authentication state change listener.
+  * @param firebaseConfig  Firebase configuration object.
+  */
   public init(firebaseConfig: any) {
     // Initialize Firebase
     this._app &#x3D; initializeApp(firebaseConfig);
@@ -309,10 +328,22 @@ export class FirebaseService {
 
   }
 
+  /**
+  * Getter for the current user object.
+  */
   public get user(): User | null {
     return this._user;
   }
 
+  /**
+ * Uploads a file to Firebase Storage.
+ * @param blob The file blob to upload.
+ * @param mimeType The MIME type of the file.
+ * @param path The storage path where the file will be stored.
+ * @param prefix The prefix to prepend to the filename.
+ * @param extension The file extension (e.g., &#x27;.jpg&#x27;).
+ * @returns { Promise&lt;FirebaseStorageFile&gt;}
+ */
   public fileUpload(blob: Blob, mimeType: string, path: string, prefix: string, extension: string): Promise&lt;FirebaseStorageFile&gt; {
     return new Promise(async (resolve, reject) &#x3D;&gt; {
       if (!this._webStorage || !this._auth)
@@ -354,11 +385,20 @@ export class FirebaseService {
     });
   }
 
+  /**
+   * Uploads an image file to Firebase Storage.
+   * @param blob The image blob to upload.
+   * @returns {Promise&lt;any&gt;}
+   */
   public imageUpload(blob: Blob): Promise&lt;any&gt; {
     return this.fileUpload(blob, &#x27;image/jpeg&#x27;, &#x27;images&#x27;, &#x27;image&#x27;, &quot;.jpg&quot;);
   }
 
-
+  /**
+     * Deletes a file from Firebase Storage.
+     * @param path The storage path of the file to delete.
+     * @returns {Promise&lt;void&gt;}
+     */
   public deleteFile(path: string): Promise&lt;void&gt; {
     return new Promise(async (resolve, reject) &#x3D;&gt; {
       try {
@@ -372,6 +412,12 @@ export class FirebaseService {
     });
   }
 
+  /**
+   * Creates a new document in a Firestore collection.
+   * @param collectionName Name of the Firestore collection.
+   * @param data The data to be stored in the document.
+   * @returns {Promise&lt;string&gt;}
+   */
   public createDocument(collectionName: string, data: any): Promise&lt;string&gt; {
     return new Promise((resolve, reject) &#x3D;&gt; {
       if (!this._db)
@@ -384,6 +430,13 @@ export class FirebaseService {
     });
   }
 
+  /**
+   * Creates a new document with a specific ID in a Firestore collection.
+   * @param collectionName The name of the Firestore collection.
+   * @param data The data to be stored in the document.
+   * @param docId The ID of the document to be created.
+   * @returns {Promise&lt;void&gt;}
+   */
   public createDocumentWithId(
     collectionName: string,
     data: any,
@@ -402,6 +455,13 @@ export class FirebaseService {
     });
   }
 
+  /** 
+     * Updates an existing document in a Firestore collection.
+     * @param collectionName The name of the Firestore collection.
+     * @param document  ID of the document to update.
+     * @param data Updated data to be stored in the document.
+     * @returns {Promise&lt;void&gt;}
+     */
   public updateDocument(collectionName: string, document: string | undefined, data: any): Promise&lt;void&gt; {
     return new Promise(async (resolve, reject) &#x3D;&gt; {
       if (!this._db)
@@ -414,6 +474,11 @@ export class FirebaseService {
     });
   }
 
+  /**
+ * Retrieves all documents from a Firestore collection.
+ * @param collectionName The name of the Firestore collection.
+ * @returns {Promise&lt;FirebaseDocument[]&gt;}
+ */
   public getDocuments(collectionName: string): Promise&lt;FirebaseDocument[]&gt; {
     return new Promise(async (resolve, reject) &#x3D;&gt; {
       if (!this._db)
@@ -427,6 +492,14 @@ export class FirebaseService {
     });
   }
 
+  /**
+  * Retrieves paginated documents from a Firestore collection.
+  * @param collectionName The name of the Firestore collection.
+  * @param pageSize The number of documents to fetch per page.
+  * @param filterBy The field to use for ordering.
+  * @param lastDocument The last document from the previous page (optional).
+  * @returns {Promise&lt;FirebaseDocument[]&gt;}
+  */
   public getDocumentsPaginated(collectionName: string, pageSize: number, filterBy: string, lastDocument?: any): Promise&lt;FirebaseDocument[]&gt; {
     return new Promise((resolve, reject) &#x3D;&gt; {
       if (!this._db) {
@@ -455,6 +528,12 @@ export class FirebaseService {
     });
   }
 
+  /**
+   * Retrieves a single document from Firestore.
+   * @param collectionName The name of the collection.
+   * @param document The ID of the document to retrieve.
+   * @returns {Promise&lt;FirebaseDocument&gt;}
+   */
   public getDocument(collectionName: string, document: string): Promise&lt;FirebaseDocument&gt; {
     return new Promise(async (resolve, reject) &#x3D;&gt; {
       if (!this._db)
@@ -473,6 +552,13 @@ export class FirebaseService {
     });
   }
 
+  /**
+  * Retrieves documents from Firestore filtered by a specific field and value.
+  * @param collectionName The name of the collection.
+  * @param field The field to filter documents by.
+  * @param value The value to filter documents by.
+  * @returns {Promise&lt;FirebaseDocument[]&gt;}
+  */
   public getDocumentsBy(collectionName: string, field: string, value: any): Promise&lt;FirebaseDocument[]&gt; {
     return new Promise(async (resolve, reject) &#x3D;&gt; {
       if (!this._db)
@@ -488,6 +574,14 @@ export class FirebaseService {
     });
   }
 
+  /**
+   * Retrieves documents from Firestore filtered by a specific field and value, with optional case-sensitive filtering.
+   * @param collectionName The name of the collection.
+   * @param field The field to filter documents by.
+   * @param value The value to filter documents by.
+   * @param capitalize Whether to capitalize the search value.
+   * @returns {Promise&lt;FirebaseDocument[]&gt;}
+   */
   public getDocumentsFiltered(collectionName: string, field: string, value: any, capitalize: boolean &#x3D; false): Promise&lt;FirebaseDocument[]&gt; {
     return new Promise(async (resolve, reject) &#x3D;&gt; {
       if (!this._db)
@@ -507,7 +601,12 @@ export class FirebaseService {
     });
   }
 
-
+  /**
+     * Deletes a document from Firestore.
+     * @param collectionName The name of the collection.
+     * @param docId The ID of the document to delete.
+     * @returns {Promise&lt;void&gt;}
+     */
   public deleteDocument(collectionName: string, docId: string): Promise&lt;void&gt; {
     return new Promise(async (resolve, reject) &#x3D;&gt; {
       if (!this._db)
@@ -518,6 +617,13 @@ export class FirebaseService {
     });
   }
 
+  /**
+  * Subscribes to changes in a Firestore collection.
+  * @param collectionName The name of the collection.
+  * @param subject The BehaviorSubject to update with collection changes.
+  * @param mapFunction The function to map DocumentData to a specific format.
+  * @returns A function to unsubscribe from the snapshot listener.
+  */
   public subscribeToCollection(collectionName: string, subject: BehaviorSubject&lt;any[]&gt;, mapFunction: (el: DocumentData) &#x3D;&gt; any): Unsubscribe | null {
     if (!this._db)
       return null;
@@ -526,6 +632,11 @@ export class FirebaseService {
     }, error &#x3D;&gt; { });
   }
 
+  /**
+   * Signs out the current user.
+   * @param signInAnon Whether to sign in anonymously after signing out.
+   * @returns {Promise&lt;void&gt;}
+   */
   public signOut(signInAnon: boolean &#x3D; false): Promise&lt;void&gt; {
     return new Promise&lt;void&gt;(async (resolve, reject) &#x3D;&gt; {
       if (this._auth)
@@ -541,6 +652,10 @@ export class FirebaseService {
 
   }
 
+  /**
+   * Checks if a user is currently connected.
+   * @returns {Promise&lt;boolean&gt;}
+   */
   public isUserConnected(): Promise&lt;boolean&gt; {
     const response &#x3D; new Promise&lt;boolean&gt;(async (resolve, reject) &#x3D;&gt; {
       if (!this._auth)
@@ -550,6 +665,10 @@ export class FirebaseService {
     return response;
   }
 
+  /**
+   * Checks if a user is currently connected anonymously.
+   * @returns {Promise&lt;boolean&gt;}
+   */
   public isUserConnectedAnonymously(): Promise&lt;boolean&gt; {
     const response &#x3D; new Promise&lt;boolean&gt;(async (resolve, reject) &#x3D;&gt; {
       if (!this._auth)
@@ -560,6 +679,10 @@ export class FirebaseService {
 
   }
 
+  /**
+  * Connects to Firebase anonymously.
+  * @returns {Promise&lt;void&gt;}
+  */
   public connectAnonymously(): Promise&lt;void&gt; {
     const response &#x3D; new Promise&lt;void&gt;(async (resolve, reject) &#x3D;&gt; {
       if (!this._auth)
@@ -577,6 +700,12 @@ export class FirebaseService {
     return response;
   }
 
+  /**
+   * Creates a new user account with email and password.
+   * @param email The user&#x27;s email address.
+   * @param password The user&#x27;s password.
+   * @returns {Promise&lt;FirebaseUserCredential | null&gt;}
+   */
   public createUserWithEmailAndPassword(email: string, password: string): Promise&lt;FirebaseUserCredential | null&gt; {
     console.log(&quot;create user&quot;, email, password)
     return new Promise(async (resolve, reject) &#x3D;&gt; {
@@ -609,6 +738,12 @@ export class FirebaseService {
 
   }
 
+  /**
+  * Signs in a user with email and password.
+  * @param email The user&#x27;s email address.
+  * @param password The user&#x27;s password.
+  * @returns {Promise&lt;FirebaseUserCredential | null&gt;}
+  */
   public connectUserWithEmailAndPassword(email: string, password: string): Promise&lt;FirebaseUserCredential | null&gt; {
     return new Promise&lt;FirebaseUserCredential | null&gt;(async (resolve, reject) &#x3D;&gt; {
       if (!this._auth)
@@ -618,6 +753,10 @@ export class FirebaseService {
 
   }
 
+  /**
+  * Deletes the currently signed-in user account.
+  * @returns {Promise&lt;void&gt;}
+  */
   public deleteUser(): Promise&lt;void&gt; {
     return new Promise&lt;void&gt;((resolve, reject) &#x3D;&gt; {
       if (!this._user)
@@ -626,6 +765,14 @@ export class FirebaseService {
     });
   }
 
+  /**
+  * Updates a specific field of a document in Firestore.
+  * @param collectionName The name of the collection.
+  * @param document The ID of the document to update.
+  * @param fieldName The name of the field to update.
+  * @param fieldValue The new value of the field.
+  * @returns {Promise&lt;void&gt;}
+  */
   public updateDocumentField(collectionName: string, document: string, fieldName: string, fieldValue: any): Promise&lt;void&gt; {
     return new Promise(async (resolve, reject) &#x3D;&gt; {
       if (!this._db) {
@@ -633,10 +780,8 @@ export class FirebaseService {
           msg: &quot;Database is not connected&quot;
         });
       }
-
       const documentRef &#x3D; doc(this._db as Firestore, collectionName, document);
       const fieldUpdate &#x3D; { [fieldName]: fieldValue }; // Crear un objeto con el campo a actualizar
-
       try {
         await updateDoc(documentRef, fieldUpdate);
         resolve();

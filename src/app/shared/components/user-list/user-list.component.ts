@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Route, Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { User } from 'src/app/core/interfaces/user';
 import { UserService } from 'src/app/core/services/user.service';
@@ -16,7 +17,8 @@ export class UserListComponent  implements OnInit {
 
   constructor(
     private modalController: ModalController,
-    private userSvc: UserService
+    private userSvc: UserService,
+    private router:Router
   ) { }
 
    /**
@@ -46,5 +48,15 @@ export class UserListComponent  implements OnInit {
     }
     
   }
-
+  
+  /**
+ * Navigates to the profile page of a user with the specified UUID.
+ * Dismisses any open modal before navigating.
+ * 
+ * @param uuid The UUID of the user whose profile page to navigate to.
+ */
+  async goToUserProfile(uuid: string) {
+    await this.modalController.dismiss();
+    await this.router.navigate(['/profile', uuid]);
+  }
 }

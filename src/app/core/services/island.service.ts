@@ -140,7 +140,7 @@ export class IslandService {
    * Updates the details of an existing island.
    * @param is Island object representing the island to be updated.
    * @param info Updated information for the island.
-   * @returns {Observable<Island>}
+   * @returns {An Observable that completes when the island is successfully updated.}
    */
   public updateIsland(is: Island, info: any): Observable<Island> {
     let villagers: string[] = [];
