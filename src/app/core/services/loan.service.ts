@@ -35,6 +35,7 @@ export class LoanService {
   }
 
   public getUserLoans(): Observable<Loan[]> {
+    console.log("userloans")
     return new Observable(observer => {
       this.fbAuth.user$.subscribe(user => {
         if (user) {
@@ -57,10 +58,10 @@ export class LoanService {
               );
             } else {
               observer.next([]);
+              this._loans.next([])
               observer.complete();
               return;
             }
-
           });
         }
       });

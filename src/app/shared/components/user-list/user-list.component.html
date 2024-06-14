@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
   <ion-buttons slot="start">
-    <ion-button color="primary" fill="clear" (click)="onCancel()">
+    <ion-button fill="clear" (click)="onCancel()">
       <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
     </ion-button>
   </ion-buttons>
@@ -12,9 +12,9 @@
 </ion-header>
 <ion-content >
   <div class="user-list">
-    <ion-list>
-      <ion-item *ngFor="let user of users">
-        <ion-avatar aria-hidden="true" slot="start">
+    <ion-list mode="ios">
+      <ion-item  mode="ios" *ngFor="let user of users" [button]="true">
+        <ion-avatar class="custom-avatar" aria-hidden="true" slot="start">
           <img *ngIf="user?.profile_picture" [src]="user?.profile_picture" />
           <ion-icon *ngIf="!user?.profile_picture" size="large" name="person-circle"></ion-icon>
         </ion-avatar>
@@ -22,6 +22,7 @@
           <h2>@{{ user.username }}</h2>
         </ion-label>
       </ion-item>
+      
     </ion-list>
   </div>
 </ion-content>

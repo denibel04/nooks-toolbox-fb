@@ -1,7 +1,7 @@
-<ion-content class="ion-padding">
+<ion-content class="ion-padding" [fullscreen]="true" [appBackgroundBlur]="isModalOpen">
 
   <div class="current-user-container">
-    <app-user-card [user]="user$ | async" [buttonType]="isMe ? 'edit' : 'none'"></app-user-card>
+    <app-user-card [user]="user$ | async" [buttonType]="isMe ? 'edit' : 'none'" (editModal)="onModalEdit($event)"></app-user-card>
     <div class="island" *ngIf="is">
       <app-island  [island]="currentIsland" [showEdit]="false"></app-island>
     </div>

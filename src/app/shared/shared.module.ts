@@ -25,9 +25,11 @@ import { UserFormComponent } from './components/user-form/user-form.component';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { VirtualScrollerModule } from 'primeng/virtualscroller';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
-
-
-
+import { InputMaskModule } from 'primeng/inputmask';
+import { InputTextModule } from 'primeng/inputtext';
+import { CheckboxModule } from 'primeng/checkbox';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { DividerModule } from 'primeng/divider';
 
 @NgModule({
   declarations: [
@@ -63,6 +65,9 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
     ReactiveFormsModule,
     VirtualScrollerModule,
     OverlayPanelModule,
+    InputMaskModule,
+    InputTextModule,
+    DividerModule,
     TranslateModule.forChild({
       loader: {
       provide: TranslateLoader,

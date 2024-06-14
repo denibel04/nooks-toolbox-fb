@@ -84,6 +84,7 @@ export class UserService {
   }
 
 
+
   public async updateUser(user: User, info: any): Promise<Observable<User>> {
     console.log("update user", user, info);
     let postdata: any = {
@@ -91,39 +92,47 @@ export class UserService {
       role: user.role
     };
 
-    if (info.data.dream_code || user.dream_code) {
-      postdata.dream_code = info.data.dream_code || user.dream_code;
+    if (info.data.dream_code !== undefined) {
+      if (info.data.dream_code === '') {
+        postdata.dream_code = null; 
+      } else {
+        postdata.dream_code = info.data.dream_code;
+      }
+    } else if (user.dream_code) {
+      postdata.dream_code = user.dream_code;
     }
 
-    if (info.data.profile_picture) {
-      const file: File = info.data.profile_picture;
-      try {
-        const url = await this.fbSvc.imageUpload(file);
-        console.log("file", url);
+    if (info.data.profile_picture !== undefined) {
+      if (info.data.profile_picture === null) {
         if (user.profile_picture) {
           await this.fbSvc.deleteFile(user.profile_picture);
         }
-        postdata.profile_picture = url.file;
-      } catch (error) {
-        console.error('Error al subir la nueva imagen:', error);
-        throw error;
+        postdata.profile_picture = null;
+      } else {
+        const file: File = info.data.profile_picture;
+        try {
+          const url = await this.fbSvc.imageUpload(file);
+          console.log("file", url);
+          if (user.profile_picture) {
+            await this.fbSvc.deleteFile(user.profile_picture);
+          }
+          postdata.profile_picture = url.file;
+        } catch (error) {
+          console.error('Error al subir la nueva imagen:', error);
+          throw error;
+        }
       }
     } else if (user.profile_picture) {
       postdata.profile_picture = user.profile_picture;
     }
 
-    try {
-      await this.fbSvc.updateDocument('users', user.uuid, postdata);
-      this.fbAuth.me().subscribe(updatedUser => {
-        this.fbAuth.updateProfilePictureAndUser(updatedUser);
-      });
-      return new Observable(observer => {
-        observer.complete();
-      });
-    } catch (error) {
-      console.error('Error al actualizar el documento del usuario:', error);
-      throw error;
-    }
+    await this.fbSvc.updateDocument('users', user.uuid, postdata);
+    this.fbAuth.me().subscribe(updatedUser => {
+      this.fbAuth.updateProfilePictureAndUser(updatedUser);
+    });
+    return new Observable(observer => {
+      observer.complete();
+    });
   }
 
   followUser(userToFollow: User, currentUser: User): Observable<void> {
@@ -228,19 +237,21 @@ export class UserService {
       };
       users.push(user);
     });
-    return users; 
+    return users;
   }
+
+
   public banUser(user: User): Observable<User[]> {
     return new Observable(observer => {
       console.log("ban", user)
       this.fbSvc.updateDocument('users', user.uuid, { role: 'banned' }).then(() => {
         const updatedUser: User = { ...user, role: 'banned' };
-  
+
         const currentUsers = this._users.value;
         const updatedUsers = currentUsers.map(u => u.uuid === updatedUser.uuid ? updatedUser : u);
-  
+
         this._users.next(updatedUsers);
-  
+
         observer.next(updatedUsers);
         observer.complete();
       }).catch(error => {
@@ -248,5 +259,5 @@ export class UserService {
       });
     });
   }
-  
+
 }  

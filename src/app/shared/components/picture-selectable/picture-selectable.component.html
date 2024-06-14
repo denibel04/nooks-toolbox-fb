@@ -17,12 +17,12 @@
         </div>
       </ng-template>
     </ion-modal>
-    <ion-img id="picture" [src]="picture$ | async"></ion-img>
-    <ion-button *ngIf="!isDisabled"
+    <ion-img id="picture" [src]="picture$ | async" (click)="onChangePicture($event, fileLoader)"></ion-img>
+    <!--<ion-button *ngIf="!isDisabled"
       style="position:absolute;top:0;right:0;--background:rgba(var(--ion-color-primary-rgb), 0.7);"
-      expand="full" (click)="onChangePicture($event, fileLoader)">
+      expand="full">
       <ion-icon slot="icon-only" name="image"></ion-icon>
-    </ion-button>
+    </ion-button>-->
     <ion-button *ngIf="!isDisabled"
       style="position:absolute;top:40px;right:0;--background:rgba(var(--ion-color-danger-rgb), 0.7);"
       expand="full" (click)="onDeletePicture($event)">

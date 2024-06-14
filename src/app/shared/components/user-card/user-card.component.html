@@ -1,10 +1,14 @@
 <ion-card class="profile-container"  [ngClass]="{ 'banned': user?.role === 'banned' }" color="primary">
   <ion-card-content>
     <div class="button">
-      <span *ngIf="user?.role == 'banned'">{{ 'profile.banned' | translate}} &nbsp;</span>
+      <p *ngIf="user?.role == 'banned'">{{ 'profile.banned' | translate}} &nbsp;</p>
       <ion-button *ngIf="buttonConfig" shape="round" [color]="buttonConfig.color" [fill]="buttonConfig.fill" [disabled]="buttonConfig.action == 'ban' && user?.role == 'banned'" (click)="handleButtonClick($event)">
-        {{ 'profile.' + buttonConfig.text | translate}}
+        <ion-icon [name]="buttonConfig.icon" [slot]="buttonConfig.slot"></ion-icon>
+        <span *ngIf="buttonConfig.action !== 'edit'">
+          {{ 'profile.' + buttonConfig.text | translate}}
+        </span>
       </ion-button>
+      
     </div>
     <div class="img">
       <img *ngIf="user?.profile_picture" [src]="user?.profile_picture" />
@@ -17,13 +21,13 @@
     <div class="follow-table">
       <table class="followers-table">
         <tr>
-          <td class="follow-cell" (click)="openUserListModal('following')">
+          <td class="follow-cell" (click)="openUserListModal('following', $event)">
             <p>{{ 'profile.following' | translate }}</p>
-            <h1>{{isMe ? (this.user?.following ? this.user?.following?.length : 0) :  followingCount}}</h1>
+            <h1>{{this.user?.following ?  this.user?.following?.length : 0}} </h1>
           </td>
-          <td class="follow-cell" (click)="openUserListModal('followers')">
+          <td class="follow-cell" (click)="openUserListModal('followers', $event)">
             <p>{{ 'profile.followers' | translate }}</p>
-            <h1>{{isMe ? (this.user?.followers ? this.user?.followers?.length : 0) :  followersCount}}</h1>
+            <h1>{{this.user?.followers ?  this.user?.followers?.length : 0}} </h1>
           </td>
         </tr>
       </table>

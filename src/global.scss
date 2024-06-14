@@ -32,9 +32,8 @@
 
 
 .active-link {
-    color: var(--ion-color-secondary) !important;
+    color: var(--ion-color-secondary-tint) !important;
 }
-
 
 
 .progress-bar {
@@ -87,3 +86,5 @@ ion-searchbar {
 ion-searchbar.ios.custom {
     --cancel-button-color: var(--ion-color-secondary-shade) !important;
 }
+
+.p-inputgroup .p-inputtext, .p-fluid .p-inputgroup .p-inputtext{ &.p-inputmask{ width: auto; } }

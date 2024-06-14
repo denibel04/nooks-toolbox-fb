@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
   <ion-buttons slot="start">
-    <ion-button color="primary" fill="clear" (click)="onCancel()">
+    <ion-button fill="clear" (click)="onCancel()">
       <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
     </ion-button>
   </ion-buttons>
@@ -9,7 +9,7 @@
     {{ mode == 'New' ? ('island.form.new' | translate) : ('island.form.edit' | translate) }}
   </ion-title>
   <ion-buttons slot="end">
-    <ion-button *ngIf="mode=='Edit'" color="primary" fill="clear" (click)="onDelete()">
+    <ion-button *ngIf="mode=='Edit'"  fill="clear" (click)="onDelete()">
       <ion-icon slot="icon-only" name="trash-outline" ></ion-icon>
     </ion-button>
   </ion-buttons>
@@ -30,5 +30,5 @@
   </form>
 </ion-content>
 <ion-footer>
-  <ion-button type="submit" [disabled]="!form.valid || !form.dirty" class="ion-padding" expand="full" (click)="onSubmit()">{{mode=='New'?'Create':'Save'}}</ion-button>
+  <ion-button type="submit" [disabled]="!form.valid || !form.dirty" class="ion-padding" expand="full" (click)="onSubmit()">{{mode==('New')?('main.create' | translate):('main.save' | translate)}}</ion-button>
 </ion-footer>

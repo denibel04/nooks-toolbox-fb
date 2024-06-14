@@ -5,3 +5,19 @@ app-picture-selectable {
     justify-content: center;
     border-radius: 50%;
 }
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding-left: 1.5rem;
+}
+
+:host ::ng-deep .p-inputtext {
+    width: 100%;
+}
+
+ion-toolbar {
+    --background: var(--ion-color-secondary);
+    --color: white;
+}

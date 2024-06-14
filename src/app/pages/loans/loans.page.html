@@ -1,27 +1,27 @@
-
-
-  <ion-content class="ion-padding" [appBackgroundBlur]="isModalOpen">
-    <ion-button *ngIf="_island" color="secondary" class="add" shape="round" aria-label="New Loan" (click)="onNewLoan()">
-    <ion-icon slot="icon-only" name="add-outline"></ion-icon>
-  </ion-button>
-    <div class="title">
-      <hr>
-      <h1> {{'loans.noCompleted' | translate}} </h1>
-      <hr>
-    </div>
-    <div class="loans">
-      <app-loan class="loan" *ngFor="let loan of (loanService.loans$ | async) || [] | loanCompleted:false" [loan]="loan"
-        (onEditClicked)="onEditClicked(loan)" (onDeleteClicked)="onDeleteClicked(loan)">
-      </app-loan>
-    </div>
-    <div class="title">
-      <hr>
-      <h1> {{'loans.completed' | translate}} </h1>
-      <hr>
-    </div>
-    <div class="loans">
-      <app-loan class="loan" *ngFor="let loan of (loanService.loans$ | async) || [] | loanCompleted:true" [loan]="loan"
-        (onDeleteClicked)="onDeleteClicked(loan)">
-      </app-loan>
-    </div>
-  </ion-content>
+<ion-content class="ion-padding" [appBackgroundBlur]="isModalOpen">
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end" *ngIf="_island">
+    <ion-fab-button color="secondary" (click)="onNewLoan()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <div class="title">
+    <hr>
+    <h1> {{'loans.noCompleted' | translate}} </h1>
+    <hr>
+  </div>
+  <div class="loans">
+    <app-loan class="loan" *ngFor="let loan of (loanService.loans$ | async) || [] | loanCompleted:false" [loan]="loan"
+      (onEditClicked)="onEditClicked(loan)" (onDeleteClicked)="onDeleteClicked(loan)">
+    </app-loan>
+  </div>
+  <div class="title">
+    <hr>
+    <h1> {{'loans.completed' | translate}} </h1>
+    <hr>
+  </div>
+  <div class="loans">
+    <app-loan class="loan" *ngFor="let loan of (loanService.loans$ | async) || [] | loanCompleted:true" [loan]="loan"
+      (onDeleteClicked)="onDeleteClicked(loan)">
+    </app-loan>
+  </div>
+</ion-content>

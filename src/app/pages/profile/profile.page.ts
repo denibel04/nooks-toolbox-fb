@@ -20,6 +20,7 @@ export class ProfilePage {
 
   protected _user = new BehaviorSubject<User | null>(null);
   public user$: Observable<User | null> = this._user.asObservable();
+  public isMe: boolean = true;
 
   public filteredUsers: User[] | undefined;
   public mutualUsers: User[] | undefined;
@@ -27,7 +28,7 @@ export class ProfilePage {
   public is: boolean = false;
   public currentIsland: Island | null = null;
 
-  public isMe: boolean = true;
+  isModalOpen = false
 
   constructor(
     private fbSvc: FirebaseService,
@@ -37,7 +38,7 @@ export class ProfilePage {
     private route: ActivatedRoute,
     private router: Router,
   ) {
-   
+
 
     this.route.paramMap.subscribe(async params => {
       const userId = params.get('uuid');
@@ -47,7 +48,7 @@ export class ProfilePage {
         const user = await this.userSvc.getUserById(userId);
         if (user) {
           this._user.next(user);
-          this.islandService.getUserIslandById(user.uuid!).subscribe(is =>{
+          this.islandService.getUserIslandById(user.uuid!).subscribe(is => {
             this.is = !!is;
             if (this.is) {
               this.currentIsland = is;
@@ -79,8 +80,8 @@ export class ProfilePage {
     }
   }
 
-  async ngOnInit() {
-    
+  onModalEdit(isOpen: boolean) {
+    this.isModalOpen = isOpen;
   }
 
   isUserFollowed(userUuid: any): boolean {
@@ -114,10 +115,10 @@ export class ProfilePage {
     this.mutualUsers = users.filter((user): user is User => user !== undefined);
   }
 
-  goToUserPage(user:any) {
+  goToUserPage(user: any) {
     console.log("ppp", user)
     this.router.navigate(['/profile/' + user.uuid])
-    
+
   }
 
 }

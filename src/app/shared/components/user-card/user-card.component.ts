@@ -11,6 +11,8 @@ interface ButtonConfig {
   action: string;
   color: string;
   fill: string;
+  icon: string,
+  slot:string;
 }
 
 @Component({
@@ -31,9 +33,9 @@ export class UserCardComponent  implements OnInit {
 
   @Output() follow = new EventEmitter<User>();
   @Output() unfollow = new EventEmitter<User>();
+  @Output() editModal = new EventEmitter<boolean>();
 
   buttonConfig!: ButtonConfig | null ;
-  isModalOpen:Boolean = false;
   followersCount:number  = 0
   followingCount:number = 0;
 
@@ -42,27 +44,36 @@ export class UserCardComponent  implements OnInit {
       text: 'follow',
       action: 'follow',
       color: 'secondary',
-      fill: 'solid'
+      fill: 'solid',
+      icon: 'person-add',
+      slot: 'end'
     },
     unfollow: {
       text: 'unfollow',
       action: 'unfollow',
       color: 'secondary',
-      fill: 'outline'
+      fill: 'outline',
+      icon: 'person-remove'  ,
+      slot: 'end'
     },
     edit: {
       text: 'edit',
       action: 'edit',
       color: 'secondary',
-      fill: 'solid'
+      fill: 'solid',
+      icon: 'pencil' ,
+      slot: 'icon-only'
     },
     ban: {
       text: 'ban',
       action: 'ban',
       color: 'danger',
-      fill: 'solid'
+      fill: 'solid',
+      icon: 'ban'  ,
+      slot: 'start'
     }
   };
+  
 
 
   ngOnInit() {
@@ -101,12 +112,13 @@ export class UserCardComponent  implements OnInit {
   }
 
   onEditClicked(user: User) {
+    this.editModal.emit(true);
     var onDismiss = (info: any) => {
       if (info.role == 'submit') {
         this.userSvc.updateUser(user, info);
-        this.isModalOpen = false;
+        this.editModal.emit(false);
       } else {
-        this.isModalOpen = false;
+        this.editModal.emit(false);
         console.error("Error")
       }
     }
@@ -122,13 +134,15 @@ export class UserCardComponent  implements OnInit {
     });
     modal.present();
     modal.onDidDismiss().then(result => {
+      this.editModal.emit(false);
       if (result && result.data) {
         onDismiss(result);
       }
     })
   }
 
-  async openUserListModal(listType: string) {
+  async openUserListModal(listType: string,event:any) {
+    event.stopPropagation();
     let userUuids: string[] | undefined;
   
     if (listType === "following") {
@@ -137,6 +151,7 @@ export class UserCardComponent  implements OnInit {
       userUuids = this.user?.followers;
     }
   
+    this.editModal.emit(true);
     const modal = await this.modal.create({
       component: UserListComponent,
       componentProps: {
@@ -144,7 +159,10 @@ export class UserCardComponent  implements OnInit {
         listType: listType
       }
     });
-    return await modal.present();
+    modal.present();
+    modal.onDidDismiss().then(_ => {
+      this.editModal.emit(false);
+    })
   }
   
 }

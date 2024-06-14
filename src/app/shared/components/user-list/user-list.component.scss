@@ -1,0 +1,33 @@
+.user-list {
+    padding: 1rem 1rem 1rem 0rem;
+}
+
+ion-toolbar {
+    --background: var(--ion-color-secondary);
+    --color: white !important;
+
+    ion-icon {
+        --color: white !important;
+        /* Para el color del icono */
+    }
+}
+
+.custom-avatar {
+    width: 40px;
+    height: 40px;
+    color: var(--ion-color-secondary-shade);
+
+    ion-icon,
+    img {
+        color: var(--ion-color-secondary-shade);
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+ion-item {
+    --border-color: var(--ion-color-secondary-tint);
+    --detail-icon-color: var(--ion-color-secondary-tint);
+    --detail-icon-opacity: 100%
+}
+

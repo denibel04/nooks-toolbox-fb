@@ -153,7 +153,7 @@ export class HomePage {
           this.is = false;
           this.isModalOpen = false;
           console.log("delete")
-          //this.loanService.deleteLoansOnCascade(is);
+          this.loanService.getUserLoans().subscribe();
           this.islandService.deleteIsland(is).subscribe()
         }
           break;

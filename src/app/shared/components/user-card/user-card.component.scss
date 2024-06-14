@@ -12,14 +12,20 @@
     justify-content: flex-end;
     align-items: center;
     min-height: 40px;
+    text-align: center;
 
     span {
-        color:red;
         font-size: 1rem;
+        padding: 0;
+    }
+
+    p {
+        font-size: 1rem;
+        color: red;
     }
 }
 
-img, ion-icon {
+.img img, .img ion-icon {
     height: 100%;
     width: 100%;
     border-radius: 50%;

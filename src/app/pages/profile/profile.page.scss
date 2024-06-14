@@ -42,3 +42,10 @@ span {
         font-size: 1.5rem;
     margin: 0.5rem 1rem;
 }
+
+@media only screen and (width<=900px) {
+    .current-user-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}

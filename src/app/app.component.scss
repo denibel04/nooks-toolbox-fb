@@ -37,6 +37,17 @@ ion-menu-button {
 
 }
 
+.page-header {
+    --background: var(--ion-color-secondary) !important;
+    ion-item {
+        color: white;
+    }
+}
+
+.menu-link:hover {
+    --color: var(--ion-color-secondary) !important;
+}
+
 ion-title {
     color: var(--ion-background-color);
 }

@@ -28,9 +28,14 @@ export class UserListComponent  implements OnInit {
   }
 
   async loadUsers() {
-    const userPromises = this.userUuids.map(uuid => this.userSvc.getUserById(uuid));
+    if (!this.userUuids || this.userUuids.length === 0) {
+      this.users = [];
+    } else {
+      const userPromises = this.userUuids.map(uuid => this.userSvc.getUserById(uuid));
     this.users = await Promise.all(userPromises);
     console.log("users", this.users)
+    }
+    
   }
 
 }
